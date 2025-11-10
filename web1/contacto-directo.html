@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WhatsApp Style Demo | Claire</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- CSS de animaciones -->
+<link rel="stylesheet" href="styles.css?v=3.3.4.5.2">  <!-- ✅ Con "styles.css?v=3.3.4.5.2" -->
+
+<!-- El resto igual -->
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link href="https://db.onlinewebfonts.com/c/354a5fa86a1c88463c3d87f65d030fa4?family=Secret+Scrypt+Two+W00+Regular" rel="stylesheet">
+
+<script>
+    tailwind.config = {
+        theme: {
+            extend: {
+                fontFamily: {
+                    'serif': ['"Cormorant Garamond"', 'serif'],
+                    'display': ['"Playfair Display"', 'serif'],
+                },
+                colors: {
+                    brandRed: {
+                        DEFAULT: '#C41E3A',
+                        dark: '#8B0000',
+                        light: '#E63946'
+                    },
+                    'zinc-950': '#0A0A0A'
+                }
+            }
+        }
+    }
+</script>
+    
+    <style>
+        .scrollbar-thin::-webkit-scrollbar { width: 4px; }
+        .scrollbar-thin::-webkit-scrollbar-thumb { 
+            background: rgba(196, 30, 58, 0.4); 
+            border-radius: 10px;
+        }
+        .scrollbar-thin::-webkit-scrollbar-track { 
+            background: transparent;
+        }
+        
+        .message-enter {
+            animation: messageEnter 0.3s ease-out;
+        }
+        
+        @keyframes messageEnter {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .typing-dots span {
+            animation: typing 1.4s infinite ease-in-out;
+        }
+        
+        .typing-dots span:nth-child(2) { animation-delay: 0.2s; }
+        .typing-dots span:nth-child(3) { animation-delay: 0.4s; }
+        
+        @keyframes typing {
+            0%, 60%, 100% { transform: translateY(0); }
+            30% { transform: translateY(-5px); }
+        }
+        
+        /* 1. ESTRUCTURA RESPONSIVA: Contenedor principal para que las pantallas se deslicen */
+        .app-container {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            overflow: hidden; 
+        }
+
+        .contacts-screen, .chat-screen {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            transition: transform 0.3s ease-in-out;
+        }
+        
+        /* Contactos a la izquierda (por defecto) */
+        .contacts-screen {
+            left: 0;
+            transform: translateX(0%);
+            z-index: 10; 
+        }
+
+        /* Chat a la derecha (inicialmente fuera de vista) */
+        .chat-screen {
+            left: 0;
+            transform: translateX(100%); 
+            z-index: 20;
+        }
+        
+        /* Estado activo: el chat se desliza a la vista */
+        .chat-screen.screen-active {
+            transform: translateX(0%);
+        }
+        
+        /* Estado oculto: los contactos se deslizan fuera de vista cuando el chat está activo */
+        .contacts-screen.screen-hidden {
+             transform: translateX(-100%);
+        }
+
+        body {
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+            height: 100vh;
+            overflow: hidden;
+            margin: 0;
+            padding: 0;
+        }
+
+        .emoji-picker {
+            position: absolute;
+            bottom: 70px; 
+            right: 10px;
+            background: #2d3748;
+            border-radius: 10px;
+            padding: 10px;
+            display: none;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 5px;
+            max-width: 200px;
+        }
+
+        .emoji-btn {
+            padding: 5px;
+            border-radius: 5px;
+            cursor: pointer;
+            text-align: center;
+        }
+
+        .emoji-btn:hover {
+            background: #4a5568;
+        }
+        
+        /* Flechas para la burbuja de chat (triángulos) */
+        /* Mensaje del USUARIO (Cliente, Izquierda, Gris) */
+        .message-user::before {
+            content: '';
+            position: absolute;
+            left: -7px;
+            bottom: 0px;
+            width: 0;
+            height: 0;
+            border-bottom: 8px solid transparent;
+            border-right: 8px solid #1f2937; /* Color del bg-zinc-800 */
+        }
+        
+        /* Mensaje de CLAIRE (Modelo/Tú, Derecha, Rojo) */
+        .message-claire::before {
+            content: '';
+            position: absolute;
+            right: -7px;
+            bottom: 0px;
+            width: 0;
+            height: 0;
+            border-bottom: 8px solid transparent;
+            border-left: 8px solid #C41E3A; /* Color del bg-brandRed */
+        }
+        
+        /* Ajuste de esquinas para el nuevo estilo */
+        .user-bubble {
+             border-radius: 0.75rem; /* rounded-xl */
+             border-bottom-left-radius: 0.25rem; /* rounded-bl-sm */
+        }
+        
+        .claire-bubble {
+             border-radius: 0.75rem; /* rounded-xl */
+             border-bottom-right-radius: 0.25rem; /* rounded-br-sm */
+        }
+
+    </style>
+</head>
+<body class="text-gray-200 font-sans">
+
+    <div class="app-container">
+
+        <div id="contactsScreen" class="contacts-screen flex flex-col bg-zinc-900">
+            <div class="bg-zinc-800 px-4 py-3 flex items-center justify-between border-b border-zinc-700">
+                <div class="flex items-center gap-3">
+                    <a href="index.html">
+                    <img src="img1/exclusivo.jpg" class="w-10 h-10 rounded-full object-cover border-2 border-brandRed/50">
+                    <a href="index.html">
+                    <div>
+                        <h1 class="font-semibold text-white">Claire</h1>
+                        <p class="text-xs text-zinc-400">En línea</p>
+                    </div></a>
+                </div>
+                <div class="flex gap-4">
+                    <button class="text-zinc-400 hover:text-white transition-colors">
+                        <i class="fas fa-ellipsis-vertical"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="flex-1 overflow-y-auto scrollbar-thin">
+                <div class="contact-item border-b border-zinc-800 px-4 py-3 flex items-center gap-3 cursor-pointer hover:bg-zinc-800 transition-colors active:bg-zinc-700" 
+                    onclick="openChat('alejandro')">
+                    <div class="relative">
+                        <div class="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-full flex items-center justify-center text-white font-semibold">
+                            A
+                        </div>
+                        <div class="absolute -bottom-1 -right-1 w-3 h-3 bg-green-500 border-2 border-zinc-900 rounded-full"></div>
+                    </div>
+                    <div class="flex-1 min-w-0">
+                        <div class="flex items-center justify-between">
+                            <h3 class="font-semibold text-white truncate">Alejandro</h3>
+                            <span class="text-xs text-zinc-500">12:30 PM</span>
+                        </div>
+                        <div class="flex items-center gap-1">
+                            <p class="text-zinc-400 text-sm truncate flex-1">¡Te vi ayer! Eres más hermosa en persona 😍</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="contact-item border-b border-zinc-800 px-4 py-3 flex items-center gap-3 cursor-pointer hover:bg-zinc-800 transition-colors active:bg-zinc-700" 
+                    onclick="openChat('carlos')">
+                    <div class="relative">
+                        <div class="w-12 h-12 bg-gradient-to-br from-green-500 to-green-600 rounded-full flex items-center justify-center text-white font-semibold">
+                            C
+                        </div>
+                        <div class="absolute -bottom-1 -right-1 w-3 h-3 bg-green-500 border-2 border-zinc-900 rounded-full"></div>
+                    </div>
+                    <div class="flex-1 min-w-0">
+                        <div class="flex items-center justify-between">
+                            <h3 class="font-semibold text-white truncate">Carlos</h3>
+                            <span class="text-xs text-zinc-500">11:45 AM</span>
+                        </div>
+                        <div class="flex items-center gap-1">
+                            <p class="text-zinc-400 text-sm truncate flex-1">No puedo esperar para verte, eres increíble 💋</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="contact-item border-b border-zinc-800 px-4 py-3 flex items-center gap-3 cursor-pointer hover:bg-zinc-800 transition-colors active:bg-zinc-700" 
+                    onclick="openChat('miguel')">
+                    <div class="relative">
+                        <div class="w-12 h-12 bg-gradient-to-br from-purple-500 to-purple-600 rounded-full flex items-center justify-center text-white font-semibold">
+                            M
+                        </div>
+                    </div>
+                    <div class="flex-1 min-w-0">
+                        <div class="flex items-center justify-between">
+                            <h3 class="font-semibold text-white truncate">Miguel</h3>
+                            <span class="text-xs text-zinc-500">10:20 AM</span>
+                        </div>
+                        <div class="flex items-center gap-1">
+                            <p class="text-zinc-400 text-sm truncate flex-1">Eres la mujer más sensual que he visto 🔥</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="contact-item border-b border-zinc-800 px-4 py-3 flex items-center gap-3 cursor-pointer hover:bg-zinc-800 transition-colors active:bg-zinc-700" 
+                    onclick="openChat('david')">
+                    <div class="relative">
+                        <div class="w-12 h-12 bg-gradient-to-br from-yellow-500 to-yellow-600 rounded-full flex items-center justify-center text-white font-semibold">
+                            D
+                        </div>
+                    </div>
+                    <div class="flex-1 min-w-0">
+                        <div class="flex items-center justify-between">
+                            <h3 class="font-semibold text-white truncate">David</h3>
+                            <span class="text-xs text-zinc-500">Ayer</span>
+                        </div>
+                        <div class="flex items-center gap-1">
+                            <p class="text-zinc-400 text-sm truncate flex-1">Tu directo me volvió loco, quiero verte ya 🥵</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="contact-item border-b border-zinc-800 px-4 py-3 flex items-center gap-3 cursor-pointer hover:bg-zinc-800 transition-colors active:bg-zinc-700" 
+                    onclick="openChat('roberto')">
+                    <div class="relative">
+                        <div class="w-12 h-12 bg-gradient-to-br from-pink-500 to-pink-600 rounded-full flex items-center justify-center text-white font-semibold">
+                            R
+                        </div>
+                    </div>
+                    <div class="flex-1 min-w-0">
+                        <div class="flex items-center justify-between">
+                            <h3 class="font-semibold text-white truncate">Roberto</h3>
+                            <span class="text-xs text-zinc-500">Ayer</span>
+                        </div>
+                        <div class="flex items-center gap-1">
+                            <p class="text-zinc-400 text-sm truncate flex-1">No dejo de pensar en ti desde nuestro encuentro 💕</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <a href="https://wa.me/1809786115?text=Hola%20Claire,%20me%20interesan%20tus%20servicios%20exclusivos" 
+   target="_blank"
+   class="fixed bottom-6 right-6 w-14 h-14 bg-green-500 rounded-full flex items-center justify-center text-white text-2xl shadow-2xl hover:scale-110 transition-transform z-50">
+    <i class="fab fa-whatsapp"></i>
+</a>
+        </div>
+
+        <div id="chatScreen" class="chat-screen flex flex-col bg-zinc-900">
+            <div class="bg-zinc-800 px-4 py-3 flex items-center gap-3 border-b border-zinc-700">
+                
+                <button onclick="closeChat()" class="text-zinc-400 hover:text-white transition-colors">
+                    <i class="fas fa-arrow-left"></i>
+                </button>
+                
+                <div id="chatProfileContainer" class="flex items-center gap-3 flex-1 min-w-0">
+                    <div id="contactAvatar" class="relative">
+                        <div id="contactInitial" class="w-10 h-10 bg-gradient-to-br from-blue-500 to-blue-600 rounded-full flex items-center justify-center text-white font-semibold flex-shrink-0">
+                            A
+                        </div>
+                        <div id="contactOnlineIndicator" class="absolute -bottom-1 -right-1 w-3 h-3 bg-green-500 border-2 border-zinc-900 rounded-full"></div>
+                    </div>
+
+                    <div class="flex-1 min-w-0">
+                        <h2 id="chatName" class="font-semibold text-white truncate">Alejandro</h2>
+                        <p id="chatStatus" class="text-xs text-zinc-400">En línea</p>
+                    </div>
+                </div>
+
+                <div class="flex gap-4">
+                    <button onclick="showCallDemo()" class="text-zinc-400 hover:text-white transition-colors">
+                        <i class="fas fa-phone"></i>
+                    </button>
+                    <button onclick="showCallDemo()" class="text-zinc-400 hover:text-white transition-colors">
+                        <i class="fas fa-video"></i>
+                    </button>
+                    <button class="text-zinc-400 hover:text-white transition-colors">
+                        <i class="fas fa-ellipsis-vertical"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div id="messagesContainer" class="flex-1 p-4 space-y-3 overflow-y-auto scrollbar-thin bg-zinc-950">
+                </div>
+
+            <div id="typingIndicator" class="px-4 py-2 hidden">
+                <div id="typingContent" class="flex items-end gap-2 justify-start max-w-xs mr-auto">
+                    <div id="typingAvatar" class="w-8 h-8 rounded-full flex items-center justify-center text-white font-semibold flex-shrink-0 bg-blue-500">
+                        A
+                    </div>
+                    <div class="bg-zinc-800 text-white rounded-xl rounded-bl-sm px-3 py-2 relative message-user">
+                        <div class="typing-dots flex gap-1">
+                            <span class="w-2 h-2 bg-white rounded-full"></span>
+                            <span class="w-2 h-2 bg-white rounded-full"></span>
+                            <span class="w-2 h-2 bg-white rounded-full"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="emojiPicker" class="emoji-picker">
+                <div class="emoji-btn" onclick="addEmoji('😊')">😊</div>
+                <div class="emoji-btn" onclick="addEmoji('😍')">😍</div>
+                <div class="emoji-btn" onclick="addEmoji('🔥')">🔥</div>
+                <div class="emoji-btn" onclick="addEmoji('💋')">💋</div>
+                <div class="emoji-btn" onclick="addEmoji('❤️')">❤️</div>
+                <div class="emoji-btn" onclick="addEmoji('🥰')">🥰</div>
+                <div class="emoji-btn" onclick="addEmoji('😘')">😘</div>
+                <div class="emoji-btn" onclick="addEmoji('💕')">💕</div>
+                <div class="emoji-btn" onclick="addEmoji('✨')">✨</div>
+                <div class="emoji-btn" onclick="addEmoji('🌟')">🌟</div>
+                <div class="emoji-btn" onclick="addEmoji('🎉')">🎉</div>
+                <div class="emoji-btn" onclick="addEmoji('💖')">💖</div>
+            </div>
+
+            <div class="bg-zinc-800 px-4 py-3 border-t border-zinc-700 relative">
+                <div class="flex gap-2">
+                    <button class="w-10 h-10 bg-zinc-700 hover:bg-zinc-600 rounded-full flex items-center justify-center transition-colors">
+                        <i class="fas fa-plus text-zinc-400"></i>
+                    </button>
+                    <div class="flex-1 bg-zinc-700 rounded-full px-4 flex items-center">
+                        <input type="text" 
+                                id="messageInput"
+                                placeholder="Escribe un mensaje de Claire..."
+                                class="flex-1 bg-transparent border-none outline-none text-white placeholder-zinc-400 py-2" />
+                        <button onclick="toggleEmojiPicker()" class="w-8 h-8 text-zinc-400 hover:text-white transition-colors">
+                            <i class="far fa-smile"></i>
+                        </button>
+                    </div>
+                    <button id="sendButton" 
+                            class="w-10 h-10 bg-brandRed hover:bg-brandRed-dark text-white rounded-full flex items-center justify-center transition-colors">
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div> <div id="callModal" class="fixed inset-0 bg-black/90 hidden items-center justify-center z-50 p-4">
+        <div class="bg-zinc-900 border border-zinc-800 rounded-2xl max-w-sm w-full p-6 text-center">
+            <div class="w-16 h-16 mx-auto mb-4 bg-brandRed/20 rounded-full flex items-center justify-center">
+                <i class="fas fa-phone text-brandRed text-2xl"></i>
+            </div>
+            <h3 class="font-semibold text-white text-lg mb-2">Función de Demostración</h3>
+            <p class="text-zinc-300 mb-4">
+                Las llamadas reales se realizan a través de WhatsApp. Esta es solo una vista de demostración del sistema.
+            </p>
+            <button onclick="closeCallModal()" 
+                    class="bg-brandRed hover:bg-brandRed-dark text-white font-semibold px-6 py-2 rounded-full transition-colors w-full">
+                Entendido
+            </button>
+        </div>
+    </div>
+
+    <script src="main.js"></script>
+</body>
+</html>
+
+

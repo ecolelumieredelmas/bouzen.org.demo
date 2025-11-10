@@ -1,0 +1,1180 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Claire | Elite International Companion</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://db.onlinewebfonts.com/c/354a5fa86a1c88463c3d87f65d030fa4?family=Secret+Scrypt+Two+W00+Regular" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'serif': ['"Cormorant Garamond"', 'serif'],
+                        'display': ['"Playfair Display"', 'serif'],
+                    },
+                    colors: {
+                        brandRed: {
+                            DEFAULT: '#C41E3A',
+                            dark: '#8B0000',
+                            light: '#E63946'
+                        },
+                        'zinc-950': '#0A0A0A'
+                    }
+                }
+            }
+        }
+    </script>
+
+<!-- ========================================================================= -->
+<!-- --- FUNCIÓN DE NAVEGACIÓN CONTROLADA DESDE INDEX.HTML --- -->
+<!-- ========================================================================= -->
+<script>
+function navigateToServiceSection(section, tab) {
+    console.log("🚀 Navegando a servicios.html con sección:", section, "tab:", tab);
+    
+    // 1. Guardar en localStorage
+    localStorage.setItem('targetSection', section);
+    localStorage.setItem('targetTab', tab);
+    
+    console.log("💾 Datos guardados en localStorage");
+    
+    // 2. Pequeño delay para asegurar que se guarde
+    setTimeout(() => {
+        // 3. Navegar a servicios.html
+        window.location.href = 'servicios.html';
+        console.log("🌐 Navegando a servicios.html...");
+    }, 100);
+}
+</script>
+
+<style>
+@keyframes bounce-slow {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+.animate-bounce-slow {
+  animation: bounce-slow 1.2s infinite ease-in-out;
+}
+</style>
+
+</head>
+<body class="bg-black text-gray-200 font-serif antialiased text-base overflow-x-hidden">
+
+    <!-- Header -->
+<header id="header" class="fixed top-0 left-0 w-full z-50 transition-all duration-500 bg-transparent py-4">
+    <div class="container mx-auto px-6 flex justify-between items-center">
+        <h1 class="font-display text-2xl md:text-3xl uppercase tracking-[0.3em] text-white">
+            <a href="#" title="Claire" class="transition-all duration-300 hover:text-brandRed hover:tracking-[0.35em]">Claire</a>
+        </h1>
+        <!-- Navegación de escritorio -->
+        <nav class="hidden md:flex items-center gap-8">
+            <a href="#home" class="text-sm tracking-wider hover:text-brandRed transition-colors duration-300 uppercase">Home</a>
+            <a href="servicios.html" class="text-sm tracking-wider hover:text-brandRed transition-colors duration-300 uppercase">Servicios</a>
+            <a href="javascript:void(0)" onclick="navigateToServiceSection('galeria', 'galeria')" class="text-sm tracking-wider hover:text-brandRed transition-colors duration-300 uppercase">Gallery</a>
+            <a href="javascript:void(0)" onclick="navigateToServiceSection('premium', 'premium')" class="text-sm tracking-wider hover:text-brandRed transition-colors duration-300 uppercase">Contacto-ptivado</a>
+        </nav>
+
+        <!-- Botón menú móvil -->
+        <button id="toggle-open" class="menu-toggle md:hidden w-10 h-10 flex items-center justify-center text-brandRed z-[60] transition-all duration-300">
+            <i class="fa-solid fa-bars text-2xl"></i>
+        </button>
+    </div>
+    
+    <!-- Menú móvil mejorado con estilo del segundo menú -->
+    <div id="mobile-menu" class="md:hidden fixed top-0 right-0 h-screen w-3/4 max-w-sm z-50 shadow-2xl overflow-y-auto transform translate-x-full transition-transform duration-500 ease-out bg-black/95">
+        <div class="flex flex-col h-full">
+            <!-- Botón de cierre (X) -->
+            <button id="toggle-close" class="absolute top-4 right-4 w-10 h-10 flex items-center justify-center text-white hover:text-brandRed transition-colors duration-300 z-10">
+                <i class="fa-solid fa-times text-2xl"></i>
+            </button>
+            
+            <!-- Imagen de cabecera -->
+            <div class="relative h-48">
+                <img src="img1/hero-mobil.jpg" alt="Claire Menu Photo" class="w-full h-full object-cover">
+                <div class="absolute inset-0 bg-black opacity-70 flex flex-col justify-end p-6">
+                    <h3 class="text-xl font-light tracking-[3px] text-brandRed">CLAIRE</h3>
+                    <p class="text-sm text-gray-400">Premium Companion</p>
+                </div>
+            </div>
+
+            <!-- Enlaces del menú -->
+            <div class="flex-1 p-6 space-y-2">
+                <a href="#home" class="flex items-center justify-between hover:text-brandRed py-4 px-4 rounded border border-transparent hover:border-brandRed/30 transition-all duration-300 uppercase text-sm tracking-wider">
+                    <span class="flex items-center gap-3">
+                        <i class="fa-solid fa-home text-brandRed"></i>
+                        Home
+                    </span>
+                    <i class="fa-solid fa-chevron-right text-brandRed/50"></i>
+                </a>
+                <a href="javascript:void(0)" onclick="navigateToServiceSection('citas', 'citas')" class="flex items-center justify-between hover:text-brandRed py-4 px-4 rounded border border-transparent hover:border-brandRed/30 transition-all duration-300 uppercase text-sm tracking-wider">
+                    <span class="flex items-center gap-3">
+                        <i class="fa-solid fa-crown text-brandRed"></i>
+                        Servicios
+                    </span>
+                    <i class="fa-solid fa-chevron-right text-brandRed/50"></i>
+                </a>
+                <a href="javascript:void(0)" onclick="navigateToServiceSection('galeria', 'galeria')" class="flex items-center justify-between hover:text-brandRed py-4 px-4 rounded border border-transparent hover:border-brandRed/30 transition-all duration-300 uppercase text-sm tracking-wider">
+                    <span class="flex items-center gap-3">
+                        <i class="fa-solid fa-images text-brandRed"></i>
+                        Gallery
+                    </span>
+                    <i class="fa-solid fa-chevron-right text-brandRed/50"></i>
+                </a>
+                <a href="javascript:void(0)" onclick="navigateToServiceSection('premium', 'premium')" class="flex items-center justify-between hover:text-brandRed py-4 px-4 rounded border border-transparent hover:border-brandRed/30 transition-all duration-300 uppercase text-sm tracking-wider">
+                    <span class="flex items-center gap-3">
+                        <i class="fa-solid fa-envelope text-brandRed"></i>
+                        Contacto-privado
+                    </span>
+                    <i class="fa-solid fa-chevron-right text-brandRed/50"></i>
+                </a>
+            </div>
+
+            <!-- Redes sociales en el pie -->
+            <div class="p-6 border-t border-zinc-800/50">
+                <div class="flex justify-center space-x-4">
+                    <a href="#" class="w-10 h-10 flex items-center justify-center bg-zinc-800/50 rounded-full text-zinc-400 transition-all duration-300 hover:bg-brandRed hover:text-white hover:scale-110">
+                        <i class="fab fa-twitter text-sm"></i>
+                    </a>
+                    <a href="#" class="w-10 h-10 flex items-center justify-center bg-zinc-800/50 rounded-full text-zinc-400 transition-all duration-300 hover:bg-brandRed hover:text-white hover:scale-110">
+                        <i class="fab fa-instagram text-sm"></i>
+                    </a>
+                    <a href="#" class="w-10 h-10 flex items-center justify-center bg-zinc-800/50 rounded-full text-zinc-400 transition-all duration-300 hover:bg-brandRed hover:text-white hover:scale-110">
+                        <i class="fab fa-whatsapp text-sm"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<script>
+// JavaScript mínimo para el funcionamiento del menú
+document.addEventListener('DOMContentLoaded', function() {
+    const toggleOpen = document.getElementById('toggle-open');
+    const toggleClose = document.getElementById('toggle-close');
+    const mobileMenu = document.getElementById('mobile-menu');
+    
+    // Abrir menú
+    toggleOpen.addEventListener('click', function() {
+        mobileMenu.classList.remove('translate-x-full');
+        // Reducir z-index del botón cuando el menú está abierto
+        toggleOpen.classList.remove('z-[60]');
+        toggleOpen.classList.add('z-40');
+    });
+    
+    // Cerrar menú
+    toggleClose.addEventListener('click', function() {
+        mobileMenu.classList.add('translate-x-full');
+        // Restaurar z-index normal del botón cuando el menú se cierra
+        toggleOpen.classList.remove('z-40');
+        toggleOpen.classList.add('z-[60]');
+    });
+    
+    // Cerrar menú al hacer clic en un enlace
+    const menuLinks = mobileMenu.querySelectorAll('a');
+    menuLinks.forEach(link => {
+        link.addEventListener('click', function() {
+            mobileMenu.classList.add('translate-x-full');
+            // Restaurar z-index normal del botón cuando el menú se cierra
+            toggleOpen.classList.remove('z-40');
+            toggleOpen.classList.add('z-[60]');
+        });
+    });
+});
+</script>
+
+
+    <!-- Hero Section -->
+    <section id="home" class="relative h-screen w-full overflow-hidden">
+        <div class="absolute inset-0 parallax-bg">
+            <!-- Desktop Image - visible en pantallas medianas y grandes -->
+            <img src="img1/heropc.jpg" alt="Claire" class="hidden sm:block w-full h-full object-cover object-center scale-105">
+            <!-- Mobile Image - visible solo en móviles -->
+            <img src="img1/hero-mobil.jpg" alt="Claire" class="block sm:hidden w-full h-full object-cover object-center scale-105">
+        </div>
+        <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent"></div>
+        <div class="absolute inset-0 bg-brandRed/5"></div>
+        
+        <div class="absolute inset-0 flex items-center justify-center">
+            <div class="text-center text-white px-6 fade-in-up">
+                <div class="mb-4">
+                    <div class="w-16 h-0.5 bg-brandRed mx-auto mb-6 slide-in-left"></div>
+                </div>
+                <h2 class="font-display text-3xl md:text-5xl font-bold tracking-wider mb-3 text-shadow-lg">
+                    Compañía Exclusiva & Discreta
+                </h2>
+                <p class="text-base md:text-lg font-serif italic text-zinc-300 max-w-xl mx-auto mb-6">
+                    Un servicio de acompañamiento para Caballeros Exigentes
+                </p>
+                <div class="w-16 h-0.5 bg-brandRed mx-auto mt-6 slide-in-right"></div>
+            </div>
+        </div>
+        
+        <!-- Scroll indicator -->
+        <div class="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce">
+            <a href="#about" class="text-white/60 hover:text-brandRed transition-colors">
+                <i class="fas fa-chevron-down text-2xl"></i>
+            </a>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 bg-zinc-950 border-b border-zinc-900 reveal-section"> <!-- Reducido el padding vertical de py-28 a py-20 -->
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <span class="text-brandRed uppercase tracking-[0.3em] text-sm font-semibold"><h2>Una Proposición Exclusiva
+</h2></span>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-16 items-center max-w-6xl mx-auto">
+                <div class="reveal-left">
+                    <div class="relative group">
+                        <div class="absolute -inset-1 bg-gradient-to-r from-brandRed to-brandRed-dark rounded-lg blur opacity-20 group-hover:opacity-40 transition duration-500"></div>
+                        <img src="https://demo.secretred.com/2/wp-content/uploads/escort-website-design-set-1-005-qncw5BdN08-1500x1000.jpg" alt="Claire" class="relative rounded-lg shadow-2xl border border-zinc-800/50">
+                    </div>
+                </div>
+                
+                <div class="reveal-right">
+                    <div class="space-y-6 text-zinc-300 leading-relaxed">
+                        <p class="first-letter:text-7xl first-letter:font-bold first-letter:text-brandRed first-letter:float-left first-letter:mr-3 first-letter:leading-[0.8] first-letter:mt-1">
+
+Hola soy Claire
+Creé este espacio digital para dar un paso hacia una vida más tranquila.
+Empecé demasiado joven, tras la pérdida de mis padres...
+y hoy sé que quiero algo distinto, algo mejor.
+
+Quiero desvincularme de las calles y de los hombres en exceso,
+y entregarme solo a quienes saben valorar mi cuerpo, mi atención y mi tiempo.
+
+                        </p>
+                        <p>
+Me ofrezco a los hombres que desean invertir en mí,
+ofreciéndoles un contacto humano genuino y exclusivo.
+Entrego todo mi ser en cada encuentro, en cada conversación,
+en cada minuto de silencio, en cada suspiro bajo las sábanas,
+en cada beso que dejo y en cada mirada que sostengo.
+                        </p>
+                        <p>
+Ofrezco mi intimidad a quien sepa verme como una mujer,
+como su musa, su dama...
+por unas horas... o por el tiempo que la vida permita.
+
+Mis encuentros están reservados para quienes entienden
+que la compañía, la intimidad y la pasión tienen un gran valor
+y que ese mismo valor también vive en mí.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+<section id="experiences" class="relative min-h-[60vh] sm:min-h-[70vh] md:min-h-[60vh] bg-cover bg-center bg-fixed py-20 reveal-section" style="background-image: url('https://demo.secretred.com/2/wp-content/uploads/escort-website-design-set-1-009-weHz4dcS5s.jpg');">
+    <!-- Overlay -->
+    <div class="absolute inset-0 bg-black/60"></div>
+
+    <!-- Contenido centrado -->
+    <div class="relative z-10 flex flex-col items-center justify-center text-center text-white px-6 sm:px-8 lg:px-16">
+        <div class="max-w-2xl">
+            <h2 class="font-display text-2xl sm:text-3xl md:text-4xl font-normal leading-tight mb-6 reveal-up brandRed">
+                Tu Acceso Exclusivo
+            </h2>
+
+            <p class="text-base sm:text-lg md:text-xl leading-relaxed text-zinc-200 reveal-up" style="animation-delay: 0.2s;">
+                ¿Quieres verme? Todos los días a las 5:00 p.m. (hora de República Dominicana) realizo transmisiones privadas donde comparto mis horarios y el lugar donde estaré ofreciendo mis servicios, ya que suelo moverme de ciudad con frecuencia.
+            </p>
+
+            <p class="text-base sm:text-lg md:text-xl leading-relaxed text-zinc-300 mt-4 reveal-up" style="animation-delay: 0.25s;">
+                Estas transmisiones te dan la oportunidad de acercarte y encontrarnos en persona. Para acceder, solo solicita tu código de acceso privado pulsando el botón de abajo. Una vez recibido, introdúcelo y disfruta de un encuentro exclusivo conmigo en el live. 
+            </p>
+
+            <div class="mt-8 reveal-up flex justify-center" style="animation-delay: 0.4s;">
+                <a href="#" class="inline-flex items-center gap-3 text-white/90 hover:text-white uppercase tracking-wider font-semibold text-sm sm:text-base py-3 px-8 rounded-lg border border-white/40 hover:border-brandRed hover:bg-brandRed/20 transition-all duration-300 group">
+                    <span>Solicitar código</span>
+                    <i class="fas fa-envelope w-5 sm:w-6 group-hover:translate-x-1 transition-transform"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- Live Stream Section -->
+<section id="live" class="py-12 sm:py-24 bg-zinc-950 reveal-section pro-fade-scroll">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8 reveal-right">
+        <!-- Section Title -->
+        <div class="text-center mb-8 sm:mb-14">
+            <span class="text-brandRed uppercase tracking-[0.3em] text-xs sm:text-sm font-semibold">Transmisión</span>
+            <h2 class="section-title mt-3 text-xl sm:text-3xl lg:text-4xl font-semibold text-white max-w-3xl mx-auto leading-tight">
+                Sesiones en Vivo Privadas
+            </h2>
+            <p class="text-zinc-400 mt-2 sm:mt-3 text-sm sm:text-base max-w-xl mx-auto">
+                Solicita el código para acceder al directo
+            </p>
+        </div>
+
+        <!-- Live Card -->
+        <div class="max-w-5xl mx-auto pro-fade-scroll">
+            <div class="bg-zinc-900 rounded-xl sm:rounded-2xl overflow-hidden border border-zinc-800 shadow-2xl shadow-brandRed/5">
+                
+                <!-- Live Status Bar - Optimizado -->
+                <div class="px-4 sm:px-6 py-3 sm:py-4 bg-gradient-to-r from-zinc-800/90 to-zinc-800/70 border-b border-zinc-700">
+                    <div class="flex items-center justify-between gap-3">
+                        <div class="flex items-center gap-2">
+                            <span class="relative flex h-2 w-2 sm:h-3 sm:w-3">
+                                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-brandRed opacity-75"></span>
+                                <span class="relative inline-flex rounded-full h-2 w-2 sm:h-3 sm:w-3 bg-brandRed"></span>
+                            </span>
+                            <span class="text-xs sm:text-sm uppercase tracking-wider text-zinc-400 font-medium">Offline</span>
+                        </div>
+                        <div class="text-right">
+                            <p class="text-xs text-zinc-500 hidden sm:block">Próxima sesión</p>
+                            <p class="text-xs sm:text-base font-bold text-brandRed">5:00 PM</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Video Player Area - Móvil Optimizado -->
+                <div class="relative aspect-video w-full bg-black overflow-hidden">
+                    <div class="absolute inset-0 bg-gradient-to-br from-zinc-900/95 via-black to-zinc-900/95"></div>
+                    
+                    <!-- Patrón de fondo sutil -->
+                    <div class="absolute inset-0 opacity-5">
+                        <div class="absolute inset-0" style="background-image: radial-gradient(circle at 2px 2px, white 1px, transparent 0); background-size: 40px 40px;"></div>
+                    </div>
+                    
+                    <div class="relative z-10 flex flex-col items-center justify-center h-full px-4 py-6 sm:p-10">
+                        <div class="w-12 h-12 sm:w-20 sm:h-20 mb-3 sm:mb-6 flex items-center justify-center bg-zinc-900/60 backdrop-blur-md border border-zinc-800 rounded-full">
+                            <i class="fas fa-video-slash text-lg sm:text-3xl text-zinc-600"></i>
+                        </div>
+                        <h3 class="font-display text-base sm:text-2xl lg:text-3xl text-zinc-200 mb-1 sm:mb-2 text-center">
+                            Transmisión Privada
+                        </h3>
+                        <p class="text-xs sm:text-base text-zinc-500 mb-4 sm:mb-8 text-center max-w-md px-2">
+                            Acceso exclusivo mediante código privado
+                        </p>
+                        
+                        <!-- Input de código - Compacto en móvil -->
+                        <div class="w-full max-w-sm">
+                            <div class="flex gap-2">
+                                <input 
+                                    type="text" 
+                                    id="accessCode"
+                                    placeholder="Código 001"
+                                    maxlength="10"
+                                    class="flex-1 px-3 sm:px-4 py-2 sm:py-3 bg-zinc-800/50 border border-zinc-700 rounded-lg sm:rounded-full text-white placeholder-zinc-500 focus:outline-none focus:border-brandRed focus:bg-zinc-800 transition-all text-sm sm:text-base"
+                                />
+                                <button 
+                                    onclick="validateAccessCode()"
+                                    class="group inline-flex items-center justify-center gap-1.5 sm:gap-2 bg-brandRed hover:bg-red-600 text-white px-4 sm:px-6 py-2 sm:py-3 rounded-lg sm:rounded-full transition-all duration-300 text-xs sm:text-base font-semibold shadow-lg shadow-brandRed/20 hover:shadow-brandRed/40 whitespace-nowrap"
+                                >
+                                    <span>Acceder</span>
+                                    <i class="fas fa-arrow-right text-xs group-hover:translate-x-1 transition-transform"></i>
+                                </button>
+                            </div>
+                            <p id="codeMessage" class="text-xs text-zinc-500 mt-2 text-center hidden"></p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Stream Info Grid - Solo visible en desktop -->
+                <div class="hidden sm:grid grid-cols-3 divide-x divide-zinc-800 border-t border-zinc-800 bg-zinc-900/30">
+                    <div class="px-6 py-5 text-center">
+                        <p class="text-xs text-zinc-500 uppercase tracking-wider mb-1.5">Duración</p>
+                        <p class="text-lg font-semibold text-white">60 min</p>
+                    </div>
+                    <div class="px-6 py-5 text-center">
+                        <p class="text-xs text-zinc-500 uppercase tracking-wider mb-1.5">Formato</p>
+                        <p class="text-lg font-semibold text-white">Privado</p>
+                    </div>
+                    <div class="px-6 py-5 text-center">
+                        <p class="text-xs text-zinc-500 uppercase tracking-wider mb-1.5">Reserva</p>
+                        <p class="text-lg font-semibold text-white">Exclusivo</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+<div class="max-w-4xl mx-auto mt-8 sm:mt-16 pro-fade-scroll">
+    <div class="relative rounded-xl sm:rounded-2xl p-5 sm:p-8 lg:p-10 border border-zinc-800 overflow-hidden reveal-right">
+        <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('img1/tete.jpg')"></div>
+        <!-- Overlay negro -->
+        <div class="absolute inset-0 bg-black/70 rounded-xl sm:rounded-2xl"></div>
+        
+        <!-- Contenido -->
+        <div class="relative z-10">
+            <div class="text-center mb-5 sm:mb-8">
+                <div class="inline-flex items-center gap-2 bg-brandRed/10 border border-brandRed/20 rounded-full px-3 sm:px-4 py-1.5 sm:py-2 mb-3 sm:mb-4">
+                    <i class="fas fa-crown text-brandRed text-xs sm:text-sm"></i>
+                    <span class="text-xs sm:text-sm text-brandRed font-semibold uppercase tracking-wider">Premium</span>
+                </div>
+                <h3 class="text-lg sm:text-2xl font-semibold text-white mb-2 sm:mb-3">Experiencias Exclusivas</h3>
+<p class="text-xs sm:text-base text-zinc-300 leading-relaxed max-w-2xl mx-auto">
+    Conoce mi lado más ardiente y descubre mis transmisiones exclusivas 💋. Si estás cerca, solicita una cita privada y vivamos algo inolvidable bajo las sabanas.
+    <span class="text-white font-medium">Haz clic</span> en el servicio que deseas o 
+    <span class="text-white font-medium">solicita más detalles</span> directamente.
+</p>
+
+            <!-- Botón WhatsApp -->
+            <div class="mt-8 reveal-up flex justify-center" style="animation-delay: 0.4s;">
+                <a href="https://wa.me/1809786115?text=Hola,%20me%20interesa%20solicitar%20una%20cita%20personalizada%20y%20conocer%20más%20sobre%20tus%20servicios%20exclusivos." 
+   target="_blank" 
+   rel="noopener noreferrer"
+   class="inline-flex items-center gap-3 text-white/90 hover:text-white uppercase tracking-wider font-semibold text-sm sm:text-base py-3 px-8 rounded-lg border border-white/40 hover:border-green-500 hover:bg-green-500/20 transition-all duration-300 group">
+    <i class="fab fa-whatsapp w-5 sm:w-6 group-hover:scale-110 transition-transform"></i>
+    <span>WhatsApp</span>
+    <i class="fas fa-external-link-alt w-4 sm:w-5 text-xs group-hover:translate-x-1 transition-transform"></i>
+</a>
+            </div>
+<!-- Features Grid -->
+<!-- Features Grid -->
+<div class="grid grid-cols-2 gap-2 sm:gap-4 mt-5 sm:mt-8">
+    <a href="servicios.html#show-privado" 
+       class="bg-black/60 rounded-lg sm:rounded-xl p-3 sm:p-4 text-center border border-zinc-700 hover:border-red-500 transition-all duration-300 group cursor-pointer backdrop-blur-sm hover:scale-[1.02] active:scale-[0.98]">
+        <i class="fas fa-video text-red-500 text-base sm:text-xl mb-1 sm:mb-2 group-hover:scale-110 transition-transform"></i>
+        <p class="text-xs sm:text-sm text-white font-medium flex items-center justify-center gap-1"><span class="text-red-500 opacity-80 group-hover:translate-x-1 transition-transform font-bold arrow-anim">→</span>
+            Shows Privados
+        </p>
+        <p class="text-xs text-zinc-300 mt-1">Sesiones íntimas en vivo 1 a 1</p>
+    </a>
+    
+    <a href="javascript:void(0)" 
+       onclick="navigateToServiceSection('citas', 'citas')" 
+       class="bg-black/60 rounded-lg sm:rounded-xl p-3 sm:p-4 text-center border border-zinc-700 hover:border-red-500 transition-all duration-300 group cursor-pointer backdrop-blur-sm hover:scale-[1.02] active:scale-[0.98]">
+        <i class="fas fa-glass-cheers text-red-500 text-base sm:text-xl mb-1 sm:mb-2 group-hover:scale-110 transition-transform"></i>
+        <p class="text-xs sm:text-sm text-white font-medium flex items-center justify-center gap-1"><span class="text-red-500 opacity-80 group-hover:translate-x-1 transition-transform font-bold arrow-anim">→</span>
+            Encuentros
+        </p>
+        <p class="text-xs text-zinc-300 mt-1">Citas privadas y experiencias reales</p>
+    </a>
+</div>
+        
+<div class="text-center mt-6 sm:mt-8 pt-4 border-t border-zinc-800">
+    <p class="text-xs sm:text-sm text-zinc-500 italic">
+        Cada servicio garantiza <span class="text-white font-medium">privacidad absoluta</span> y una experiencia adaptada a tus preferencias
+    </p>
+</div>
+</div>
+</div>
+</section>
+
+
+
+<style>
+@keyframes arrowMove {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(6px);
+  }
+}
+
+.arrow-anim {
+  display: inline-block;
+  font-weight: 700;
+  animation: arrowMove 1.2s ease-in-out infinite;
+}
+</style>
+
+
+<style>
+/* Animación suave para reveal */
+.reveal-up {
+    opacity: 0;
+    transform: translateY(30px);
+    animation: revealUp 0.8s ease-out forwards;
+}
+
+@keyframes revealUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Mejoras responsive adicionales */
+@media (max-width: 640px) {
+    .section-title {
+        line-height: 1.3;
+    }
+}
+
+/* Animación de shake para error */
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-10px); }
+    75% { transform: translateX(10px); }
+}
+
+.shake {
+    animation: shake 0.4s ease-in-out;
+}
+</style>
+
+<script>
+// Código de acceso válido (puedes cambiarlo aquí)
+const VALID_CODE = '001';
+
+function validateAccessCode() {
+    const input = document.getElementById('accessCode');
+    const message = document.getElementById('codeMessage');
+    const code = input.value.trim();
+    
+    if (!code) {
+        showMessage('Por favor ingresa un código', 'error');
+        shakeInput();
+        return;
+    }
+    
+    // Validar código
+    if (code === VALID_CODE) {
+        showMessage('✓ Código válido - Accediendo al live...', 'success');
+        
+        // Redirigir a live.html después de 1 segundo
+        setTimeout(() => {
+            window.location.href = 'servicios.html';
+        }, 1000);
+    } else {
+        showMessage('✗ Código incorrecto - Intenta de nuevo', 'error');
+        shakeInput();
+        
+        // Limpiar el mensaje después de 3 segundos
+        setTimeout(() => {
+            message.classList.add('hidden');
+        }, 3000);
+    }
+    
+    input.value = '';
+}
+
+function showMessage(text, type) {
+    const message = document.getElementById('codeMessage');
+    message.textContent = text;
+    
+    if (type === 'success') {
+        message.className = 'text-xs text-green-500 mt-2 text-center font-medium';
+    } else if (type === 'error') {
+        message.className = 'text-xs text-red-500 mt-2 text-center font-medium';
+    }
+    
+    message.classList.remove('hidden');
+}
+
+function shakeInput() {
+    const input = document.getElementById('accessCode');
+    input.classList.add('shake');
+    setTimeout(() => {
+        input.classList.remove('shake');
+    }, 400);
+}
+
+// Permitir enter para enviar
+document.addEventListener('DOMContentLoaded', function() {
+    const input = document.getElementById('accessCode');
+    if (input) {
+        input.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                validateAccessCode();
+            }
+        });
+    }
+});
+</script>
+
+    <!-- Exclusive Content Section - Smaller Cards -->
+    <section class="py-28 bg-black reveal-section pro-fade-scroll">
+  <div class="container mx-auto px-6">
+    <div class="text-center mb-16">
+      <span class="text-brandRed uppercase tracking-[0.3em] text-sm font-semibold">Premium</span>
+      <h2 class="section-title mt-2">Contenido Exclusivo</h2>
+    </div>
+
+    <!-- 🟢 CONTENEDOR DE TARJETAS -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 max-w-5xl mx-auto">
+      
+    <a href="servicios.html#show-privado" class="content-card pro-card-fade" style="--pro-delay:0.1s">
+        <div class="relative aspect-square rounded-lg overflow-hidden group bg-zinc-900">
+          <img src="https://demo.secretred.com/2/wp-content/uploads/escort-website-design-set-1-010-TFSU0NBHiL-750x810.jpg"
+            class="absolute w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 opacity-60"
+            alt="Sesión Privada">
+          <div class="absolute inset-0 bg-gradient-to-t from-black via-black/70 to-black/30"></div>
+          <div class="absolute inset-0 flex flex-col items-center justify-center text-white p-4 text-center">
+            <div
+              class="w-10 h-10 mb-2 flex items-center justify-center bg-black/60 backdrop-blur-sm border border-brandRed rounded-full shadow-lg shadow-brandRed/50">
+              <i class="fas fa-lock text-sm text-brandRed"></i>
+            </div>
+            <h3 class="font-display text-sm md:text-base font-semibold">Lives Privados</h3>
+            <p class="text-[10px] uppercase tracking-widest text-zinc-500 mt-1">Solo Miembros</p>
+          </div>
+        </div>
+      </a>
+
+    <a href="javascript:void(0)" onclick="navigateToServiceSection('premium', 'premium')" class="content-card pro-card-fade" style="--pro-delay:0.25s">
+        <div class="relative aspect-square rounded-lg overflow-hidden group bg-zinc-900">
+          <img src="https://demo.secretred.com/2/wp-content/uploads/escort-website-design-set-1-007-A5tRQLh1gB-750x1036.jpg"
+            class="absolute w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 opacity-60"
+            alt="Llamadas VIP">
+          <div class="absolute inset-0 bg-gradient-to-t from-black via-black/70 to-black/30"></div>
+          <div class="absolute inset-0 flex flex-col items-center justify-center text-white p-4 text-center">
+            <div
+              class="w-10 h-10 mb-2 flex items-center justify-center bg-black/60 backdrop-blur-sm border border-brandRed rounded-full shadow-lg shadow-brandRed/50">
+              <i class="fas fa-lock text-sm text-brandRed"></i>
+            </div>
+            <h3 class="font-display text-sm md:text-base font-semibold">Llamadas VIP</h3>
+            <p class="text-[10px] uppercase tracking-widest text-zinc-500 mt-1">Miembros Premium</p>
+          </div>
+        </div>
+      </a>
+
+    <a href="javascript:void(0)" onclick="navigateToServiceSection('fotos-videos', 'galeria')" class="content-card pro-card-fade" style="--pro-delay:0.4s">
+        <div class="relative aspect-square rounded-lg overflow-hidden group bg-zinc-900">
+          <img src="https://demo.secretred.com/2/wp-content/uploads/escort-website-design-set-1-009-weHz4dcS5s.jpg"
+            class="absolute w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 opacity-60"
+            alt="Fotos y Videos">
+          <div class="absolute inset-0 bg-gradient-to-t from-black via-black/70 to-black/30"></div>
+          <div class="absolute inset-0 flex flex-col items-center justify-center text-white p-4 text-center">
+            <div
+              class="w-10 h-10 mb-2 flex items-center justify-center bg-black/60 backdrop-blur-sm border border-brandRed rounded-full shadow-lg shadow-brandRed/50">
+              <i class="fas fa-lock text-sm text-brandRed"></i>
+            </div>
+            <h3 class="font-display text-sm md:text-base font-semibold">Fotos & Videos</h3>
+            <p class="text-[10px] uppercase tracking-widest text-zinc-500 mt-1">Solo Miembros</p>
+          </div>
+        </div>
+      </a>
+
+    <a href="javascript:void(0)" onclick="navigateToServiceSection('premium', 'premium')" class="content-card pro-card-fade" style="--pro-delay:0.55s">
+        <div class="relative aspect-square rounded-lg overflow-hidden group bg-zinc-900">
+          <img src="https://demo.secretred.com/2/wp-content/uploads/escort-website-design-set-1-008-heR8BTaSKO.jpg"
+            class="absolute w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 opacity-60"
+            alt="Mensajes Directos">
+          <div class="absolute inset-0 bg-gradient-to-t from-black via-black/70 to-black/30"></div>
+          <div class="absolute inset-0 flex flex-col items-center justify-center text-white p-4 text-center">
+            <div
+              class="w-10 h-10 mb-2 flex items-center justify-center bg-black/60 backdrop-blur-sm border border-brandRed rounded-full shadow-lg shadow-brandRed/50">
+              <i class="fas fa-lock text-sm text-brandRed"></i>
+            </div>
+            <h3 class="font-display text-sm md:text-base font-semibold">Mensajes Directos</h3>
+            <p class="text-[10px] uppercase tracking-widest text-zinc-500 mt-1">Miembros Premium</p>
+          </div>
+        </div>
+      </a>
+
+    </div>
+
+    <div class="text-center mt-10">
+      <a href="#reserve"
+        class="inline-flex items-center gap-2 text-brandRed hover:text-brandRed-light transition-colors text-sm uppercase font-semibold tracking-wider group">
+        <span>Volverse miembro</span>
+        <i class="fas fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
+      </a>
+    </div>
+  </div>
+</section>
+
+
+    <!-- Contenido Exclusivo - Diseño Premium con Números -->
+<section class="relative py-24 bg-cover bg-center bg-fixed pro-fade-scroll" style="background-image: url('img1/exclusivo.jpg')">
+    <div class="absolute inset-0 bg-gradient-to-r from-black via-black/95 to-black"></div>
+    
+    <div class="relative z-10 container mx-auto px-6">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-16">
+                <!-- Sidebar -->
+                <div class="lg:col-span-4">
+                    <div class="lg:sticky lg:top-24 reveal-up">
+                        <span style="font-family: 'Cormorant Garamond', serif; font-weight: 600;" class="text-brandRed text-xs uppercase tracking-[0.3em] mb-4 block">Premium Access</span>
+                        <h2 style="font-family: 'Playfair Display', serif;" class="text-5xl font-bold text-white mb-6 leading-tight">Contenido <span class="text-brandRed">Exclusivo</span></h2>
+                        <p style="font-family: 'Cormorant Garamond', serif;" class="text-zinc-400 text-lg mb-8 leading-relaxed">
+                            Experiencias íntimas y personalizadas diseñadas para tus deseos más profundos
+                        </p>
+                        <a href="servicios.html" style="font-family: 'Cormorant Garamond', serif; font-weight: 700; letter-spacing: 0.08em;" class="inline-block bg-brandRed text-white px-10 py-4 text-sm uppercase tracking-wider font-extrabold hover:bg-white hover:text-brandRed transition-all duration-300 border-2 border-brandRed">
+                            Comenzar
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Servicios -->
+                <div class="lg:col-span-8 space-y-8">
+                    <!-- Servicio 1 - Lives Privados -->
+                    <a href="servicios.html#show-privado" class="block border-l-2 border-zinc-800 pl-8 py-6 hover:border-brandRed transition-all duration-300 cursor-pointer group hover:bg-zinc-900/30 hover:pl-10">
+                        <div class="flex items-start gap-8">
+                            <div style="font-family: 'Playfair Display', serif;" class="text-6xl font-bold text-zinc-900 group-hover:text-brandRed transition-colors">01</div>
+                            <div class="flex-1">
+                                <div class="flex items-center gap-4 mb-3">
+                                    <i class="fas fa-video text-brandRed text-xl"></i>
+                                    <h3 style="font-family: 'Playfair Display', serif;" class="text-2xl font-bold text-white">Lives Privados</h3>
+                                </div>
+                                <p style="font-family: 'Cormorant Garamond', serif;" class="text-zinc-400 mb-4 leading-relaxed">
+                                    Sesiones íntimas en vivo exclusivas para miembros premium
+                                </p>
+                                <span style="font-family: 'Cormorant Garamond', serif; font-weight: 600;" class="text-brandRed text-sm uppercase tracking-wider group-hover:translate-x-2 transition-transform inline-block">
+                                    Ver más <i class="fas fa-arrow-right ml-1"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </a>
+
+                    <!-- Servicio 2 - Llamadas VIP -->
+                    <a href="javascript:void(0)" onclick="navigateToServiceSection('premium', 'premium')" class="block border-l-2 border-zinc-800 pl-8 py-6 hover:border-brandRed transition-all duration-300 cursor-pointer group hover:bg-zinc-900/30 hover:pl-10">
+                        <div class="flex items-start gap-8">
+                            <div style="font-family: 'Playfair Display', serif;" class="text-6xl font-bold text-zinc-900 group-hover:text-brandRed transition-colors">02</div>
+                            <div class="flex-1">
+                                <div class="flex items-center gap-4 mb-3">
+                                    <i class="fas fa-phone-alt text-brandRed text-xl"></i>
+                                    <h3 style="font-family: 'Playfair Display', serif;" class="text-2xl font-bold text-white">Llamadas VIP</h3>
+                                </div>
+                                <p style="font-family: 'Cormorant Garamond', serif;" class="text-zinc-400 mb-4 leading-relaxed">
+                                    Conversaciones privadas y experiencias auditivas personalizadas
+                                </p>
+                                <span style="font-family: 'Cormorant Garamond', serif; font-weight: 600;" class="text-brandRed text-sm uppercase tracking-wider group-hover:translate-x-2 transition-transform inline-block">
+                                    Ver más <i class="fas fa-arrow-right ml-1"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </a>
+
+                    <!-- Servicio 3 - Contenido Exclusivo -->
+                    <a href="javascript:void(0)" onclick="navigateToServiceSection('fotos-videos', 'galeria')" class="block border-l-2 border-zinc-800 pl-8 py-6 hover:border-brandRed transition-all duration-300 cursor-pointer group hover:bg-zinc-900/30 hover:pl-10">
+                        <div class="flex items-start gap-8">
+                            <div style="font-family: 'Playfair Display', serif;" class="text-6xl font-bold text-zinc-900 group-hover:text-brandRed transition-colors">03</div>
+                            <div class="flex-1">
+                                <div class="flex items-center gap-4 mb-3">
+                                    <i class="fas fa-star text-brandRed text-xl"></i>
+                                    <h3 style="font-family: 'Playfair Display', serif;" class="text-2xl font-bold text-white">Contenido Exclusivo</h3>
+                                </div>
+                                <p style="font-family: 'Cormorant Garamond', serif;" class="text-zinc-400 mb-4 leading-relaxed">
+                                    Galería privada con fotos y videos creados especialmente para ti
+                                </p>
+                                <span style="font-family: 'Cormorant Garamond', serif; font-weight: 600;" class="text-brandRed text-sm uppercase tracking-wider group-hover:translate-x-2 transition-transform inline-block">
+                                    Ver más <i class="fas fa-arrow-right ml-1"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </a>
+
+                    <!-- Servicio 4 - Mensajes Personales -->
+                    <a href="javascript:void(0)" onclick="navigateToServiceSection('mensajes-privados', 'premium')" class="block border-l-2 border-zinc-800 pl-8 py-6 hover:border-brandRed transition-all duration-300 cursor-pointer group hover:bg-zinc-900/30 hover:pl-10">
+                        <div class="flex items-start gap-8">
+                            <div style="font-family: 'Playfair Display', serif;" class="text-6xl font-bold text-zinc-900 group-hover:text-brandRed transition-colors">04</div>
+                            <div class="flex-1">
+                                <div class="flex items-center gap-4 mb-3">
+                                    <i class="fas fa-envelope text-brandRed text-xl"></i>
+                                    <h3 style="font-family: 'Playfair Display', serif;" class="text-2xl font-bold text-white">Mensajes Personales</h3>
+                                </div>
+                                <p style="font-family: 'Cormorant Garamond', serif;" class="text-zinc-400 mb-4 leading-relaxed">
+                                    Comunicación directa y privada para una experiencia más íntima
+                                </p>
+                                <span style="font-family: 'Cormorant Garamond', serif; font-weight: 600;" class="text-brandRed text-sm uppercase tracking-wider group-hover:translate-x-2 transition-transform inline-block">
+                                    Ver más <i class="fas fa-arrow-right ml-1"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+    
+
+    <!-- Footer / Contact Section -->
+    <footer id="reserve" class="bg-black text-zinc-300 py-20 border-t border-brandRed/30 reveal-section pro-fade-scroll">
+        <div class="container mx-auto px-6">
+            <div class="max-w-4xl mx-auto text-center mb-16">
+                <span class="text-brandRed uppercase tracking-[0.3em] text-sm font-semibold">Ponte en Contacto</span>
+                <h2 class="font-display text-4xl md:text-5xl font-bold text-white mt-4 mb-6">
+                    Reserva Tu Experiencia
+                </h2>
+                <p class="text-zinc-400 max-w-2xl mx-auto">
+                    Contácta directamente para consultar disponibilidad y realizar encuentros directos.
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-12 mb-16">
+                <div class="text-center reveal-up" style="animation-delay: 0.1s;">
+                    <div class="w-16 h-16 mx-auto mb-4 flex items-center justify-center bg-zinc-900 border border-brandRed/30 rounded-full">
+                        <i class="fas fa-envelope text-2xl text-brandRed"></i>
+                    </div>
+                    <h3 class="font-display text-xl text-white mb-2">Correo</h3>
+                    <p class="text-sm text-zinc-400">contact@claire-elite.com</p>
+                </div>
+
+                <div class="text-center reveal-up" style="animation-delay: 0.2s;">
+                    <div class="w-16 h-16 mx-auto mb-4 flex items-center justify-center bg-zinc-900 border border-brandRed/30 rounded-full">
+                        <i class="fas fa-phone text-2xl text-brandRed"></i>
+                    </div>
+                    <h3 class="font-display text-xl text-white mb-2">Teléfono</h3>
+                    <p class="text-sm text-zinc-400">( numero del asistente )</p>
+                </div>
+
+                <div class="text-center reveal-up" style="animation-delay: 0.3s;">
+                    <div class="w-16 h-16 mx-auto mb-4 flex items-center justify-center bg-zinc-900 border border-brandRed/30 rounded-full">
+                        <i class="fas fa-map-marker-alt text-2xl text-brandRed"></i>
+                    </div>
+                    <h3 class="font-display text-xl text-white mb-2">Ubicación</h3>
+                    <p class="text-sm text-zinc-400">( mencionar tu lugar de trabajo )</p>
+                </div>
+            </div>
+
+            <div class="text-center mb-16">
+                <a href="#" class="inline-block bg-brandRed hover:bg-brandRed-light text-white font-semibold px-10 py-4 rounded-full transition-all duration-300 hover:scale-105 shadow-2xl shadow-brandRed/40 text-sm uppercase tracking-wider">
+                    Solicitar una Cita
+                </a>
+            </div>
+
+            <div class="flex justify-center space-x-6 mb-12">
+                <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                <a href="#" class="social-link"><i class="fab fa-whatsapp"></i></a>
+            </div>
+
+            <div class="pt-8 border-t border-zinc-900 text-center text-xs text-zinc-500">
+                <p class="mb-2">Copyright &copy; 2025 luna roja digital. Todos los Derechos Reservados.</p>
+                <p>Discreción y Elegancia Garantizadas.</p>
+            </div>
+        </div>
+    </footer>
+
+    <style>
+    /* Efecto de aparición pro por scroll */
+    .pro-fade-scroll {
+        opacity: 0;
+        transform: translateY(60px) scale(0.98);
+        transition: opacity 1.1s cubic-bezier(0.33,1,0.68,1), transform 1.1s cubic-bezier(0.33,1,0.68,1);
+    }
+    .pro-fade-scroll.visible {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+    /* Estilos base */
+    body {
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* Título de sección */
+    .section-title {
+        /* Se asume que font-display está definido en la configuración de Tailwind */
+        @apply font-display text-4xl md:text-5xl font-bold text-white relative inline-block;
+    }
+    .section-title::after {
+        content: '';
+        @apply absolute -bottom-3 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-brandRed to-transparent;
+    }
+
+    /* Enlaces de navegación (Desktop) */
+    .nav-link {
+        @apply relative text-white uppercase tracking-[0.2em] text-xs font-semibold transition-all duration-300 hover:text-brandRed;
+    }
+    .nav-link::after {
+        content: '';
+        @apply absolute -bottom-1 left-0 w-0 h-0.5 bg-brandRed transition-all duration-300;
+    }
+    .nav-link:hover::after {
+        @apply w-full;
+    }
+    
+    /* Enlaces de navegación (Mobile) */
+    .nav-link-mobile {
+        /* Se mantiene la implementación con @apply para consistencia con Tailwind */
+        @apply relative transition-all duration-300 hover:text-brandRed;
+    }
+    .nav-link-mobile::after {
+        content: '';
+        /* Se corrige la opacidad a 0 por defecto para que el hover funcione */
+        @apply absolute -bottom-1 left-1/4 right-1/4 h-0.5 bg-brandRed transition-all duration-300 opacity-0;
+    }
+    .nav-link-mobile:hover::after {
+        /* Se hace visible al hacer hover */
+        @apply opacity-100;
+    }
+
+    /* Enlaces de redes sociales */
+    .social-link {
+        @apply w-12 h-12 flex items-center justify-center bg-zinc-900 border border-zinc-800 rounded-full text-zinc-400 transition-all duration-300 hover:bg-brandRed hover:text-white hover:border-brandRed hover:scale-110 hover:shadow-lg hover:shadow-brandRed/30;
+    }
+
+    /* Estilos adicionales */
+    .text-shadow-lg {
+        text-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+    }
+
+    .parallax-bg {
+        transition: transform 0.5s cubic-bezier(0.33, 1, 0.68, 1);
+    }
+    
+    /* Efectos personalizados para links sociales móviles (provenientes del bloque CSS duplicado) */
+    .social-link-mobile {
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    }
+    
+    .social-link-mobile:hover {
+        /* Usando un valor de color explícito para evitar depender de una variable Tailwind que podría no estar definida aquí */
+        box-shadow: 0 6px 20px rgba(196, 30, 58, 0.4); 
+    }
+
+    /* Animaciones Keyframes */
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(40px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @keyframes slideInLeft {
+        from {
+            opacity: 0;
+            transform: translateX(-50px);
+        }
+        to {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
+
+    @keyframes slideInRight {
+        from {
+            opacity: 0;
+            transform: translateX(50px);
+        }
+        to {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
+
+    /* Clases de animación CSS */
+    .fade-in-up {
+        animation: fadeInUp 1s ease-out forwards;
+    }
+
+    .slide-in-left {
+        animation: slideInLeft 0.8s ease-out forwards;
+    }
+
+    .slide-in-right {
+        animation: slideInRight 0.8s ease-out forwards;
+    }
+
+    /* Clases de revelado por IntersectionObserver */
+    .reveal-section {
+        opacity: 0;
+        transition: opacity 0.8s ease-out;
+    }
+
+    .reveal-section.visible {
+        opacity: 1;
+    }
+    
+    /* Clases de revelado con desplazamiento */
+    .reveal-up,
+    .reveal-left,
+    .reveal-right,
+    .gallery-item,
+    .content-card {
+        opacity: 0;
+        transition: all 0.8s cubic-bezier(0.33, 1, 0.68, 1); /* Se unifica el ease y la duración */
+    }
+    
+    .reveal-up,
+    .gallery-item,
+    .content-card {
+        transform: translateY(30px);
+    }
+    
+    .reveal-left {
+        transform: translateX(-30px); /* Se eliminó el translateY(0) duplicado */
+    }
+
+    .reveal-right {
+        transform: translateX(30px); /* Se eliminó el translateY(0) duplicado */
+    }
+
+    .reveal-up.visible,
+    .reveal-left.visible,
+    .reveal-right.visible,
+    .gallery-item.visible,
+    .content-card.visible {
+        opacity: 1;
+        transform: translate(0, 0);
+    }
+    
+    /* Estilos del encabezado fijo/desplazado */
+    #header.scrolled {
+        @apply bg-black/95 backdrop-blur-md shadow-2xl shadow-black/50 py-4;
+    }
+
+    /* Transición de imágenes */
+    img {
+        transition: transform 0.7s cubic-bezier(0.33, 1, 0.68, 1);
+    }
+
+    /* Corrección de fondo fijo para móviles */
+    @media (max-width: 768px) {
+        section[style*="bg-fixed"] {
+            background-attachment: scroll !important;
+        }
+    }
+    /* Animación pro para tarjetas individuales */
+    .pro-card-fade {
+        opacity: 0;
+        transform: translateY(40px) scale(0.97);
+        transition: opacity 0.9s cubic-bezier(0.33,1,0.68,1), transform 0.9s cubic-bezier(0.33,1,0.68,1);
+        transition-delay: var(--pro-delay, 0s);
+    }
+    .pro-card-fade.visible {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+</style>
+
+<script>
+    // Referencias a elementos
+    const toggleOpen = document.getElementById('toggle-open');
+    const toggleClose = document.getElementById('toggle-close');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const header = document.getElementById('header');
+    const parallaxElements = document.querySelectorAll('.parallax-bg');
+
+    // =========================================================================
+    // --- GESTIÓN DEL MENÚ MÓVIL (CORREGIDO PARA DESLIZAMIENTO LATERAL) ---
+    // =========================================================================
+    
+    /**
+     * Abre el menú móvil. Ahora usa 'translate-x-0' para visibilidad lateral.
+     * El menú debe estar oculto por defecto con una clase como 'translate-x-full' en el HTML.
+     */
+    const openMobileMenu = () => {
+        if (!mobileMenu) return;
+        // Remueve clases de ocultamiento vertical/lateral y añade la de visibilidad lateral
+        mobileMenu.classList.remove('-translate-y-full', 'translate-x-full'); 
+        mobileMenu.classList.add('translate-x-0');
+        document.body.style.overflow = 'hidden'; // Evita el scroll del fondo
+    };
+
+    /**
+     * Cierra el menú móvil.
+     */
+    const closeMobileMenu = () => {
+        if (!mobileMenu) return;
+        // Remueve la clase de visibilidad y añade la de ocultamiento lateral (derecha)
+        mobileMenu.classList.remove('translate-y-0', 'translate-x-0');
+        mobileMenu.classList.add('translate-x-full'); // Vuelve al estado oculto lateral
+        document.body.style.overflow = ''; // Restaura el scroll del fondo
+    };
+
+    // Asignación de eventos a los botones
+    if (toggleOpen) toggleOpen.addEventListener('click', openMobileMenu);
+    if (toggleClose) toggleClose.addEventListener('click', closeMobileMenu);
+    
+    // Cierra el menú al hacer clic en un enlace de navegación
+    document.querySelectorAll('.nav-link-mobile').forEach(link => {
+        link.addEventListener('click', closeMobileMenu);
+    });
+
+    // Cierra el menú al hacer clic fuera del menú o del botón de apertura
+    document.addEventListener('click', (e) => {
+        // Se verifica si el menú existe y está visible (no tiene la clase de ocultamiento lateral)
+        const isMenuOpen = mobileMenu && !mobileMenu.classList.contains('translate-x-full');
+
+        // Si está abierto Y el clic NO fue dentro del menú Y el clic NO fue en el botón de apertura
+        if (isMenuOpen && !mobileMenu.contains(e.target) && (!toggleOpen || !toggleOpen.contains(e.target))) {
+            closeMobileMenu();
+        }
+    });
+
+    // =========================================================================
+    // --- CONTROL DEL HEADER AL HACER SCROLL ---
+    // =========================================================================
+    
+    window.addEventListener('scroll', () => {
+        if (header) {
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        }
+    });
+
+    // =========================================================================
+    // --- EFECTO PARALLAX ---
+    // =========================================================================
+
+    window.addEventListener('scroll', () => {
+        const scrolled = window.pageYOffset;
+        parallaxElements.forEach(el => {
+            // Permite personalizar la velocidad desde el HTML con data-parallax-speed
+            const speed = parseFloat(el.getAttribute('data-parallax-speed') || 0.5); 
+            el.style.transform = `translateY(${scrolled * speed}px)`;
+        });
+    });
+
+    // =========================================================================
+    // --- ANIMACIÓN DE REVELADO (IntersectionObserver) ---
+    // =========================================================================
+
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -100px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+            }
+        });
+    }, observerOptions);
+
+    // Se unifica la lista de elementos a observar
+    document.querySelectorAll('.reveal-section, .reveal-up, .reveal-left, .reveal-right, .gallery-item, .content-card, .pro-fade-scroll, .pro-card-fade').forEach(el => {
+        observer.observe(el);
+    });
+
+    // =========================================================================
+    // --- SMOOTH SCROLL PARA ANCLAS ---
+    // =========================================================================
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const targetId = this.getAttribute('href');
+            if (targetId === '#') return;
+            
+            const targetElement = document.querySelector(targetId);
+            if (targetElement) {
+                const headerOffset = 80; // Altura del header para compensar
+                const elementPosition = targetElement.getBoundingClientRect().top;
+                const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+                window.scrollTo({
+                    top: offsetPosition,
+                    behavior: 'smooth'
+                });
+            }
+        });
+    });
+</script>
+
+<script src="main.js"></script>
+</body>
+</html>
+
+
+
+
+

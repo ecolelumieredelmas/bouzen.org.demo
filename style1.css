@@ -1,0 +1,48 @@
+@font-face {
+    font-family: 'LoveloBlack';
+    src: url('https://www.yeshaya.dev/fonts/Lovelo.otf') format('opentype');
+}
+/* Opcional: Si quieres usar la versión Lovelo Line, define otra.
+*/
+@font-face {
+    font-family: 'LoveloLine';
+    font-weight: 400; 
+    font-style: normal;
+    font-display: swap;
+    /* Usaremos la ruta que funciona para LoveloLine */
+    src: url('https://www.yeshaya.dev/fonts/LoveloLine.otf') format('opentype');
+}
+/* AQUI CONTINÚAN TUS ESTILOS NORMALES DE TAILWIND */
+
+@font-face {
+    font-family: 'LoveloBlack';
+    src: url('https://www.yeshaya.dev/fonts/Lovelo.otf') format('opentype');
+    font-weight: 900;
+    font-style: normal;
+    font-display: swap;
+}
+
+/* Aplica a TODOS los elementos */
+body, body * {
+    font-family: 'LoveloBlack', sans-serif;
+    font-weight: 700;
+}
+
+/* O más específico */
+body, h1, h2, h3, h4, h5, h6, p, span, div, a, button {
+    font-family: 'LoveloBlack', sans-serif;
+    font-weight: 700;
+}
+
+@keyframes move-right-to-left {
+    0%, 100% {
+        transform: translateX(0);
+    }
+    50% {
+        transform: translateX(-6px); /* Mueve 6px a la izquierda */
+    }
+}
+
+.animate-move-right-to-left {
+    animation: move-right-to-left 1.2s ease-in-out infinite;
+}

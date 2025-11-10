@@ -1,0 +1,992 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yvonne | Experiencias Exclusivas</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@300;400;500;600;700&family=Merriweather:wght@300;400;700&display=swap');
+    
+    :root {
+        --site-bg: #161c27;
+        --accent: #b9a36d;
+        --accent-hover: #c3b183;
+        --text: #d5c8a7;
+        --dark-bg: #0d1117;
+        --light-accent: #e8dfc8;
+    }
+    
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    
+    html {
+        scroll-behavior: smooth;
+    }
+    
+    body {
+        font-family: 'Merriweather', serif;
+        background: var(--site-bg);
+        color: var(--text);
+        position: relative;
+        overflow-x: hidden;
+    }
+    
+    body::before {
+        content: "";
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: url('img/fondo.jpg');
+        background-repeat: repeat;
+        background-size: 100px auto;
+        opacity: 0.08;
+        background-color: rgba(13, 17, 23, 0.3);
+        z-index: 0;
+        pointer-events: none;
+    }
+    
+    .content-wrapper {
+        position: relative;
+        z-index: 1;
+    }
+    
+    h1, h2, h3, h4 {
+        font-family: 'Playfair Display', serif;
+        font-weight: 400;
+    }
+    
+    /* ANIMACIONES LIGERAS PARA GALERÍA */
+    .gallery-item {
+        position: relative;
+        overflow: hidden;
+        border-radius: 12px;
+        cursor: pointer;
+        height: 400px;
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+        transition: all 0.4s ease;
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    @media (min-width: 768px) {
+        .gallery-item {
+            height: 500px;
+        }
+    }
+
+    /* Animación de entrada simple */
+    .gallery-item.visible {
+        opacity: 1;
+        transform: translateY(0);
+        transition: all 0.6s ease;
+    }
+
+    /* Hover simplificado */
+    .gallery-item:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 15px 35px rgba(185, 163, 109, 0.3);
+    }
+
+    /* Marco dorado simple */
+    .gallery-item::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        border: 2px solid transparent;
+        border-radius: 12px;
+        opacity: 0;
+        transition: all 0.3s ease;
+        z-index: 15;
+    }
+
+    .gallery-item:hover::before {
+        border-color: var(--accent);
+        opacity: 1;
+    }
+
+    /* Imagen con transición simple */
+    .gallery-item img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+        transition: transform 0.5s ease, filter 0.5s ease;
+        filter: brightness(0.9);
+    }
+
+    .gallery-item:hover img {
+        transform: scale(1.08);
+        filter: brightness(0.7);
+    }
+
+    /* Overlay simplificado */
+    .gallery-overlay {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: linear-gradient(
+            to top,
+            rgba(13, 17, 23, 0.95) 0%,
+            rgba(13, 17, 23, 0.7) 50%,
+            transparent 100%
+        );
+        padding: 2rem 1.5rem 1.5rem;
+        z-index: 10;
+        transition: all 0.4s ease;
+    }
+
+    .gallery-item:hover .gallery-overlay {
+        background: linear-gradient(
+            to top,
+            rgba(13, 17, 23, 0.98) 0%,
+            rgba(185, 163, 109, 0.2) 50%,
+            transparent 100%
+        );
+    }
+
+    .gallery-overlay h3 {
+        font-size: 1.4rem;
+        font-weight: 300;
+        letter-spacing: 1px;
+        color: var(--accent);
+        margin-bottom: 0.5rem;
+        transition: all 0.3s ease;
+    }
+
+    .gallery-item:hover .gallery-overlay h3 {
+        color: #f8e6c3;
+        transform: translateY(-3px);
+    }
+
+    .gallery-overlay p {
+        font-size: 0.95rem;
+        color: #d5d5d5;
+        line-height: 1.5;
+        transition: all 0.3s ease;
+    }
+
+    .gallery-item:hover .gallery-overlay p {
+        color: #ffffff;
+        transform: translateY(-2px);
+    }
+
+    /* GALERÍA MEJORADA - NUEVO DISEÑO */
+    .gallery-container {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+        max-width: 1400px;
+        margin: 0 auto;
+    }
+
+    @media (min-width: 768px) {
+        .gallery-container {
+            grid-template-columns: repeat(12, 1fr);
+            gap: 1.5rem;
+        }
+    }
+
+    /* Layout específico para cada imagen */
+    .gallery-item-1 {
+        grid-column: 1 / -1;
+    }
+
+    @media (min-width: 768px) {
+        .gallery-item-1 {
+            grid-column: 2 / 12;
+            grid-row: 1;
+        }
+    }
+
+    .gallery-item-2 {
+        grid-column: 1 / -1;
+    }
+
+    @media (min-width: 768px) {
+        .gallery-item-2 {
+            grid-column: 1 / 7;
+            grid-row: 2;
+        }
+    }
+
+    .gallery-item-3 {
+        grid-column: 1 / -1;
+    }
+
+    @media (min-width: 768px) {
+        .gallery-item-3 {
+            grid-column: 7 / 13;
+            grid-row: 2;
+        }
+    }
+
+    .gallery-item-4 {
+        grid-column: 1 / -1;
+    }
+
+    @media (min-width: 768px) {
+        .gallery-item-4 {
+            grid-column: 2 / 12;
+            grid-row: 3;
+        }
+    }
+
+    /* Animaciones generales más ligeras */
+    .fade-up {
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    
+    .fade-up.visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    
+    .scale-in {
+        opacity: 0;
+        transform: scale(0.9) translateY(20px);
+        transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    
+    .scale-in.visible {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+
+    /* Hero Section */
+    .hero {
+        height: 100vh;
+        min-height: 100vh;
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+    }
+    
+    .hero-bg {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 0;
+    }
+    
+    .hero-bg img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+    }
+    
+    .hero-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(135deg, rgba(22, 28, 39, 0.60) 0%, rgba(13, 17, 23, 0.70) 100%); 
+        z-index: 1;
+    }
+
+    @media (min-width: 768px) {
+        .hero-overlay {
+            background: linear-gradient(135deg, rgba(22, 28, 39, 0.30) 0%, rgba(13, 17, 23, 0.40) 100%); 
+        }
+    }
+    
+    .hero-content {
+        position: relative;
+        z-index: 2;
+    }
+    
+    .logo-text {
+        font-size: 2.5rem;
+        font-family: 'Playfair Display', serif;
+        font-weight: 300;
+        letter-spacing: 8px;
+        color: var(--accent);
+        text-shadow: 0 2px 10px rgba(185, 163, 109, 0.3);
+    }
+    
+    .whatsapp-float {
+        position: fixed;
+        bottom: 25px;
+        right: 25px;
+        width: 60px;
+        height: 60px;
+        background: #25D366;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4);
+        z-index: 1000;
+        transition: all 0.3s ease;
+        cursor: pointer;
+    }
+    
+    .whatsapp-float:hover {
+        transform: scale(1.1);
+        box-shadow: 0 6px 30px rgba(37, 211, 102, 0.6);
+    }
+    
+    .whatsapp-float i {
+        color: white;
+        font-size: 28px;
+    }
+    
+    .pricing-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 2rem;
+        max-width: 1400px;
+        margin: 0 auto;
+        justify-items: center;
+    }
+    
+    .pricing-card {
+        background: rgba(185, 163, 109, 0.05);
+        border: 1px solid rgba(185, 163, 109, 0.2);
+        border-radius: 8px;
+        padding: 2rem;
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+        width: 100%;
+    }
+    
+    .pricing-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 3px;
+        background: linear-gradient(90deg, var(--accent), var(--accent-hover));
+        transform: scaleX(0);
+        transition: transform 0.3s ease;
+    }
+    
+    .pricing-card:hover {
+        transform: translateY(-5px);
+        background: rgba(185, 163, 109, 0.08);
+        border-color: rgba(185, 163, 109, 0.4);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    }
+    
+    .pricing-card:hover::before {
+        transform: scaleX(1);
+    }
+    
+    .pricing-badge {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        background: var(--accent);
+        color: var(--dark-bg);
+        padding: 4px 12px;
+        border-radius: 20px;
+        font-size: 0.75rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    input, textarea {
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid rgba(185, 163, 109, 0.2);
+        color: var(--text);
+        transition: all 0.3s ease;
+    }
+    
+    input:focus, textarea:focus {
+        outline: none;
+        border-color: var(--accent);
+        background: rgba(255, 255, 255, 0.05);
+        box-shadow: 0 0 15px rgba(185, 163, 109, 0.2);
+    }
+    
+    input::placeholder, textarea::placeholder {
+        color: rgba(213, 200, 167, 0.4);
+    }
+    
+    .btn-primary {
+        background: var(--accent);
+        color: var(--dark-bg);
+        border: none;
+        transition: all 0.3s ease;
+    }
+    
+    .btn-primary:hover {
+        background: var(--accent-hover);
+        transform: translateY(0);
+        box-shadow: 0 0 15px rgba(185, 163, 109, 0.5); 
+    }
+
+    .review-card {
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid rgba(185, 163, 109, 0.1);
+        padding: 1.5rem;
+        border-radius: 6px;
+        position: relative;
+        z-index: 1;
+    }
+    
+    .review-card::before {
+        content: "\f10d";
+        font-family: 'Font Awesome 6 Free';
+        font-weight: 900;
+        position: absolute;
+        top: 15px;
+        right: 20px;
+        font-size: 2.5rem;
+        color: rgba(185, 163, 109, 0.2);
+        z-index: 0;
+    }
+
+    .avatar {
+        width: 50px;
+        height: 50px;
+        object-fit: cover;
+        border-radius: 50%;
+        border: 2px solid var(--accent);
+    }
+    
+    @media (max-width: 768px) {
+        .hero {
+            width: 100%;
+            height: 100vh;
+            min-height: 100vh;
+        }
+        
+        .hero-content h1 {
+            font-size: 3rem !important;
+        }
+        
+        .logo-text {
+            font-size: 1.8rem;
+        }
+        
+        .pricing-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .gallery-item {
+            height: 350px;
+        }
+
+        .gallery-overlay h3 {
+            font-size: 1.25rem;
+        }
+
+        .gallery-overlay p {
+            font-size: 0.9rem;
+        }
+    }
+    
+    @keyframes fadeInHero {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    
+    .hero-animate {
+        animation: fadeInHero 0.8s ease forwards;
+    }
+</style>
+</head>
+<body>
+    <header id="header" class="fixed top-0 left-0 w-full z-50 transition-all duration-500 bg-transparent">
+        <div class="container mx-auto px-6 flex justify-between items-center py-4">
+            <a href="#home" class="group flex items-center gap-2">
+                <div class="w-10 h-10 bg-[var(--dark-bg)] flex items-center justify-center shadow-md shadow-[#b9a36d]/30 group-hover:shadow-[#b9a36d]/50 transition-all duration-300 group-hover:scale-110" style="border-radius: 50%; border-top: 2px solid #b9a36d; border-bottom: 2px solid #b9a36d; border-left: 0; border-right: 0;">
+                    <span class="text-[#b9a36d] font-bold text-lg font-['Playfair_Display']">Yvonne</span>
+                </div>
+            </a>
+
+            <nav class="hidden md:flex items-center gap-8">
+                <a href="#home" class="text-sm tracking-wider hover:text-[#b9a36d] transition-colors duration-300 uppercase">Inicio</a>
+                <a href="#about" class="text-sm tracking-wider hover:text-[#b9a36d] transition-colors duration-300 uppercase">Sobre Mí</a>
+                <a href="galeria.html" class="text-sm tracking-wider hover:text-[#b9a36d] transition-colors duration-300 uppercase">Galería</a>
+                <a href="#pricing" class="text-sm tracking-wider hover:text-[#b9a36d] transition-colors duration-300 uppercase">Tarifas</a>
+                <a href="#reviews" class="text-sm tracking-wider hover:text-[#b9a36d] transition-colors duration-300 uppercase">Reseñas</a>
+                <a href="#contact" class="text-sm tracking-wider hover:text-[#b9a36d] transition-colors duration-300 uppercase">Contacto</a>
+            </nav>
+
+            <button id="menu-toggle" class="md:hidden w-10 h-10 flex items-center justify-center text-[#b9a36d] z-[100]">
+                <i class="fa-solid fa-bars text-2xl"></i>
+            </button>
+        </div>
+
+        <nav id="nav-mobile" class="fixed top-0 right-0 h-screen w-3/4 max-w-sm md:hidden z-50 shadow-2xl overflow-y-auto transform translate-x-full transition-transform duration-500 ease-out bg-[var(--dark-bg)]">
+            <div class="flex flex-col h-full">
+                <div class="relative h-48">
+                    <img src="img/yvonne-8.jpg" alt="Yvonne Menu Photo" class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-[var(--dark-bg)] opacity-70 flex flex-col justify-end p-6">
+                        <h3 class="text-xl font-light tracking-[3px] text-[#b9a36d]">LOREM IPSUM</h3>
+                        <p class="text-sm text-gray-400">Sit Amet Consectetur</p>
+                    </div>
+                </div>
+
+                <div class="flex-1 p-6 space-y-2">
+                    <a href="#home" class="flex items-center justify-between hover:text-[#b9a36d] py-4 px-4 rounded border border-transparent hover:border-[#b9a36d]/30 transition-all duration-300 uppercase text-sm tracking-wider">
+                        <span class="flex items-center gap-3">
+                            <i class="fa-solid fa-home text-[#b9a36d]"></i>
+                            Inicio
+                        </span>
+                        <i class="fa-solid fa-chevron-right text-[#b9a36d]/50"></i>
+                    </a>
+                    <a href="#about" class="flex items-center justify-between hover:text-[#b9a36d] py-4 px-4 rounded border border-transparent hover:border-[#b9a36d]/30 transition-all duration-300 uppercase text-sm tracking-wider">
+                        <span class="flex items-center gap-3">
+                            <i class="fa-solid fa-user text-[#b9a36d]"></i>
+                            Sobre Mí
+                        </span>
+                        <i class="fa-solid fa-chevron-right text-[#b9a36d]/50"></i>
+                    </a>
+                    <a href="galeria.html" class="flex items-center justify-between hover:text-[#b9a36d] py-4 px-4 rounded border border-transparent hover:border-[#b9a36d]/30 transition-all duration-300 uppercase text-sm tracking-wider">
+                        <span class="flex items-center gap-3">
+                            <i class="fa-solid fa-images text-[#b9a36d]"></i>
+                            Galería
+                        </span>
+                        <i class="fa-solid fa-chevron-right text-[#b9a36d]/50"></i>
+                    </a>
+                    <a href="#pricing" class="flex items-center justify-between hover:text-[#b9a36d] py-4 px-4 rounded border border-transparent hover:border-[#b9a36d]/30 transition-all duration-300 uppercase text-sm tracking-wider">
+                        <span class="flex items-center gap-3">
+                            <i class="fa-solid fa-tag text-[#b9a36d]"></i>
+                            Tarifas
+                        </span>
+                        <i class="fa-solid fa-chevron-right text-[#b9a36d]/50"></i>
+                    </a>
+                    <a href="#reviews" class="flex items-center justify-between hover:text-[#b9a36d] py-4 px-4 rounded border border-transparent hover:border-[#b9a36d]/30 transition-all duration-300 uppercase text-sm tracking-wider">
+                        <span class="flex items-center gap-3">
+                            <i class="fa-solid fa-star text-[#b9a36d]"></i>
+                            Reseñas
+                        </span>
+                        <i class="fa-solid fa-chevron-right text-[#b9a36d]/50"></i>
+                    </a>
+                    <a href="#contact" class="flex items-center justify-between hover:text-[#b9a36d] py-4 px-4 rounded border border-transparent hover:border-[#b9a36d]/30 transition-all duration-300 uppercase text-sm tracking-wider">
+                        <span class="flex items-center gap-3">
+                            <i class="fa-solid fa-envelope text-[#b9a36d]"></i>
+                            Contacto
+                        </span>
+                        <i class="fa-solid fa-chevron-right text-[#b9a36d]/50"></i>
+                    </a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="content-wrapper">
+        <section id="home" class="hero">
+            <div class="hero-bg">
+                <picture>
+                    <source media="(min-width: 768px)" srcset="img/yvonne-2.jpg">
+                    <img src="img/yvonne-1.jpg" alt="Yvonne">
+                </picture>
+                <div class="hero-overlay"></div>
+            </div>
+            
+            <div class="hero-content container mx-auto px-6 text-center">
+                <h1 class="text-6xl md:text-8xl font-light tracking-[10px] text-[#b9a36d] mb-6 hero-animate" style="animation-delay: 0.2s; opacity: 0;">YVONNE</h1>
+                <div class="w-24 h-px bg-[#b9a36d] mx-auto mb-6 hero-animate" style="animation-delay: 0.4s; opacity: 0;"></div>
+                <p class="text-lg md:text-2xl tracking-[6px] font-light hero-animate" style="animation-delay: 0.6s; opacity: 0;">DISCRECIÓN • SOFISTICACIÓN • ATENCIÓN PERSONALIZADA</p>
+            </div>
+        </section>
+
+        <section class="py-24 md:py-32 px-6">
+            <div class="container mx-auto max-w-3xl text-center fade-up">
+                <blockquote class="text-2xl md:text-4xl font-light italic leading-relaxed">
+                    <span class="text-5xl text-[#b9a36d]">"</span>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor.
+                    <span class="text-5xl text-[#b9a36d]">"</span>
+                </blockquote>
+            </div>
+        </section>
+
+        <section id="about" class="py-16 md:py-24 px-6">
+            <div class="container mx-auto max-w-7xl">
+                <div class="grid md:grid-cols-2 gap-12 md:gap-16 items-center">
+                    <div class="slide-left">
+                        <div class="relative">
+                            <img src="img/yvonne-8.jpg" alt="Yvonne" class="w-full h-[500px] md:h-[600px] object-cover shadow-2xl rounded">
+                            <div class="absolute -bottom-6 -right-6 w-full h-full border border-[#b9a36d]/30 rounded -z-10"></div>
+                        </div>
+                    </div>
+
+                    <div class="slide-right space-y-6">
+                        <h2 class="text-4xl md:text-6xl text-[#b9a36d] font-light tracking-wider mb-8">Sobre Mí</h2>
+                        <p class="text-base md:text-lg leading-relaxed">
+                            <span class="text-6xl text-[#b9a36d] float-left leading-none mr-3 font-serif">B</span>
+                            ienvenido. Soy Yvonne, una acompañante que prioriza la sofisticación y el profesionalismo. Mi enfoque es ofrecer experiencias únicas donde la discreción es absoluta.
+                        </p>
+                        <p class="text-base md:text-lg leading-relaxed">
+                            Ofrezco momentos memorables, adaptados a caballeros que valoran la calidad, la inteligencia y una compañía cautivadora. La conexión genuina y el placer mutuo son pilares de mis servicios. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                        </p>
+                        <p class="text-base md:text-lg leading-relaxed">
+                            Con una presencia impecable y un trato distinguido, garantizo encuentros que superarán tus expectativas. Cada cita es una celebración de la vida y un placer refinado. Ut enim ad minim veniam, quis nostrud exercitation ullamco.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- GALERÍA MEJORADA -->
+        <section id="gallery" class="py-16 md:py-24 px-4 md:px-6">
+            <div class="container mx-auto max-w-7xl">
+                <h2 class="text-4xl md:text-6xl text-[#b9a36d] font-light tracking-wider text-center mb-12 md:mb-20 fade-up">Galería</h2>
+                
+                <div class="gallery-container">
+                    <!-- Imagen 1 - Centrada y ancha -->
+                    <div class="gallery-item gallery-item-1 scale-in">
+                        <img src="img/yvonne-4.jpg" alt="Galería Yvonne 1">
+                        <div class="gallery-icon">
+                            <i class="fa-solid fa-expand"></i>
+                        </div>
+                        <div class="gallery-overlay">
+                            <h3>Montándote sin parar 💦</h3>
+                            <p>Hasta perder la razón</p>
+                        </div>
+                    </div>
+
+                    <!-- Imagen 2 - Izquierda -->
+                    <div class="gallery-item gallery-item-2 scale-in" style="transition-delay: 0.15s;">
+                        <img src="img/yvonne-3.jpg" alt="Galería Yvonne 2">
+                        <div class="gallery-icon">
+                            <i class="fa-solid fa-expand"></i>
+                        </div>
+                        <div class="gallery-overlay">
+                            <h3>Dentro de mí 🔥</h3>
+                            <p>Te espero húmeda y caliente</p>
+                        </div>
+                    </div>
+
+                    <!-- Imagen 3 - Derecha -->
+                    <div class="gallery-item gallery-item-3 scale-in" style="transition-delay: 0.3s;">
+                        <img src="img/yvonne-5.jpg" alt="Galería Yvonne 3">
+                        <div class="gallery-icon">
+                            <i class="fa-solid fa-expand"></i>
+                        </div>
+                        <div class="gallery-overlay">
+                            <h3>Tetas en tu boca 🍒</h3>
+                            <p>Chupa hasta saciar tu sed</p>
+                        </div>
+                    </div>
+
+                    <!-- Imagen 4 - Centrada y ancha -->
+                    <div class="gallery-item gallery-item-4 scale-in" style="transition-delay: 0.45s;">
+                        <img src="img/yvonne-6.jpg" alt="Galería Yvonne 4">
+                        <div class="gallery-icon">
+                            <i class="fa-solid fa-expand"></i>
+                        </div>
+                        <div class="gallery-overlay">
+                            <h3>Doggy style favorito 🐕</h3>
+                            <p>Agárrame fuerte por detrás</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-16 text-center fade-up" style="transition-delay: 0.6s;">
+                    <a href="galeria.html" class="inline-block py-4 px-10 text-[#b9a36d] bg-transparent border-2 border-[#b9a36d] uppercase tracking-widest font-medium transition-all duration-300 hover:bg-[#b9a36d] hover:text-gray-900 hover:shadow-lg hover:shadow-[#b9a36d]/30 rounded">
+                        Ver Galería Completa
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section id="pricing" class="py-16 md:py-24 px-4">
+            <div class="container mx-auto max-w-6xl">
+                <h2 class="text-4xl md:text-6xl text-[#b9a36d] font-light tracking-wider text-center mb-4 fade-up">Tarifas ⏳</h2>
+                <p class="text-center text-gray-400 mb-12 md:mb-16 tracking-wider fade-up">Experiencias exclusivas diseñadas para ti</p>
+                
+                <div class="pricing-grid px-2">
+                    <div class="pricing-card fade-up">
+                        <h3 class="text-2xl text-[#b9a36d] mb-2 tracking-wider">1 Hora</h3>
+                        <div class="my-4">
+                            <span class="text-4xl font-light text-[#b9a36d]">$250</span>
+                        </div>
+                        <div class="h-px bg-gradient-to-r from-transparent via-[#b9a36d] to-transparent mb-4"></div>
+                        <p class="text-sm text-gray-300 mb-3">• Encuentro íntimo</p>
+                        <p class="text-sm text-gray-300 mb-3">• En tu ubicación</p>
+                        <p class="text-sm text-gray-300">• Experiencia personalizada</p>
+                    </div>
+
+                    <div class="pricing-card fade-up" style="transition-delay: 0.1s;">
+                        <h3 class="text-2xl text-[#b9a36d] mb-2 tracking-wider">2 Horas</h3>
+                        <div class="my-4">
+                            <span class="text-4xl font-light text-[#b9a36d]">$450</span>
+                        </div>
+                        <div class="h-px bg-gradient-to-r from-transparent via-[#b9a36d] to-transparent mb-4"></div>
+                        <p class="text-sm text-gray-300 mb-3">• Tiempo extendido</p>
+                        <p class="text-sm text-gray-300 mb-3">• Mayor conexión</p>
+                        <p class="text-sm text-gray-300">• Ambiente relajado</p>
+                    </div>
+
+                    <div class="pricing-card fade-up" style="transition-delay: 0.2s;">
+                        <span class="pricing-badge">Popular</span>
+                        <h3 class="text-2xl text-[#b9a36d] mb-2 tracking-wider">3 Horas</h3>
+                        <div class="my-4">
+                            <span class="text-4xl font-light text-[#b9a36d]">$650</span>
+                        </div>
+                        <div class="h-px bg-gradient-to-r from-transparent via-[#b9a36d] to-transparent mb-4"></div>
+                        <p class="text-sm text-gray-300 mb-3">• Experiencia completa</p>
+                        <p class="text-sm text-gray-300 mb-3">• Cena incluida opcional</p>
+                        <p class="text-sm text-gray-300">• Máxima discreción</p>
+                    </div>
+
+                    <div class="pricing-card fade-up" style="transition-delay: 0.3s;">
+                        <h3 class="text-2xl text-[#b9a36d] mb-2 tracking-wider">4 Horas</h3>
+                        <div class="my-4">
+                            <span class="text-4xl font-light text-[#b9a36d]">$850</span>
+                        </div>
+                        <div class="h-px bg-gradient-to-r from-transparent via-[#b9a36d] to-transparent mb-4"></div>
+                        <p class="text-sm text-gray-300 mb-3">• Tarde/noche especial</p>
+                        <p class="text-sm text-gray-300 mb-3">• Evento social</p>
+                        <p class="text-sm text-gray-300">• Compañía elegante</p>
+                    </div>
+
+                    <div class="pricing-card fade-up" style="transition-delay: 0.4s;">
+                        <h3 class="text-2xl text-[#b9a36d] mb-2 tracking-wider">5 Horas</h3>
+                        <div class="my-4">
+                            <span class="text-4xl font-light text-[#b9a36d]">$1,000</span>
+                        </div>
+                        <div class="h-px bg-gradient-to-r from-transparent via-[#b9a36d] to-transparent mb-4"></div>
+                        <p class="text-sm text-gray-300 mb-3">• Velada exclusiva</p>
+                        <p class="text-sm text-gray-300 mb-3">• Cena & entretenimiento</p>
+                        <p class="text-sm text-gray-300">• Experiencia premium</p>
+                    </div>
+
+                    <div class="pricing-card fade-up" style="transition-delay: 0.5s;">
+                        <span class="pricing-badge">VIP</span>
+                        <h3 class="text-2xl text-[#b9a36d] mb-2 tracking-wider">Noche Completa</h3>
+                        <div class="my-4">
+                            <span class="text-4xl font-light text-[#b9a36d]">$1,800</span>
+                        </div>
+                        <div class="h-px bg-gradient-to-r from-transparent via-[#b9a36d] to-transparent mb-4"></div>
+                        <p class="text-sm text-gray-300 mb-3">• 12 horas de placer</p>
+                        <p class="text-sm text-gray-300 mb-3">• Experiencia inolvidable</p>
+                        <p class="text-sm text-gray-300">• Máximo confort</p>
+                    </div>
+                </div>
+
+                <div class="mt-12 md:mt-16 text-center space-y-4 fade-up">
+                    <p class="text-[#b9a36d] font-medium text-lg">Servicios Adicionales</p>
+                    <div class="flex flex-col md:flex-row gap-4 justify-center items-center text-sm">
+                        <div class="flex items-center gap-2">
+                            <i class="fa-solid fa-check text-[#b9a36d]"></i>
+                            <span>A Domicilio: Incluido</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <i class="fa-solid fa-check text-[#b9a36d]"></i>
+                            <span>Fuera de la Ciudad: Consultar</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <i class="fa-solid fa-check text-[#b9a36d]"></i>
+                            <span>Eventos Especiales: Disponible</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="reviews" class="py-16 md:py-24 px-6 bg-[rgba(13,17,23,0.8)]">
+            <div class="container mx-auto max-w-7xl">
+                <h2 class="text-4xl md:text-6xl text-[#b9a36d] font-light tracking-wider text-center mb-4 fade-up">Reseñas</h2>
+                <p class="text-center text-gray-400 mb-12 md:mb-16 tracking-wider fade-up">Lo que mis caballeros dicen de la experiencia</p>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <div class="review-card fade-up">
+                        <p class="text-base mb-4 italic text-gray-300 relative z-10">"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Una velada insuperable."</p>
+                        <div class="flex items-center gap-3 mt-6 relative z-10">
+                            <img src="https://i.pravatar.cc/150?img=1" alt="Profile 1" class="avatar">
+                            <div>
+                                <p class="font-medium text-[#b9a36d]">Ricardo M.</p>
+                                <p class="text-xs text-gray-500">Madrid, España</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="review-card fade-up" style="transition-delay: 0.1s;">
+                        <p class="text-base mb-4 italic text-gray-300 relative z-10">"La compañía fue de primera clase. Es la definición de sofisticación. Una mujer que sabe estar a la altura de cualquier evento social y más allá. Absolutamente profesional."</p>
+                        <div class="flex items-center gap-3 mt-6 relative z-10">
+                            <img src="https://i.pravatar.cc/150?img=5" alt="Profile 2" class="avatar">
+                            <div>
+                                <p class="font-medium text-[#b9a36d]">Alejandro V.</p>
+                                <p class="text-xs text-gray-500">Ciudad de México, México</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="review-card fade-up" style="transition-delay: 0.2s;">
+                        <p class="text-base mb-4 italic text-gray-300 relative z-10">"El acompañamiento fue de primera clase. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."</p>
+                        <div class="flex items-center gap-3 mt-6 relative z-10">
+                            <img src="https://i.pravatar.cc/150?img=3" alt="Profile 3" class="avatar">
+                            <div>
+                                <p class="font-medium text-[#b9a36d]">Javier L.</p>
+                                <p class="text-xs text-gray-500">Miami, USA</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="review-card fade-up" style="transition-delay: 0.3s;">
+                        <p class="text-base mb-4 italic text-gray-300 relative z-10">"Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident."</p>
+                        <div class="flex items-center gap-3 mt-6 relative z-10">
+                            <img src="https://i.pravatar.cc/150?img=7" alt="Profile 4" class="avatar">
+                            <div>
+                                <p class="font-medium text-[#b9a36d]">Carlos A.</p>
+                                <p class="text-xs text-gray-500">Sao Paulo, Brasil</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="py-16 md:py-24 px-6">
+            <div class="container mx-auto max-w-2xl">
+                <h2 class="text-4xl md:text-6xl text-[#b9a36d] font-light tracking-wider text-center mb-4 fade-up">Contacto</h2>
+                <p class="text-center text-gray-400 mb-12 md:mb-16 tracking-wider fade-up">Escríbeme para coordinar nuestro encuentro</p>
+                
+                <form class="space-y-6 fade-up" onsubmit="return false;">
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <input type="text" placeholder="Nombre" required 
+                               class="w-full px-6 py-4 rounded text-sm tracking-wider border-0 focus:ring-2 focus:ring-[#b9a36d]">
+                        <input type="email" placeholder="Email" required 
+                               class="w-full px-6 py-4 rounded text-sm tracking-wider border-0 focus:ring-2 focus:ring-[#b9a36d]">
+                    </div>
+                    
+                    <input type="tel" placeholder="Teléfono (Opcional)" 
+                           class="w-full px-6 py-4 rounded text-sm tracking-wider border-0 focus:ring-2 focus:ring-[#b9a36d]">
+                    
+                    <textarea placeholder="Mensaje o Consulta" rows="6" required 
+                              class="w-full px-6 py-4 rounded text-sm tracking-wider resize-none border-0 focus:ring-2 focus:ring-[#b9a36d]"></textarea>
+                    
+                    <div id="alerta-temporal" 
+                         class="hidden p-3 border-2 border-[#b9a36d] bg-black/40 backdrop-blur-md text-[#b9a36d] text-center text-sm font-medium rounded shadow-lg transition-opacity duration-500 ease-in-out">
+                        <p>⚠️ Este formulario es una DEMOSTRACIÓN. Por favor, contacta por WhatsApp.</p>
+                    </div>
+
+                    <button type="button" onclick="mostrarAlertaContacto()" 
+                            class="btn-primary w-full py-4 rounded text-sm tracking-[3px] uppercase font-medium">
+                        Enviar Mensaje
+                    </button>
+                </form>
+            </div>
+        </section>
+
+        <footer class="py-8 md:py-10 px-4 bg-black relative z-50">
+            <div class="container mx-auto max-w-7xl">
+                <div class="flex flex-col md:flex-row justify-between items-center space-y-6 md:space-y-0">
+                    <div class="order-3 md:order-1">
+                        <p class="text-gray-500 text-[10px] md:text-xs tracking-[3px] uppercase text-center md:text-left font-medium">
+                            Web hecha por <span class="font-bold">Luna Roja Digital</span>
+                        </p>
+                    </div>
+
+                    <div class="order-1 md:order-2">
+                        <p class="text-[#b9a36d] text-sm tracking-widest uppercase text-center font-bold">
+                            &copy; 2025 Yvonne
+                        </p>
+                    </div>
+
+                    <div class="flex justify-center md:justify-end gap-5 order-2 md:order-3">
+                        <a href="#" class="text-gray-400 hover:text-[#b9a36d] transition-colors text-xl" title="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-[#b9a36d] transition-colors text-xl" title="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="mailto:contact@yvonne.com" class="text-gray-400 hover:text-[#b9a36d] transition-colors text-xl" title="Correo Electrónico"><i class="far fa-envelope"></i></a>
+                        <a href="https://wa.me/18098786115" target="_blank" class="text-gray-400 hover:text-[#b9a36d] transition-colors text-xl" title="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <a href="https://wa.me/18098786115" target="_blank" class="whatsapp-float">
+        <i class="fa-brands fa-whatsapp"></i>
+    </a>
+
+    <script>
+        function mostrarAlertaContacto() {
+            const alerta = document.getElementById('alerta-temporal');
+            alerta.style.opacity = '1';
+            alerta.classList.remove('hidden');
+            setTimeout(() => {
+                alerta.style.opacity = '0';
+                setTimeout(() => {
+                    alerta.classList.add('hidden'); 
+                }, 500); 
+            }, 4000); 
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const header = document.getElementById('header');
+            const menuToggle = document.getElementById('menu-toggle');
+            const navMobile = document.getElementById('nav-mobile');
+            const menuIcon = menuToggle.querySelector('i');
+
+            function openMenu() {
+                navMobile.classList.remove('translate-x-full');
+                menuIcon.classList.replace('fa-bars','fa-xmark');
+            }
+
+            function closeMenu() {
+                navMobile.classList.add('translate-x-full');
+                menuIcon.classList.replace('fa-xmark','fa-bars');
+            }
+
+            menuToggle.addEventListener('click', ()=>navMobile.classList.contains('translate-x-full') ? openMenu() : closeMenu());
+            navMobile.querySelectorAll('a').forEach(link => link.addEventListener('click', closeMenu));
+
+            document.addEventListener('click', e => {
+                if (!e.target.closest('#nav-mobile') && !e.target.closest('#menu-toggle') && !navMobile.classList.contains('translate-x-full')) {
+                    closeMenu();
+                }
+            });
+
+            window.addEventListener('scroll', ()=>{
+                if(window.scrollY>50){
+                    header.classList.add('bg-[rgba(13,17,23,0.90)]','backdrop-blur-md');
+                    header.classList.remove('bg-transparent');
+                } else {
+                    header.classList.add('bg-transparent');
+                    header.classList.remove('bg-[rgba(13,17,23,0.90)]','backdrop-blur-md');
+                }
+            });
+
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -80px 0px'
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('.fade-up, .slide-left, .slide-right, .scale-in').forEach(el => {
+                observer.observe(el);
+            });
+        });
+    </script>
+</body>
+</html>

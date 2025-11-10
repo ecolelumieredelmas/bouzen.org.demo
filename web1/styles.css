@@ -1,0 +1,942 @@
+/* styles.css?v=3.3.4.5.2 */
+/* Estilos consolidados desde index.html y animacion.css */
+
+/* === ESTILOS DEL INDEX.HTML === */
+body {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.section-title {
+    font-family: "Playfair Display", serif;
+    font-size: 2.25rem;
+    line-height: 2.5rem;
+    font-weight: 700;
+    color: white;
+    position: relative;
+    display: inline-block;
+}
+
+@media (min-width: 768px) {
+    .section-title {
+        font-size: 3rem;
+        line-height: 1;
+    }
+}
+
+.section-title::after {
+    content: '';
+    position: absolute;
+    bottom: -0.75rem;
+    left: 0;
+    right: 0;
+    height: 0.125rem;
+    background: linear-gradient(to right, transparent, #C41E3A, transparent);
+}
+
+.nav-link {
+    position: relative;
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    font-size: 0.75rem;
+    font-weight: 600;
+    transition: all 0.3s;
+}
+
+.nav-link:hover {
+    color: #C41E3A;
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: -0.25rem;
+    left: 0;
+    width: 0;
+    height: 0.125rem;
+    background-color: #C41E3A;
+    transition: all 0.3s;
+}
+
+.nav-link:hover::after {
+    width: 100%;
+}
+
+.nav-link-mobile {
+    position: relative;
+    transition: all 0.3s;
+}
+
+.nav-link-mobile::after {
+    content: '';
+    position: absolute;
+    bottom: -0.25rem;
+    left: 25%;
+    right: 25%;
+    height: 0.125rem;
+    background-color: #C41E3A;
+    transition: all 0.3s;
+    opacity: 0;
+}
+
+.nav-link-mobile:hover::after {
+    opacity: 1;
+}
+
+.social-link {
+    width: 3rem;
+    height: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #18181b;
+    border: 1px solid #27272a;
+    border-radius: 9999px;
+    color: #a1a1aa;
+    transition: all 0.3s;
+}
+
+.social-link:hover {
+    background-color: #C41E3A;
+    color: white;
+    border-color: #C41E3A;
+    transform: scale(1.1);
+    box-shadow: 0 10px 25px rgba(196, 30, 58, 0.3);
+}
+
+.text-shadow-lg {
+    text-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+}
+
+.parallax-bg {
+    transition: transform 0.5s cubic-bezier(0.33, 1, 0.68, 1);
+}
+
+.social-link-mobile {
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.social-link-mobile:hover {
+    box-shadow: 0 6px 20px rgba(196, 30, 58, 0.4);
+}
+
+/* Animaciones Keyframes */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes revealUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-10px); }
+    75% { transform: translateX(10px); }
+}
+
+/* Clases de animación CSS */
+.fade-in-up {
+    animation: fadeInUp 1s ease-out forwards;
+}
+
+.slide-in-left {
+    animation: slideInLeft 0.8s ease-out forwards;
+}
+
+.slide-in-right {
+    animation: slideInRight 0.8s ease-out forwards;
+}
+
+.reveal-up {
+    opacity: 0;
+    transform: translateY(30px);
+    animation: revealUp 0.8s ease-out forwards;
+}
+
+.shake {
+    animation: shake 0.4s ease-in-out;
+}
+
+/* Clases de revelado por IntersectionObserver */
+.reveal-section {
+    opacity: 0;
+    transition: opacity 0.8s ease-out;
+}
+
+.reveal-section.visible {
+    opacity: 1;
+}
+
+.reveal-up,
+.reveal-left,
+.reveal-right,
+.gallery-item,
+.content-card {
+    opacity: 0;
+    transition: all 0.8s cubic-bezier(0.33, 1, 0.68, 1);
+}
+
+.reveal-up,
+.gallery-item,
+.content-card {
+    transform: translateY(30px);
+}
+
+.reveal-left {
+    transform: translateX(-30px);
+}
+
+.reveal-right {
+    transform: translateX(30px);
+}
+
+.reveal-up.visible,
+.reveal-left.visible,
+.reveal-right.visible,
+.gallery-item.visible,
+.content-card.visible {
+    opacity: 1;
+    transform: translate(0, 0);
+}
+
+/* Estilos del encabezado fijo/desplazado */
+#header.scrolled {
+    background-color: rgba(0, 0, 0, 0.95);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}
+
+/* Transición de imágenes */
+img {
+    transition: transform 0.7s cubic-bezier(0.33, 1, 0.68, 1);
+}
+
+/* Corrección de fondo fijo para móviles */
+@media (max-width: 768px) {
+    section[style*="bg-fixed"] {
+        background-attachment: scroll !important;
+    }
+    
+    .section-title {
+        line-height: 1.3;
+    }
+}
+
+/* === ESTILOS DE ANIMACION.CSS (si existen) === */
+
+
+/* ========================================================================= */
+/* --- ANIMACIONES GLOBALES --- */
+/* ========================================================================= */
+
+/* Animación de revelado suave */
+.reveal-up {
+    opacity: 0;
+    transform: translateY(30px);
+    animation: revealUp 0.8s ease-out forwards;
+}
+
+@keyframes revealUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Animaciones de entrada */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* Clases de animación CSS */
+.fade-in-up {
+    animation: fadeInUp 1s ease-out forwards;
+}
+
+.slide-in-left {
+    animation: slideInLeft 0.8s ease-out forwards;
+}
+
+.slide-in-right {
+    animation: slideInRight 0.8s ease-out forwards;
+}
+
+/* Clases de revelado por IntersectionObserver */
+.reveal-section {
+    opacity: 0;
+    transition: opacity 0.8s ease-out;
+}
+
+.reveal-section.visible {
+    opacity: 1;
+}
+
+/* Clases de revelado con desplazamiento */
+.reveal-up,
+.reveal-left,
+.reveal-right,
+.gallery-item,
+.content-card {
+    opacity: 0;
+    transition: all 0.8s cubic-bezier(0.33, 1, 0.68, 1);
+}
+
+.reveal-up,
+.gallery-item,
+.content-card {
+    transform: translateY(30px);
+}
+
+.reveal-left {
+    transform: translateX(-30px);
+}
+
+.reveal-right {
+    transform: translateX(30px);
+}
+
+.reveal-up.visible,
+.reveal-left.visible,
+.reveal-right.visible,
+.gallery-item.visible,
+.content-card.visible {
+    opacity: 1;
+    transform: translate(0, 0);
+}
+
+/* Animación de shake para error */
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-10px); }
+    75% { transform: translateX(10px); }
+}
+
+.shake {
+    animation: shake 0.4s ease-in-out;
+}
+
+/* Efecto parallax */
+.parallax-bg {
+    transition: transform 0.5s cubic-bezier(0.33, 1, 0.68, 1);
+}
+
+/* Estilos del encabezado fijo/desplazado */
+#header.scrolled {
+    background-color: rgba(0, 0, 0, 0.95);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}
+
+/* Transición de imágenes */
+img {
+    transition: transform 0.7s cubic-bezier(0.33, 1, 0.68, 1);
+}
+
+/* Corrección de fondo fijo para móviles */
+@media (max-width: 768px) {
+    section[style*="bg-fixed"] {
+        background-attachment: scroll !important;
+    }
+}
+
+/* Text shadow */
+.text-shadow-lg {
+    text-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+}
+
+/* Estilos para el menú móvil */
+.screen-hidden {
+    transform: translateX(100%);
+}
+
+.screen-active {
+    transform: translateX(0);
+}
+
+/* Transiciones suaves para el chat */
+.message-enter {
+    animation: messageEnter 0.3s ease-out;
+}
+
+@keyframes messageEnter {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.message-claire {
+    border-radius: 18px 18px 4px 18px;
+}
+
+.message-user {
+    border-radius: 18px 18px 18px 4px;
+}
+
+.claire-bubble {
+    background: linear-gradient(135deg, #C41E3A, #8B0000);
+}
+
+.user-bubble {
+    background: #27272a;
+}
+
+
+
+/* ========================================================================= */
+/* --- ANIMACIONES DE SCROLL (Intersection Observer) --- */
+/* ========================================================================= */
+
+/* Clases base para elementos que se revelan al scroll */
+.reveal-section,
+.reveal-up,
+.reveal-left,
+.reveal-right,
+.gallery-item,
+.content-card {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.8s cubic-bezier(0.33, 1, 0.68, 1);
+}
+
+/* Revelado desde la izquierda */
+.reveal-left {
+    transform: translateX(-50px);
+}
+
+/* Revelado desde la derecha */
+.reveal-right {
+    transform: translateX(50px);
+}
+
+/* Cuando los elementos son visibles en el viewport */
+.reveal-section.visible,
+.reveal-up.visible,
+.reveal-left.visible,
+.reveal-right.visible,
+.gallery-item.visible,
+.content-card.visible {
+    opacity: 1;
+    transform: translate(0, 0);
+}
+
+/* ========================================================================= */
+/* --- ANIMACIONES INICIALES (solo para hero) --- */
+/* ========================================================================= */
+
+/* Animaciones que se ejecutan solo al cargar (para el hero) */
+.fade-in-up {
+    animation: fadeInUp 1s ease-out forwards;
+}
+
+.slide-in-left {
+    animation: slideInLeft 0.8s ease-out forwards;
+}
+
+.slide-in-right {
+    animation: slideInRight 0.8s ease-out forwards;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* ========================================================================= */
+/* --- EFECTOS ESPECIALES --- */
+/* ========================================================================= */
+
+/* Efecto parallax */
+.parallax-bg {
+    transition: transform 0.5s cubic-bezier(0.33, 1, 0.68, 1);
+}
+
+/* Header al hacer scroll */
+#header.scrolled {
+    background-color: rgba(0, 0, 0, 0.95);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}
+
+/* Animación de shake para errores */
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-10px); }
+    75% { transform: translateX(10px); }
+}
+
+.shake {
+    animation: shake 0.4s ease-in-out;
+}
+
+/* Text shadow */
+.text-shadow-lg {
+    text-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+}
+
+/* Transición de imágenes */
+img {
+    transition: transform 0.7s cubic-bezier(0.33, 1, 0.68, 1);
+}
+
+/* Corrección de fondo fijo para móviles */
+@media (max-width: 768px) {
+    section[style*="bg-fixed"] {
+        background-attachment: scroll !important;
+    }
+}
+
+/* ========================================================================= */
+/* --- CSS INLINE MOVIDO DESDE servicios.html --- */
+/* ========================================================================= */
+
+
+
+
+
+/* ========================================================================= */
+/* --- ESTILOS PARA SISTEMA DE SEGUIMIENTO --- */
+/* ========================================================================= */
+.following {
+    background: #10B981 !important;
+    transform: scale(0.95);
+}
+
+.following:hover {
+    background: #059669 !important;
+    transform: scale(1);
+}
+
+/* ========================================================================= */
+/* --- HEADER SCROLL MEJORADO --- */
+/* ========================================================================= */
+#main-header.scrolled {
+    background-color: rgba(0, 0, 0, 0.95) !important;
+    backdrop-filter: blur(12px) !important;
+    -webkit-backdrop-filter: blur(12px) !important;
+    box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.8) !important;
+    border-bottom-color: rgba(39, 39, 42, 0.5) !important;
+}
+
+/* ========================================================================= */
+/* --- ANIMACIONES DE SCROLL MEJORADAS --- */
+/* ========================================================================= */
+.gallery-item {
+    transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
+}
+
+.content-card {
+    transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
+}
+
+/* Efecto de escalonado para galería */
+.gallery-item:nth-child(1) { transition-delay: 0ms !important; }
+.gallery-item:nth-child(2) { transition-delay: 50ms !important; }
+.gallery-item:nth-child(3) { transition-delay: 100ms !important; }
+.gallery-item:nth-child(4) { transition-delay: 150ms !important; }
+.gallery-item:nth-child(5) { transition-delay: 200ms !important; }
+.gallery-item:nth-child(6) { transition-delay: 250ms !important; }
+.gallery-item:nth-child(7) { transition-delay: 300ms !important; }
+.gallery-item:nth-child(8) { transition-delay: 350ms !important; }
+.gallery-item:nth-child(9) { transition-delay: 400ms !important; }
+.gallery-item:nth-child(10) { transition-delay: 450ms !important; }
+
+/* ========================================================================= */
+/* --- EFECTOS HOVER MEJORADOS --- */
+/* ========================================================================= */
+.nav-tab {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+.nav-tab:hover {
+    transform: translateY(-2px) !important;
+}
+
+.nav-tab.active {
+    color: #C41E3A !important;
+}
+
+.nav-tab.active span {
+    color: #C41E3A !important;
+}
+
+
+/* ========================================================================= */
+/* --- CSS INLINE MOVIDO DESDE servicios.html --- */
+/* ========================================================================= */
+
+
+        body {
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        .text-shadow {
+            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+        }
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        .nav-tab.active {
+            color: #C41E3A;
+        }
+        .zoomable {
+            cursor: zoom-in;
+            transition: transform 0.3s ease;
+        }
+        .zoomable:hover {
+            transform: scale(1.05);
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.9);
+        }
+        .modal-content {
+            margin: auto;
+            display: block;
+            max-width: 90%;
+            max-height: 90%;
+            margin-top: 2%;
+        }
+        .close {
+            position: absolute;
+            top: 15px;
+            right: 35px;
+            color: #f1f1f1;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .stream-offline {
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+        }
+        .btn-reservar {
+            background: #C41E3A;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(196, 30, 58, 0.3);
+        }
+        .btn-reservar:hover {
+            background: #A3182F;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(196, 30, 58, 0.4);
+        }
+    
+
+/* --- CSS extraído de index.html --- */
+/* Animación suave para reveal */
+.reveal-up {
+    opacity: 0;
+    transform: translateY(30px);
+    animation: revealUp 0.8s ease-out forwards;
+}
+
+@keyframes revealUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Mejoras responsive adicionales */
+@media (max-width: 640px) {
+    .section-title {
+        line-height: 1.3;
+    }
+}
+
+/* Animación de shake para error */
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-10px); }
+    75% { transform: translateX(10px); }
+}
+
+.shake {
+    animation: shake 0.4s ease-in-out;
+}
+
+/* Estilos base */
+    body {
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* Título de sección */
+    .section-title {
+        /* Se asume que font-display está definido en la configuración de Tailwind */
+        @apply font-display text-4xl md:text-5xl font-bold text-white relative inline-block;
+    }
+    .section-title::after {
+        content: '';
+        @apply absolute -bottom-3 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-brandRed to-transparent;
+    }
+
+    /* Enlaces de navegación (Desktop) */
+    .nav-link {
+        @apply relative text-white uppercase tracking-[0.2em] text-xs font-semibold transition-all duration-300 hover:text-brandRed;
+    }
+    .nav-link::after {
+        content: '';
+        @apply absolute -bottom-1 left-0 w-0 h-0.5 bg-brandRed transition-all duration-300;
+    }
+    .nav-link:hover::after {
+        @apply w-full;
+    }
+    
+    /* Enlaces de navegación (Mobile) */
+    .nav-link-mobile {
+        /* Se mantiene la implementación con @apply para consistencia con Tailwind */
+        @apply relative transition-all duration-300 hover:text-brandRed;
+    }
+    .nav-link-mobile::after {
+        content: '';
+        /* Se corrige la opacidad a 0 por defecto para que el hover funcione */
+        @apply absolute -bottom-1 left-1/4 right-1/4 h-0.5 bg-brandRed transition-all duration-300 opacity-0;
+    }
+    .nav-link-mobile:hover::after {
+        /* Se hace visible al hacer hover */
+        @apply opacity-100;
+    }
+
+    /* Enlaces de redes sociales */
+    .social-link {
+        @apply w-12 h-12 flex items-center justify-center bg-zinc-900 border border-zinc-800 rounded-full text-zinc-400 transition-all duration-300 hover:bg-brandRed hover:text-white hover:border-brandRed hover:scale-110 hover:shadow-lg hover:shadow-brandRed/30;
+    }
+
+    /* Estilos adicionales */
+    .text-shadow-lg {
+        text-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+    }
+
+    .parallax-bg {
+        transition: transform 0.5s cubic-bezier(0.33, 1, 0.68, 1);
+    }
+    
+    /* Efectos personalizados para links sociales móviles (provenientes del bloque CSS duplicado) */
+    .social-link-mobile {
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    }
+    
+    .social-link-mobile:hover {
+        /* Usando un valor de color explícito para evitar depender de una variable Tailwind que podría no estar definida aquí */
+        box-shadow: 0 6px 20px rgba(196, 30, 58, 0.4); 
+    }
+
+    /* Animaciones Keyframes */
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(40px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @keyframes slideInLeft {
+        from {
+            opacity: 0;
+            transform: translateX(-50px);
+        }
+        to {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
+
+    @keyframes slideInRight {
+        from {
+            opacity: 0;
+            transform: translateX(50px);
+        }
+        to {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
+
+    /* Clases de animación CSS */
+    .fade-in-up {
+        animation: fadeInUp 1s ease-out forwards;
+    }
+
+    .slide-in-left {
+        animation: slideInLeft 0.8s ease-out forwards;
+    }
+
+    .slide-in-right {
+        animation: slideInRight 0.8s ease-out forwards;
+    }
+
+    /* Clases de revelado por IntersectionObserver */
+    .reveal-section {
+        opacity: 0;
+        transition: opacity 0.8s ease-out;
+    }
+
+    .reveal-section.visible {
+        opacity: 1;
+    }
+    
+    /* Clases de revelado con desplazamiento */
+    .reveal-up,
+    .reveal-left,
+    .reveal-right,
+    .gallery-item,
+    .content-card {
+        opacity: 0;
+        transition: all 0.8s cubic-bezier(0.33, 1, 0.68, 1); /* Se unifica el ease y la duración */
+    }
+    
+    .reveal-up,
+    .gallery-item,
+    .content-card {
+        transform: translateY(30px);
+    }
+    
+    .reveal-left {
+        transform: translateX(-30px); /* Se eliminó el translateY(0) duplicado */
+    }
+
+    .reveal-right {
+        transform: translateX(30px); /* Se eliminó el translateY(0) duplicado */
+    }
+
+    .reveal-up.visible,
+    .reveal-left.visible,
+    .reveal-right.visible,
+    .gallery-item.visible,
+    .content-card.visible {
+        opacity: 1;
+        transform: translate(0, 0);
+    }
+    
+    /* Estilos del encabezado fijo/desplazado */
+    #header.scrolled {
+        @apply bg-black/95 backdrop-blur-md shadow-2xl shadow-black/50 py-4;
+    }
+
+    /* Transición de imágenes */
+    img {
+        transition: transform 0.7s cubic-bezier(0.33, 1, 0.68, 1);
+    }
+
+    /* Corrección de fondo fijo para móviles */
+    @media (max-width: 768px) {
+        section[style*="bg-fixed"] {
+            background-attachment: scroll !important;
+        }
+    }

@@ -1,0 +1,954 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+
+<!-- ========================================================================= -->
+<!-- --- FUNCIÓN DE NAVEGACIÓN CONTROLADA --- -->
+<!-- ========================================================================= -->
+<script>
+function navigateToServiceSection(section, tab) {
+    console.log("🚀 Navegando dentro de servicios.html a sección:", section, "tab:", tab);
+    
+    // 1. Guardar en localStorage
+    localStorage.setItem('targetSection', section);
+    localStorage.setItem('targetTab', tab);
+    
+    console.log("💾 Datos guardados en localStorage");
+    
+    // 2. Activar la pestaña correspondiente
+    const tabButtons = document.querySelectorAll('.nav-tab');
+    tabButtons.forEach(button => {
+        if (button.getAttribute('data-tab') === tab) {
+            button.click();
+        }
+    });
+    
+    // 3. Scroll a la sección si existe
+    setTimeout(() => {
+        const targetElement = document.getElementById(section);
+        if (targetElement) {
+            targetElement.scrollIntoView({ 
+                behavior: 'smooth',
+                block: 'start'
+            });
+        }
+    }, 100);
+}
+
+// Código para procesar la navegación al cargar la página
+document.addEventListener('DOMContentLoaded', function() {
+    const targetSection = localStorage.getItem('targetSection');
+    const targetTab = localStorage.getItem('targetTab');
+    
+    console.log("📖 Leyendo localStorage - Sección:", targetSection, "Tab:", targetTab);
+    
+    if (targetSection && targetTab) {
+        // Limpiar localStorage después de leer
+        localStorage.removeItem('targetSection');
+        localStorage.removeItem('targetTab');
+        
+        // Esperar a que la página se cargue completamente
+        setTimeout(() => {
+            // Activar la pestaña correspondiente
+            const tabButtons = document.querySelectorAll('.nav-tab');
+            tabButtons.forEach(button => {
+                if (button.getAttribute('data-tab') === targetTab) {
+                    console.log("🎯 Activando pestaña:", targetTab);
+                    button.click();
+                }
+            });
+            
+            // Scroll a la sección si existe
+            setTimeout(() => {
+                const targetElement = document.getElementById(targetSection);
+                if (targetElement) {
+                    console.log("🎯 Haciendo scroll a sección:", targetSection);
+                    targetElement.scrollIntoView({ 
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                } else {
+                    console.log("❌ No se encontró la sección:", targetSection);
+                }
+            }, 300);
+        }, 100);
+    }
+});
+</script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Claire | Perfil Exclusivo</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- CSS de animaciones -->
+<link rel="stylesheet" href="styles.css?v=3.3.4.5.2">  <!-- ✅ Con "styles.css?v=3.3.4.5.2" -->
+
+<!-- El resto igual -->
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link href="https://db.onlinewebfonts.com/c/354a5fa86a1c88463c3d87f65d030fa4?family=Secret+Scrypt+Two+W00+Regular" rel="stylesheet">
+
+<script>
+    tailwind.config = {
+        theme: {
+            extend: {
+                fontFamily: {
+                    'serif': ['"Cormorant Garamond"', 'serif'],
+                    'display': ['"Playfair Display"', 'serif'],
+                },
+                colors: {
+                    brandRed: {
+                        DEFAULT: '#C41E3A',
+                        dark: '#8B0000',
+                        light: '#E63946'
+                    },
+                    'zinc-950': '#0A0A0A'
+                }
+            }
+        }
+    }
+</script>
+    
+
+
+<!-- ========================================================================= -->
+<!-- --- SISTEMA DE ACTIVACIÓN AUTOMÁTICA DESDE INDEX.HTML --- -->
+<!-- ========================================================================= -->
+<script>
+// Ejecutar inmediatamente al cargar la página
+document.addEventListener('DOMContentLoaded', function() {
+    // Verificar si hay una sección objetivo guardada
+    const targetSection = localStorage.getItem('targetSection');
+    const targetTab = localStorage.getItem('targetTab');
+    
+    if (targetSection && targetTab) {
+        console.log("🎯 Activando sección automáticamente:", targetSection, "en tab:", targetTab);
+        
+        // Pequeño delay para asegurar que todo esté cargado
+        setTimeout(() => {
+            // Activar el tab primero
+            if (typeof switchTab === 'function') {
+                switchTab(targetTab);
+                
+                // Luego hacer scroll a la sección
+                setTimeout(() => {
+                    const targetElement = document.getElementById(targetSection);
+                    if (targetElement) {
+                        const header = document.getElementById('main-header');
+                        const headerHeight = header ? header.offsetHeight : 80;
+                        const targetPosition = targetElement.offsetTop - headerHeight - 20;
+                        
+                        window.scrollTo({
+                            top: targetPosition,
+                            behavior: 'smooth'
+                        });
+                        
+                        console.log("✅ Navegación automática completada");
+                    }
+                    
+                    // Limpiar el almacenamiento
+                    localStorage.removeItem('targetSection');
+                    localStorage.removeItem('targetTab');
+                }, 500);
+            }
+        }, 300);
+    }
+    
+    // También manejar hash directo en URL (para compatibilidad)
+    const hash = window.location.hash.replace('#', '');
+    if (hash) {
+        console.log("📍 Hash detectado en URL:", hash);
+        // El sistema en main.js se encargará de esto
+    }
+});
+</script>
+
+<!-- ========================================================================= -->
+<!-- --- SISTEMA DE ACTIVACIÓN AUTOMÁTICA DESDE INDEX.HTML --- -->
+<!-- ========================================================================= -->
+<script>
+// Ejecutar inmediatamente al cargar la página
+document.addEventListener('DOMContentLoaded', function() {
+    console.log("🔍 Buscando sección objetivo en localStorage...");
+    
+    // Verificar si hay una sección objetivo guardada
+    const targetSection = localStorage.getItem('targetSection');
+    const targetTab = localStorage.getItem('targetTab');
+    
+    if (targetSection && targetTab) {
+        console.log("🎯 Sección objetivo encontrada:", targetSection, "Tab:", targetTab);
+        
+        // Esperar a que main.js esté completamente cargado
+        const waitForMainJS = setInterval(() => {
+            if (typeof switchTab === 'function') {
+                clearInterval(waitForMainJS);
+                activateTargetSection(targetSection, targetTab);
+            }
+        }, 100);
+        
+        // Timeout de seguridad
+        setTimeout(() => {
+            if (typeof switchTab === 'function') {
+                activateTargetSection(targetSection, targetTab);
+            }
+        }, 2000);
+    }
+});
+
+function activateTargetSection(section, tab) {
+    console.log("🚀 Activando sección automáticamente...");
+    
+    // 1. Activar el tab primero
+    switchTab(tab);
+    console.log("✅ Tab activado:", tab);
+    
+    // 2. Esperar y luego hacer scroll a la sección
+    setTimeout(() => {
+        const targetElement = document.getElementById(section);
+        if (targetElement) {
+            const header = document.getElementById('main-header');
+            const headerHeight = header ? header.offsetHeight : 80;
+            const targetPosition = targetElement.offsetTop - headerHeight - 20;
+            
+            window.scrollTo({
+                top: targetPosition,
+                behavior: 'smooth'
+            });
+            
+            console.log("✅ Scroll completado a:", section);
+            
+            // 3. Limpiar el almacenamiento
+            localStorage.removeItem('targetSection');
+            localStorage.removeItem('targetTab');
+            console.log("🧹 localStorage limpiado");
+        } else {
+            console.log("❌ No se encontró el elemento:", section);
+        }
+    }, 600);
+}
+</script>
+</head>
+<body class="bg-zinc-950 text-gray-300 font-serif antialiased">
+
+    <!-- Header con Back -->
+<header id="main-header" class="fixed top-0 left-0 w-full z-50 bg-black/90 backdrop-blur-lg border-b border-zinc-800/50 py-4 transition-transform duration-500">
+  <div class="container mx-auto px-6 flex justify-between items-center">
+    <a href="index.html" class="flex items-center gap-2 text-white hover:text-brandRed transition-colors">
+      <i class="fas fa-arrow-left text-xl"></i>
+      <span class="hidden sm:inline text-sm uppercase tracking-wide">Volver</span>
+    </a>
+    <button id="notif-btn" class="text-white hover:text-brandRed transition-colors text-xl">
+      <i class="fas fa-bell"></i>
+    </button>
+  </div>
+</header>
+
+
+    <!-- Perfil Principal -->
+    <section class="pt-24 pb-8 bg-zinc-950 border-b border-zinc-900">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row items-center gap-8 md:gap-12">
+                <div class="flex-shrink-0 text-center w-full md:w-auto">
+                    <div class="flex justify-center mb-4">
+                        <img src="img1/exclusivo.jpg" alt="Claire" class="w-32 h-32 md:w-40 md:h-40 rounded-full object-cover border-4 border-zinc-800 shadow-lg">
+                    </div>
+                    <h1 class="font-display text-3xl md:text-4xl text-white mb-2">Claire</h1>
+                    <p class="text-brandRed font-semibold mb-2">Acompañante Independiente • Vaud, Lausana</p>
+                    <span class="inline-block text-xs bg-zinc-800 text-brandRed px-3 py-1 rounded-full font-semibold">Servicios premium</span>
+                </div>
+
+                <div class="grid grid-cols-3 gap-6 text-center w-full md:w-1/2">
+                    <div class="bg-zinc-900/50 p-4 border border-zinc-800 rounded-lg">
+                        <p class="text-2xl md:text-3xl font-display font-bold text-white">70</p>
+                        <p class="text-xs md:text-sm text-zinc-400 uppercase tracking-wider mt-1">Fotos</p>
+                    </div>
+                    <div class="bg-zinc-900/50 p-4 border border-zinc-800 rounded-lg">
+                        <p class="text-2xl md:text-3xl font-display font-bold text-white">15</p>
+                        <p class="text-xs md:text-sm text-zinc-400 uppercase tracking-wider mt-1">Vídeos</p>
+                    </div>
+                    <div class="bg-zinc-900/50 p-4 border border-zinc-800 rounded-lg">
+                        <p class="text-2xl md:text-3xl font-display font-bold text-white">294</p>
+                        <p class="text-xs md:text-sm text-zinc-400 uppercase tracking-wider mt-1">Miembros</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <main class="container mx-auto px-2 md:px-6 py-8">
+        <section class="flex flex-col sm:flex-row justify-center items-center gap-4 mb-8">
+            <div class="flex flex-col sm:flex-row gap-4 w-full sm:w-auto justify-center">
+                <a href="https://wa.me/1809786115" class="bg-green-600 hover:bg-green-700 text-white font-bold py-4 px-8 transition-colors duration-300 shadow-md shadow-green-600/20 flex items-center justify-center gap-2 text-base">
+                    <i class="fab fa-whatsapp"></i>
+                    Contactar
+                </a>
+                <button class="bg-brandRed hover:bg-brandRed-dark text-white font-bold py-4 px-8 transition-colors duration-300 shadow-md shadow-brandRed/20 text-base">
+                    Seguir
+                </button>
+            </div>
+        </section>
+
+        <section class="bg-zinc-900 border border-zinc-800 rounded-lg p-4 mb-10">
+            <p class="text-white">
+                <i class="fas fa-bullhorn text-brandRed mr-2"></i><strong>¡Estaré disponible el 24 de octubre de 2025 en la avenida España frente al hotel Venus!</strong> Ven a verme antes de que me lleve otro o reserva tu cita para ser el primero 💋🔞
+            </p>
+            <p class="text-right text-xs text-zinc-500 mt-2">Actualizado hace 1 mes</p>
+        </section>
+
+        <div class="w-full h-[0.5px] bg-gradient-to-r from-transparent via-red-600 to-transparent my-10"></div>
+
+        <!-- Show Privado Section -->
+<section id="show-privado" class="py-8 mb-12 bg-zinc-950">
+  <div class="px-2 md:px-4">
+    <div class="text-center mb-8">
+      <span class="text-brandRed uppercase tracking-[0.3em] text-sm font-semibold">En Vivo</span>
+      <h2 class="text-2xl md:text-3xl font-semibold text-white mt-2">Shows Privados</h2>
+    </div>
+
+    <!-- Muestra del último directo -->
+    <div class="max-w-6xl mx-auto">
+      <div class="bg-black border border-zinc-800 overflow-hidden rounded-lg shadow-2xl">
+        <!-- Reproductor de video -->
+        <div class="relative aspect-[4/3] md:aspect-video stream-offline">
+          <!-- Imagen de fondo -->
+          <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('img1/heropc.jpg')">
+            <div class="absolute inset-0 bg-black/70 backdrop-blur-[2px]"></div>
+            <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-black/30"></div>
+          </div>
+
+          <!-- Estado offline -->
+          <div class="absolute inset-0 flex flex-col items-center justify-center text-center p-4 md:p-6 z-10">
+            <div class="w-24 h-24 md:w-20 md:h-20 mb-4 flex items-center justify-center bg-black/60 backdrop-blur-md border border-zinc-600/50 rounded-full shadow-2xl">
+              <i class="fas fa-video-slash text-3xl md:text-2xl text-brandRed"></i>
+            </div>
+            <h3 class="text-2xl md:text-xl font-semibold text-white">Stream Offline</h3>
+          </div>
+
+          <!-- Indicador VIP -->
+          <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black to-transparent p-4 md:p-6 z-10">
+            <div class="flex justify-end">
+              <span class="bg-brandRed/20 text-brandRed text-xs px-2 py-1 rounded">VIP</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Información del stream -->
+        <div class="p-4 bg-zinc-900/90 backdrop-blur-sm border-t border-zinc-700/50">
+          <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-3 md:gap-4">
+            <div>
+              <h3 class="text-base md:text-lg font-semibold text-white">Live Exclusivo para Miembros Premium</h3>
+              <p class="text-xs md:text-sm text-zinc-400 mt-1">Última transmisión: 15 de octubre de 2025</p>
+            </div>
+            <div class="flex items-center gap-4 md:gap-6">
+              <div class="flex items-center gap-2 text-zinc-400 text-xs md:text-sm">
+                <i class="fas fa-clock text-brandRed"></i>
+                <span>1:24:15</span>
+              </div>
+              <div class="flex items-center gap-2 text-zinc-400 text-xs md:text-sm">
+                <i class="fas fa-eye text-brandRed"></i>
+                <span>294 espectadores</span>
+              </div>
+              <span class="bg-brandRed/20 text-brandRed text-xs px-3 py-1 rounded-full border border-brandRed/30">PREMIUM</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Botón de reserva -->
+    <div class="text-center mt-8">
+      <button onclick="openBookingModal('show-privado')" 
+        style="font-family: 'Cormorant Garamond', serif; font-weight: 700; letter-spacing: 0.08em;"
+        class="inline-flex items-center justify-center bg-brandRed text-white px-4 py-3 text-xs uppercase tracking-wider font-extrabold hover:bg-white hover:text-brandRed transition-all duration-300 border border-brandRed">
+    Reservar Show
+</button>
+    </div>
+  </div>
+</section>
+
+<!-- Separador fino rojo -->
+<div class="w-full h-[1px] bg-brandRed my-8"></div>
+
+
+<nav class="fixed md:static bottom-0 left-0 right-0 z-50 bg-black/90 md:bg-transparent backdrop-blur-md border-t md:border-none border-zinc-800 py-2 md:py-4">
+  <ul class="flex justify-around md:justify-center md:gap-12 text-center">
+    
+    <!-- Galería -->
+    <li>
+      <button data-tab="galeria" data-section="galeria"
+        class="nav-tab active flex flex-col items-center gap-2 p-2 md:p-3 relative group text-white transition-all duration-300">
+        <i class="fa-solid fa-photo-film text-lg md:text-xl"></i>
+        <span class="text-[10px] md:text-xs font-semibold uppercase tracking-wide">Galería</span>
+        <span class="absolute bottom-0 left-0 right-0 h-[2px] bg-brandRed scale-x-0 group-hover:scale-x-100 transition-transform origin-center"></span>
+      </button>
+    </li>
+
+    <!-- Citas -->
+    <li>
+      <button data-tab="citas" data-section="citas"
+        class="nav-tab flex flex-col items-center gap-2 p-2 md:p-3 relative group text-zinc-400 hover:text-white transition-all duration-300">
+        <i class="fas fa-glass-cheers text-lg md:text-xl"></i>
+        <span class="text-[10px] md:text-xs font-semibold uppercase tracking-wide">Citas</span>
+        <span class="absolute bottom-0 left-0 right-0 h-[2px] bg-brandRed scale-x-0 group-hover:scale-x-100 transition-transform origin-center"></span>
+      </button>
+    </li>
+
+    <!-- Privado -->
+    <li>
+      <button data-tab="premium" data-section="llamada-privada"
+        class="nav-tab flex flex-col items-center gap-2 p-2 md:p-3 relative group text-zinc-400 hover:text-white transition-all duration-300">
+        <i class="fas fa-mobile-alt text-lg md:text-xl"></i>
+        <span class="text-[10px] md:text-xs font-semibold uppercase tracking-wide">Privado</span>
+        <span class="absolute bottom-0 left-0 right-0 h-[2px] bg-brandRed scale-x-0 group-hover:scale-x-100 transition-transform origin-center"></span>
+      </button>
+    </li>
+
+    <!-- Más Info -->
+    <li>
+      <button data-tab="info" data-section="info"
+        class="nav-tab flex flex-col items-center gap-2 p-2 md:p-3 relative group text-zinc-400 hover:text-white transition-all duration-300">
+        <i class="fas fa-info-circle text-lg md:text-xl"></i>
+        <span class="text-[10px] md:text-xs font-semibold uppercase tracking-wide">Más Info</span>
+        <span class="absolute bottom-0 left-0 right-0 h-[2px] bg-brandRed scale-x-0 group-hover:scale-x-100 transition-transform origin-center"></span>
+      </button>
+    </li>
+
+  </ul>
+</nav>
+
+        <!-- Contenido de las pestañas -->
+<div id="galeria" class="tab-content active">
+    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+        
+        <!-- Imágenes visibles (solo 4) -->
+         <div id="fotos-videos" class="relative group aspect-square">
+            <img src="img1/imgp6.jpg" class="w-full h-full object-cover rounded-md zoomable" alt="Galería de Claire 3">
+        </div>
+        <div class="relative group aspect-square">
+            <img src="img1/hero-mobil.jpg" class="w-full h-full object-cover rounded-md zoomable" alt="Galería de Claire 4">
+        </div>
+        <div class="relative group aspect-square">
+            <img src="img1/imgp2.jpg" class="w-full h-full object-cover rounded-md zoomable" alt="Galería de Claire 2">
+        </div>
+        <div class="relative group aspect-square">
+            <img src="img1/exclusivo.jpg" class="w-full h-full object-cover rounded-md zoomable" alt="Galería de Claire 1">
+        </div>
+
+        <!-- Contenido bloqueado (6 con candado) -->
+        <div class="relative group aspect-square cursor-pointer" onclick="openBookingModal('contenido premium')">
+            <div class="absolute inset-0 bg-gradient-to-t from-black via-black/70 to-black/30 rounded-md"></div>
+            <div class="absolute inset-0 flex flex-col items-center justify-center text-white p-4 text-center">
+                <div class="w-12 h-12 mb-3 flex items-center justify-center bg-black/60 backdrop-blur-sm border border-brandRed rounded-full shadow-lg shadow-brandRed/50">
+                    <i class="fas fa-lock text-lg text-brandRed"></i>
+                </div>
+                <h3 class="font-display text-sm font-semibold">Contenido Exclusivo</h3>
+                <p class="text-[10px] uppercase tracking-widest text-zinc-500 mt-1">Miembros Premium</p>
+            </div>
+            <img src="img1/imgp5.jpg" class="w-full h-full object-cover rounded-md filter blur-md opacity-40" alt="Contenido bloqueado de Claire">
+        </div>
+
+        <div class="relative group aspect-square cursor-pointer" onclick="openBookingModal('contenido premium')">
+            <div class="absolute inset-0 bg-gradient-to-t from-black via-black/70 to-black/30 rounded-md"></div>
+            <div class="absolute inset-0 flex flex-col items-center justify-center text-white p-4 text-center">
+                <div class="w-12 h-12 mb-3 flex items-center justify-center bg-black/60 backdrop-blur-sm border border-brandRed rounded-full shadow-lg shadow-brandRed/50">
+                    <i class="fas fa-lock text-lg text-brandRed"></i>
+                </div>
+                <h3 class="font-display text-sm font-semibold">Contenido Exclusivo</h3>
+                <p class="text-[10px] uppercase tracking-widest text-zinc-500 mt-1">Miembros Premium</p>
+            </div>
+            <img src="img1/imgp4.jpg" class="w-full h-full object-cover rounded-md filter blur-md opacity-40" alt="Contenido bloqueado de Claire">
+        </div>
+
+        <div class="relative group aspect-square cursor-pointer" onclick="openBookingModal('contenido premium')">
+            <div class="absolute inset-0 bg-gradient-to-t from-black via-black/70 to-black/30 rounded-md"></div>
+            <div class="absolute inset-0 flex flex-col items-center justify-center text-white p-4 text-center">
+                <div class="w-12 h-12 mb-3 flex items-center justify-center bg-black/60 backdrop-blur-sm border border-brandRed rounded-full shadow-lg shadow-brandRed/50">
+                    <i class="fas fa-lock text-lg text-brandRed"></i>
+                </div>
+                <h3 class="font-display text-sm font-semibold">Contenido Exclusivo</h3>
+                <p class="text-[10px] uppercase tracking-widest text-zinc-500 mt-1">Miembros Premium</p>
+            </div>
+            <img src="img1/imgp7.jpg" class="w-full h-full object-cover rounded-md filter blur-md opacity-40" alt="Contenido bloqueado de Claire">
+        </div>
+
+        <div class="relative group aspect-square cursor-pointer" onclick="openBookingModal('contenido premium')">
+            <div class="absolute inset-0 bg-gradient-to-t from-black via-black/70 to-black/30 rounded-md"></div>
+            <div class="absolute inset-0 flex flex-col items-center justify-center text-white p-4 text-center">
+                <div class="w-12 h-12 mb-3 flex items-center justify-center bg-black/60 backdrop-blur-sm border border-brandRed rounded-full shadow-lg shadow-brandRed/50">
+                    <i class="fas fa-lock text-lg text-brandRed"></i>
+                </div>
+                <h3 class="font-display text-sm font-semibold">Contenido Exclusivo</h3>
+                <p class="text-[10px] uppercase tracking-widest text-zinc-500 mt-1">Miembros Premium</p>
+            </div>
+            <img src="img1/imgp5.jpg" class="w-full h-full object-cover rounded-md filter blur-md opacity-40" alt="Contenido bloqueado de Claire">
+        </div>
+
+        <div class="relative group aspect-square cursor-pointer" onclick="openBookingModal('contenido premium')">
+            <div class="absolute inset-0 bg-gradient-to-t from-black via-black/70 to-black/30 rounded-md"></div>
+            <div class="absolute inset-0 flex flex-col items-center justify-center text-white p-4 text-center">
+                <div class="w-12 h-12 mb-3 flex items-center justify-center bg-black/60 backdrop-blur-sm border border-brandRed rounded-full shadow-lg shadow-brandRed/50">
+                    <i class="fas fa-lock text-lg text-brandRed"></i>
+                </div>
+                <h3 class="font-display text-sm font-semibold">Contenido Exclusivo</h3>
+                <p class="text-[10px] uppercase tracking-widest text-zinc-500 mt-1">Miembros Premium</p>
+            </div>
+            <img src="img1/imgp2.jpg" class="w-full h-full object-cover rounded-md filter blur-md opacity-40" alt="Contenido bloqueado de Claire">
+        </div>
+
+        <div class="relative group aspect-square cursor-pointer" onclick="openBookingModal('contenido premium')">
+            <div class="absolute inset-0 bg-gradient-to-t from-black via-black/70 to-black/30 rounded-md"></div>
+            <div class="absolute inset-0 flex flex-col items-center justify-center text-white p-4 text-center">
+                <div class="w-12 h-12 mb-3 flex items-center justify-center bg-black/60 backdrop-blur-sm border border-brandRed rounded-full shadow-lg shadow-brandRed/50">
+                    <i class="fas fa-lock text-lg text-brandRed"></i>
+                </div>
+                <h3 class="font-display text-sm font-semibold">Contenido Exclusivo</h3>
+                <p class="text-[10px] uppercase tracking-widest text-zinc-500 mt-1">Miembros Premium</p>
+            </div>
+            <img src="img1/imgp3.jpg" class="w-full h-full object-cover rounded-md filter blur-md opacity-40" alt="Contenido bloqueado de Claire">
+        </div>
+
+    </div>
+</div>
+
+        <div id="citas" class="tab-content">
+  <div class="max-w-4xl mx-auto">
+    <!-- Encabezado -->
+    <div class="text-center mb-12 relative">
+      <h2 class="font-display text-3xl md:text-4xl font-bold text-white mb-3">ENCUENTROS</h2>
+      <p class="text-zinc-400 uppercase tracking-widest text-sm">RD • USA • Quebec</p>
+    </div>
+
+    <div class="grid lg:grid-cols-2 gap-8">
+      <!-- Columna Izquierda -->
+      <div class="space-y-6">
+        <!-- Tarjeta de Presentación -->
+        <div class="bg-gradient-to-br from-zinc-900 to-black border-l-4 border-brandRed p-6 relative">
+          <div class="absolute -top-3 -left-3 w-6 h-6 bg-brandRed flex items-center justify-center">
+            <i class="fas fa-heart text-white text-xs"></i>
+          </div>
+          <h3 class="font-display text-xl text-white mb-3">CLAIRE</h3>
+          <p class="text-zinc-300 text-sm leading-relaxed">
+            Discreción total para encuentros espontáneos, llenos de una pasión inigualable.
+            Prepárate para experiencias ardientes y memorables bajo las sábanas.
+          </p>
+        </div>
+
+        <!-- Ubicación -->
+        <div class="bg-zinc-900 p-5 border border-zinc-800">
+          <div class="flex items-center gap-3 mb-3">
+            <div class="w-8 h-8 bg-brandRed/20 rounded flex items-center justify-center">
+              <i class="fas fa-map-marker-alt text-brandRed text-sm"></i>
+            </div>
+            <h3 class="font-display text-lg text-white">UBICACIÓN</h3>
+          </div>
+          <div class="text-zinc-300 text-sm space-y-2">
+               <p>
+  Estaré por las noches en la <span class="text-white font-medium">Av. España 50</span>, frente al <span class="text-white font-medium">Hotel Tibitabo</span>, de <span class="text-brandRed font-medium">9 p.m. a 1 a.m.</span>  
+  Ven a verme pronto… no aguantes la tentación 💋
+</p>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- Columna Derecha -->
+      <div class="space-y-6">
+        <!-- Tarifas -->
+        <div class="bg-zinc-900 p-5 border border-zinc-800">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-8 h-8 bg-brandRed/20 rounded flex items-center justify-center">
+              <i class="fas fa-euro-sign text-brandRed text-sm"></i>
+            </div>
+            <h3 class="font-display text-lg text-white">TARIFAS</h3>
+          </div>
+
+          <div class="space-y-3">
+            <div class="flex items-center justify-between p-3 bg-zinc-800/30 hover:bg-zinc-800/50 transition-colors cursor-pointer">
+              <div>
+                <div class="text-white font-medium">1 HORA</div>
+                <div class="text-zinc-400 text-xs">Encuentro básico</div>
+              </div>
+              <div class="text-right">
+                <div class="text-brandRed font-bold text-lg">400€</div>
+                <div class="text-zinc-500 text-xs">Domicilio/Hotel</div>
+              </div>
+            </div>
+
+            <div class="flex items-center justify-between p-3 bg-zinc-800/30 hover:bg-zinc-800/50 transition-colors cursor-pointer">
+              <div>
+                <div class="text-white font-medium">2 HORAS</div>
+                <div class="text-zinc-400 text-xs">Experiencia extendida</div>
+              </div>
+              <div class="text-right">
+                <div class="text-brandRed font-bold text-lg">700€</div>
+                <div class="text-zinc-500 text-xs">-150€ por hora extra</div>
+              </div>
+            </div>
+
+            <div class="flex items-center justify-between p-3 bg-zinc-800/30 hover:bg-zinc-800/50 transition-colors cursor-pointer">
+              <div>
+                <div class="text-white font-medium">NOCHES</div>
+                <div class="text-zinc-400 text-xs">8 horas de placer</div>
+              </div>
+              <div class="text-right">
+                <div class="text-brandRed font-bold text-lg">1.800€</div>
+                <div class="text-zinc-500 text-xs">Hotel incluido</div>
+              </div>
+            </div>
+
+            <div class="flex items-center justify-between p-3 bg-brandRed/10 border border-brandRed/20">
+              <div>
+                <div class="text-white font-medium">24 HORAS</div>
+                <div class="text-zinc-300 text-xs">Experiencia premium</div>
+              </div>
+              <div class="text-right">
+                <div class="text-brandRed font-bold text-lg">3.000€</div>
+                <div class="text-zinc-300 text-xs">Todo incluido</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Idiomas -->
+        <div class="bg-zinc-900 p-5 border border-zinc-800">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-8 h-8 bg-brandRed/20 rounded flex items-center justify-center">
+              <i class="fas fa-language text-brandRed text-sm"></i>
+            </div>
+            <h3 class="font-display text-lg text-white">IDIOMAS</h3>
+          </div>
+          <div class="space-y-3">
+            <div class="flex items-center justify-between">
+              <span class="text-zinc-300 text-sm">FR • Français</span>
+              <div class="flex gap-1">
+                <div class="w-3 h-3 bg-brandRed rounded-full"></div>
+                <div class="w-3 h-3 bg-brandRed rounded-full"></div>
+                <div class="w-3 h-3 bg-brandRed rounded-full"></div>
+                <div class="w-3 h-3 bg-brandRed rounded-full"></div>
+                <div class="w-3 h-3 bg-brandRed rounded-full"></div>
+              </div>
+            </div>
+
+            <div class="flex items-center justify-between">
+              <span class="text-zinc-300 text-sm">ES • Español</span>
+              <div class="flex gap-1">
+                <div class="w-3 h-3 bg-brandRed rounded-full"></div>
+                <div class="w-3 h-3 bg-brandRed rounded-full"></div>
+                <div class="w-3 h-3 bg-brandRed rounded-full"></div>
+                <div class="w-3 h-3 bg-brandRed rounded-full"></div>
+                <div class="w-3 h-3 bg-zinc-600 rounded-full"></div>
+              </div>
+            </div>
+
+            <div class="flex items-center justify-between">
+              <span class="text-zinc-300 text-sm">EN • English</span>
+              <div class="flex gap-1">
+                <div class="w-3 h-3 bg-brandRed rounded-full"></div>
+                <div class="w-3 h-3 bg-brandRed rounded-full"></div>
+                <div class="w-3 h-3 bg-brandRed rounded-full"></div>
+                <div class="w-3 h-3 bg-zinc-600 rounded-full"></div>
+                <div class="w-3 h-3 bg-zinc-600 rounded-full"></div>
+              </div>
+            </div>
+
+            <div class="flex items-center justify-between">
+              <span class="text-zinc-300 text-sm">DE • Deutsch</span>
+              <div class="flex gap-1">
+                <div class="w-3 h-3 bg-brandRed rounded-full"></div>
+                <div class="w-3 h-3 bg-brandRed rounded-full"></div>
+                <div class="w-3 h-3 bg-zinc-600 rounded-full"></div>
+                <div class="w-3 h-3 bg-zinc-600 rounded-full"></div>
+                <div class="w-3 h-3 bg-zinc-800 rounded-full"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Botón -->
+        <div class="text-center pt-4">
+          <a href="https://wa.me/1809786115"
+             class="inline-flex items-center gap-3 bg-green-600 hover:bg-green-700 text-white font-bold py-4 px-8 transition-all duration-300 shadow-lg shadow-green-600/30 hover:shadow-green-600/50 hover:scale-105">
+            <i class="fab fa-whatsapp text-xl"></i>
+            <span>CONTACTAR POR WHATSAPP</span>
+          </a>
+          <p class="text-zinc-500 text-xs mt-3 uppercase tracking-widest">
+            Asistente siempre disponible
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+        <div id="premium" id="llamada-privada" class="tab-content">
+    <div class="max-w-6xl mx-auto">
+        <!-- Encabezado con estilo único -->
+        <div id="llamada-privada" class="text-center mb-16 relative">
+            <h2 class="font-display text-3xl md:text-4xl font-bold text-white mb-3">COMUNICACIÓN VIP</h2>
+            <p class="text-zinc-400 uppercase tracking-widest text-sm">Conexiones íntimas • Momentos exclusivos</p>
+        </div>
+
+        <div class="grid lg:grid-cols-2 gap-8 mb-16">
+            <!-- Llamadas VIP -->
+            <div class="bg-gradient-to-br from-zinc-900 to-black border border-zinc-800 p-8 relative overflow-hidden">
+                <div class="absolute top-0 right-0 w-32 h-32 bg-brandRed/5 rounded-full -translate-y-16 translate-x-16"></div>
+                <div class="relative">
+                    <!-- Header de la sección -->
+                    <div class="flex items-center gap-4 mb-8">
+                        <div class="w-12 h-12 bg-gradient-to-br from-brandRed to-brandRed-dark rounded flex items-center justify-center shadow-lg shadow-brandRed/20">
+                            <i class="fas fa-phone-alt text-white text-lg"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-display text-2xl text-white">LLAMADAS</h3>
+                            <p class="text-zinc-400 text-sm">Conversaciones íntimas</p>
+                        </div>
+                    </div>
+
+                    <!-- Opciones de llamadas -->
+                    <div class="space-y-4 mb-8">
+                        <!-- Llamada Normal -->
+                        <div class="flex items-center justify-between p-4 bg-zinc-800/30 hover:bg-zinc-800/50 transition-all duration-300 cursor-pointer group border-l-4 border-brandRed">
+                            <div class="flex items-center gap-4">
+                                <div class="w-10 h-10 bg-brandRed/20 rounded flex items-center justify-center group-hover:scale-110 transition-transform">
+                                    <i class="fas fa-phone text-brandRed text-sm"></i>
+                                </div>
+                                <div>
+                                    <div class="text-white font-medium">LLAMADA NORMAL</div>
+                                    <div class="text-zinc-400 text-xs">30 minutos • Audio</div>
+                                </div>
+                            </div>
+                            <div class="text-right">
+                                <div class="text-brandRed font-bold text-xl">50€</div>
+                                <div class="text-zinc-500 text-xs">+5€ min extra</div>
+                            </div>
+                        </div>
+
+                        <!-- Video Llamada -->
+                        <div class="flex items-center justify-between p-4 bg-zinc-800/30 hover:bg-zinc-800/50 transition-all duration-300 cursor-pointer group border-l-4 border-brandRed">
+                            <div class="flex items-center gap-4">
+                                <div class="w-10 h-10 bg-brandRed/20 rounded flex items-center justify-center group-hover:scale-110 transition-transform">
+                                    <i class="fas fa-video text-brandRed text-sm"></i>
+                                </div>
+                                <div>
+                                    <div class="text-white font-medium">VIDEO LLAMADA</div>
+                                    <div class="text-zinc-400 text-xs">30 minutos • Video</div>
+                                </div>
+                            </div>
+                            <div class="text-right">
+                                <div class="text-brandRed font-bold text-xl">80€</div>
+                                <div class="text-zinc-500 text-xs">+8€ min extra</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Botón de reserva -->
+<button onclick="window.location.href='contacto-directo.html'" 
+        class="w-full bg-gradient-to-r from-brandRed to-brandRed-dark hover:from-brandRed-dark hover:to-brandRed text-white font-bold py-4 px-6 transition-all duration-300 shadow-lg shadow-brandRed/20 hover:shadow-brandRed/40 hover:scale-105 group">
+    <div class="flex items-center justify-center gap-3">
+        <i class="fas fa-calendar-plus group-hover:scale-110 transition-transform"></i>
+        <span>RESERVAR LLAMADA VIP</span>
+    </div>
+</button>
+                </div>
+            </div>
+
+            <!-- Mensajes Privados -->
+            <div class="bg-gradient-to-br from-zinc-900 to-black border border-zinc-800 p-8 relative overflow-hidden">
+                <div class="absolute bottom-0 left-0 w-32 h-32 bg-brandRed/5 rounded-full translate-y-16 -translate-x-16"></div>
+                <div class="relative">
+                    <!-- Header de la sección -->
+                    <div class="flex items-center gap-4 mb-8">
+                        <div class="w-12 h-12 bg-gradient-to-br from-brandRed to-brandRed-dark rounded flex items-center justify-center shadow-lg shadow-brandRed/20">
+                            <i class="fas fa-comments text-white text-lg"></i>
+                        </div>
+                        <div>
+                            <h3 id="mensajes-privados" class="font-display text-2xl text-white">MENSAJES</h3>
+                            <p class="text-zinc-400 text-sm">Comunicación exclusiva</p>
+                        </div>
+                    </div>
+
+                    <!-- Opciones de mensajes -->
+                    <div class="space-y-4 mb-8">
+                        <!-- Mensaje Simple -->
+                        <div class="flex items-center justify-between p-4 bg-zinc-800/30 hover:bg-zinc-800/50 transition-all duration-300 cursor-pointer group border-l-4 border-brandRed">
+                            <div class="flex items-center gap-4">
+                                <div class="w-10 h-10 bg-brandRed/20 rounded flex items-center justify-center group-hover:scale-110 transition-transform">
+                                    <i class="fas fa-comment text-brandRed text-sm"></i>
+                                </div>
+                                <div>
+                                    <div class="text-white font-medium">MENSAJE SIMPLE</div>
+                                    <div class="text-zinc-400 text-xs">Respuesta personal</div>
+                                </div>
+                            </div>
+                            <div class="text-right">
+                                <div class="text-brandRed font-bold text-xl">10€</div>
+                                <div class="text-zinc-500 text-xs">por mensaje</div>
+                            </div>
+                        </div>
+
+                        <!-- Paquete Mensajes -->
+                        <div class="flex items-center justify-between p-4 bg-zinc-800/30 hover:bg-zinc-800/50 transition-all duration-300 cursor-pointer group border-l-4 border-brandRed">
+                            <div class="flex items-center gap-4">
+                                <div class="w-10 h-10 bg-brandRed/20 rounded flex items-center justify-center group-hover:scale-110 transition-transform">
+                                    <i class="fas fa-comment-dots text-brandRed text-sm"></i>
+                                </div>
+                                <div>
+                                    <div class="text-white font-medium">PAQUETE VIP</div>
+                                    <div class="text-zinc-400 text-xs">10 mensajes • -40%</div>
+                                </div>
+                            </div>
+                            <div class="text-right">
+                                <div class="text-brandRed font-bold text-xl">60€</div>
+                                <div class="text-zinc-500 text-xs">6€ c/u</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Botón de chat -->
+<button onclick="window.location.href='contacto-directo.html'" 
+        class="w-full bg-gradient-to-r from-brandRed to-brandRed-dark hover:from-brandRed-dark hover:to-brandRed text-white font-bold py-4 px-6 transition-all duration-300 shadow-lg shadow-brandRed/20 hover:shadow-brandRed/40 hover:scale-105 group">
+    <div class="flex items-center justify-center gap-3">
+        <i class="fas fa-paper-plane group-hover:scale-110 transition-transform"></i>
+        <span>INICIAR CHAT PRIVADO</span>
+    </div>
+</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="info" class="tab-content">
+    <div class="max-w-4xl mx-auto">
+        <!-- Encabezado con estilo único -->
+        <div class="text-center mb-12 relative">
+            <h2 class="font-display text-3xl md:text-4xl font-bold text-white mb-3">CLAIRE</h2>
+            <p class="text-zinc-400 uppercase tracking-widest text-sm">Viajera • Aventurera • Espontánea</p>
+        </div>
+
+        <!-- Sección principal con parallax -->
+        <div class="relative min-h-[500px] mb-12 overflow-hidden rounded-xl border border-zinc-800">
+            <!-- Imagen de fondo con efecto parallax -->
+            <div class="absolute inset-0 bg-cover bg-center bg-fixed transform hover:scale-105 transition-transform duration-700" 
+                 style="background-image: url('https://images.unsplash.com/photo-1519677100203-a0e668c92439?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80')">
+                <div class="absolute inset-0 bg-black/40 backdrop-blur-[1px]"></div>
+            </div>
+            
+            <!-- Contenido superpuesto -->
+            <div class="relative z-10 flex items-center justify-center h-full p-8">
+                <div class="text-center text-white max-w-2xl">
+                    <div class="w-24 h-24 mx-auto mb-6 rounded-full border-4 border-white/30 overflow-hidden shadow-2xl">
+                        <img src="img1/img-off.jpg" 
+                             alt="Claire" 
+                             class="w-full h-full object-cover hover:scale-110 transition-transform duration-500">
+                    </div>
+                    <h3 class="font-display text-2xl md:text-3xl font-bold mb-4 text-shadow">¡Hola! soy yo de nuevo</h3>
+                    <p class="text-lg md:text-xl mb-6 text-white/90 text-shadow">
+                        Actualmente disfrutando de Santo Domingo 🌴
+                    </p>
+                    <div class="bg-white/10 backdrop-blur-md border border-white/20 rounded-lg p-6 inline-block max-w-md">
+                        <p class="text-white/95 leading-relaxed mb-4">
+                            "Es la secion de mas info asi que supongo que tengo que decir algo mas jajaja contare un poco de mi, soy una viajera apasionada que ama explorar nuevas ciudades y culturas. 
+                            Cada pocos meses elijo un destino diferente para vivir experiencias únicas 
+                            y conocer personas maravillosas."
+                        </p>
+                        <p class="text-white/95 leading-relaxed mb-4">
+                            "En mis directos siempre comparto mi ubicación actual. Me encanta cuando 
+                            vienen a saludarme, incluso si no contratan servicios. Un abrazo, una 
+                            conversación agradable o simplemente conocernos puede hacer el día especial."
+                        </p>
+                        <p class="color-white font-semibold text-lg">
+                            ¡Te deseo un día maravilloso y espero verte pronto! ✨
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tarjetas informativas -->
+        <div class="grid md:grid-cols-2 gap-6 mb-12">
+            <!-- Tarjeta de Viajes -->
+            <div class="bg-gradient-to-br from-zinc-900 to-black border border-zinc-800 rounded-xl p-6 hover:border-brandRed/50 transition-all duration-300 group">
+                <div class="flex items-center gap-4 mb-4">
+                    <div class="w-12 h-12 bg-brandRed/20 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
+                        <i class="fas fa-plane text-brandRed text-lg"></i>
+                    </div>
+                    <h3 class="font-display text-xl text-white">Mi Estilo de Vida</h3>
+                </div>
+                <p class="text-zinc-300 text-sm leading-relaxed">
+                    Nómada por elección, me encanta cambiar de escenario cada temporada. 
+                    Desde Europa hasta el Caribe, cada lugar me inspira de manera diferente 
+                    y me permite conectar con personas únicas.
+                </p>
+            </div>
+
+            <!-- Tarjeta de Encuentros -->
+            <div class="bg-gradient-to-br from-zinc-900 to-black border border-zinc-800 rounded-xl p-6 hover:border-brandRed/50 transition-all duration-300 group">
+                <div class="flex items-center gap-4 mb-4">
+                    <div class="w-12 h-12 bg-brandRed/20 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
+                        <i class="fas fa-heart text-brandRed text-lg"></i>
+                    </div>
+                    <h3 class="font-display text-xl text-white">Encuentros Espontáneos</h3>
+                </div>
+                <p class="text-zinc-300 text-sm leading-relaxed">
+                    No necesitas reservar una cita para conocerme. Cuando anuncio mi ubicación 
+                    en directo, siempre estoy feliz de recibir visitas. Una sonrisa, un saludo 
+                    cordial o simplemente compartir un momento.
+                </p>
+            </div>
+        </div>
+
+        <!-- Mensaje final animado -->
+        <div class="text-center bg-gradient-to-r from-zinc-900 to-black border border-zinc-800 rounded-xl p-8 relative overflow-hidden">
+            <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-brandRed to-transparent animate-pulse"></div>
+            <div class="relative z-10">
+                <i class="fas fa-star text-brandRed text-2xl mb-4 animate-bounce"></i>
+                <h3 class="font-display text-2xl text-white mb-4">¡Gracias por visitarme!</h3>
+                <p class="text-zinc-300 text-lg leading-relaxed mb-4">
+                    Donde sea que estés, whatever que estés haciendo...
+                </p>
+                <p class="text-brandRed font-display text-2xl font-bold animate-pulse">
+                    ¡Que tengas un día increíble! 🌟
+                </p>
+                <div class="mt-6 flex justify-center gap-4 text-zinc-500">
+                    <i class="fas fa-sun fa-spin"></i>
+                    <i class="fas fa-moon"></i>
+                    <i class="fas fa-heart beat"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+</main>
+    
+    <footer class="text-center py-6 border-t border-zinc-800 mt-12">
+        <p class="text-xs text-zinc-500">&copy; 2025 Amalia. Todos los derechos reservados.</p>
+    </footer>
+
+    <!-- Modal para zoom de imágenes -->
+    <div id="imageModal" class="modal">
+        <span class="close">&times;</span>
+        <img class="modal-content" id="modalImage">
+    </div>
+
+<script src="main.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
