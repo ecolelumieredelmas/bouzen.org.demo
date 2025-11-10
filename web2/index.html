@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galería | Amelia</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --bg-primary: #031521; 
+            --accent-color: #9b59b6;
+            --text-color: #e0e0e0;
+            --border-color: #555;
+            --overlay-color: rgba(3, 21, 33, 0.5); 
+        }
+        
+        body {
+            font-family: "Playfair Display", serif;
+            background-color: var(--bg-primary);
+            color: var(--text-color);
+        }
+        
+        h1, h2, h3, h4, .font-serif {
+            font-family: "Cormorant Garamond", serif;
+        }
+        
+        .gallery-item {
+            transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.4s ease;
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.03);
+            z-index: 10;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.75);
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-black overflow-hidden">
+
+    <header id="header" class="fixed top-0 left-0 w-full z-50 bg-transparent transition-all duration-500">
+  <div class="container mx-auto px-6 flex justify-between items-center py-3">
+    
+    <!-- Logo -->
+    <a href="inicio.html" class="group flex items-center gap-2">
+      <div class="w-10 h-10 rounded-full bg-gradient-to-br from-[#9b59b6] to-[#e74c3c] flex items-center justify-center shadow-lg shadow-purple-500/30 group-hover:shadow-purple-500/50 transition-all duration-300 group-hover:scale-110">
+        <span class="text-white font-bold text-lg">TL</span>
+      </div>
+      <span class="text-xl font-['Cormorant_Garamond'] font-bold bg-gradient-to-r from-white via-purple-200 to-white bg-clip-text text-transparent tracking-wider">ThreeLove</span>
+    </a>
+
+    <!-- Navegación Escritorio -->
+    <nav class="hidden md:flex items-center gap-4">
+      <a href="inicio.html" class="text-white/80 hover:text-purple-300 transition-colors duration-200 font-medium">Home</a>
+      <a href="gallery.html" class="text-white/80 hover:text-purple-300 transition-colors duration-200 font-medium">Galería</a>
+      <a href="about.html" class="text-white/80 hover:text-purple-300 transition-colors duration-200 font-medium">Sobre nosotros</a>
+      <a href="gallery.html#live-section-id" class="text-white/80 hover:text-purple-300 transition-colors duration-200 font-medium">Live</a>
+    </nav>
+
+    <!-- Botón WhatsApp destacado -->
+    <a href="https://wa.me/18095550124" target="_blank"
+       class="hidden md:flex items-center gap-2 bg-gradient-to-r from-[#9b59b6] to-[#8a4bac] hover:from-[#8a4bac] hover:to-[#7a3b9c] text-white font-semibold px-4 py-2 rounded-full transition-all duration-300 shadow-lg shadow-purple-500/30 hover:shadow-purple-500/50 hover:scale-105 overflow-hidden relative">
+      <i class="fa-brands fa-whatsapp fa-lg relative z-10"></i>
+      <span class="relative z-10">Contactar</span>
+    </a>
+
+    <!-- Botón hamburguesa móvil -->
+    <button id="menu-toggle" class="md:hidden w-10 h-10 rounded-lg bg-white/5 hover:bg-white/10 text-white flex items-center justify-center transition-all duration-300 border border-white/10 z-[100]">
+      <i class="fa-solid fa-bars"></i>
+    </button>
+  </div>
+
+  <!-- Menú móvil -->
+  <nav id="nav-mobile" class="fixed top-0 right-0 h-screen w-3/4 max-w-sm md:hidden z-50 shadow-2xl overflow-y-auto transform translate-x-full transition-transform duration-500 ease-out">
+    <div class="absolute inset-0 bg-cover bg-center" style="background-image:url('img/amelia-1.WebP');">
+      <div class="absolute inset-0 bg-gradient-to-br from-[#1a1a2e] via-[#16213e]/95 to-black/90"></div>
+    </div>
+
+    <div class="relative flex flex-col h-full">
+      <!-- Header del menú móvil con X -->
+      <div class="flex items-center justify-between p-4 border-b border-white/10">
+        <div class="flex items-center gap-2">
+          <div class="w-12 h-12 rounded-full bg-gradient-to-br from-[#9b59b6] to-[#e74c3c] flex items-center justify-center shadow-lg">
+            <span class="text-white font-bold text-xl">TL</span>
+          </div>
+          <h3 class="text-2xl font-bold text-white font-['Cormorant_Garamond']">ThreeLove</h3>
+        </div>
+        <!-- X única visible -->
+        <button id="menu-close" class="text-white text-2xl"></button>
+        <!-- Segundo X invisible (para no romper JS) -->
+        <button class="invisible text-white text-2xl"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+
+      <!-- Links del menú móvil -->
+      <div class="flex-1 p-4 space-y-2 overflow-y-auto">
+        <a href="inicio.html" class="group flex items-center justify-between text-white text-lg hover:text-purple-300 transition-all duration-300 py-3 px-3 rounded-xl hover:bg-white/5 border border-transparent hover:border-purple-500/30">
+          <span class="flex items-center gap-2"><i class="fa-solid fa-home text-purple-400"></i>Home</span>
+          <i class="fa-solid fa-chevron-right text-purple-400/50"></i>
+        </a>
+        <a href="gallery.html" class="group flex items-center justify-between text-white text-lg hover:text-purple-300 transition-all duration-300 py-3 px-3 rounded-xl hover:bg-white/5 border border-transparent hover:border-purple-500/30">
+          <span class="flex items-center gap-2"><i class="fa-solid fa-images text-purple-400"></i>Galería</span>
+          <i class="fa-solid fa-chevron-right text-purple-400/50"></i>
+        </a>
+        <a href="about.html" class="group flex items-center justify-between text-white text-lg hover:text-purple-300 transition-all duration-300 py-3 px-3 rounded-xl hover:bg-white/5 border border-transparent hover:border-purple-500/30">
+          <span class="flex items-center gap-2"><i class="fa-solid fa-info-circle text-purple-400"></i>Sobre nosotros</span>
+          <i class="fa-solid fa-chevron-right text-purple-400/50"></i>
+        </a>
+        <a href="gallery.html#live-section-id" class="group flex items-center justify-between text-white text-lg hover:text-purple-300 transition-all duration-300 py-3 px-3 rounded-xl hover:bg-white/5 border border-transparent hover:border-purple-500/30">
+          <span class="flex items-center gap-2"><i class="fa-solid fa-broadcast-tower text-purple-400"></i>Live</span>
+          <i class="fa-solid fa-chevron-right text-purple-400/50"></i>
+        </a>
+      </div>
+    </div>
+  </nav>
+</header>
+
+    <!-- WebP animado como fondo -->
+<img class="fixed top-0 left-0 w-full h-full object-cover" 
+     src="media/hot.webp" 
+     alt="Background sensual"
+     style="pointer-events: none;">
+    <!-- Overlay oscuro para mejorar legibilidad -->
+    <div class="fixed top-0 left-0 w-full h-full bg-black/30"></div>
+
+    <!-- Modal Compacto y Sensual -->
+    <div class="fixed bottom-20 left-1/2 transform -translate-x-1/2 z-30 w-full max-w-sm px-4">
+        <div class="bg-gradient-to-br from-gray-900/40 to-gray-800/40 backdrop-blur-lg rounded-2xl p-6 
+                    border border-gray-700/20 shadow-2xl">
+            <h2 class="text-lg font-light text-rose-300/90 text-center mb-5 tracking-wide">
+                ¿Interesado en un trío?
+            </h2>
+            
+            <div class="flex gap-3">
+                <button onclick="handleAnswer('no')" 
+                        class="flex-1 bg-gray-700/30 hover:bg-gray-600/40 text-gray-300/90 px-6 py-3 
+                               rounded-xl font-light text-sm transition-all duration-200 border border-gray-600/30">
+                    No
+                </button>
+                
+                <button onclick="handleAnswer('si')" 
+                        class="flex-1 bg-rose-500/80 hover:bg-rose-600/90 text-white px-6 py-3 
+                               rounded-xl font-light text-sm transition-all duration-200 shadow-lg shadow-rose-500/20">
+                    Sí
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script>
+        // Reacción al pulsar Sí - animación profesional
+        function handleAnswer(answer) {
+            const main = document.querySelector(".fixed.bottom-20");
+            if (answer === "si") {
+                // Fade out del contenido actual
+                gsap.to(main, {duration: 0.4, opacity: 0, y: 20});
+                
+                // Crear overlay elegante
+                const overlay = document.createElement("div");
+                overlay.className = "fixed inset-0 flex items-center justify-center bg-black/60 backdrop-blur-sm z-50";
+                overlay.style.opacity = "0";
+                
+                const msgContainer = document.createElement("div");
+                msgContainer.className = "text-center";
+                msgContainer.innerHTML = `
+                    <div class="text-5xl font-extralight mb-3 tracking-wider" style="color: #ff4b6e;">Perfecto</div>
+                    <div class="w-16 h-0.5 mx-auto" style="background-color: #ff4b6e;"></div>
+                `;
+                
+                overlay.appendChild(msgContainer);
+                document.body.appendChild(overlay);
+                
+                // Animación suave y elegante
+                gsap.to(overlay, {
+                    duration: 0.6, 
+                    opacity: 1, 
+                    ease: "power2.out"
+                });
+                
+                gsap.fromTo(msgContainer, 
+                    {y: 30, opacity: 0}, 
+                    {y: 0, opacity: 1, duration: 0.8, ease: "power3.out", delay: 0.2}
+                );
+                
+                setTimeout(() => {
+                    gsap.to(overlay, {
+                        duration: 0.5, 
+                        opacity: 0, 
+                        ease: "power2.in",
+                        onComplete: () => {
+                            window.location.href = "inicio.html";
+                        }
+                    });
+                }, 1800);
+            } else {
+                const msg = document.createElement("div");
+                msg.className = "fixed top-24 left-1/2 transform -translate-x-1/2 bg-gray-800/90 backdrop-blur-md text-white px-6 py-3 rounded-full z-50 text-sm font-light";
+                msg.textContent = "Está bien, quizás en otro momento";
+                document.body.appendChild(msg);
+                gsap.fromTo(msg, {y: -20, opacity: 0}, {y: 0, opacity: 1, duration: 0.5});
+                setTimeout(() => {
+                    gsap.to(msg, {y: -20, opacity: 0, duration: 0.5, onComplete: () => msg.remove()});
+                }, 2500);
+            }
+        }
+    </script>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galería | ThreeLove</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- GLightbox CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css" />
+    
+    <style>
+        :root {
+            --bg-primary: #031521; 
+            --accent-color: #9b59b6;
+            --text-color: #e0e0e0;
+            --border-color: #555;
+            --overlay-color: rgba(3, 21, 33, 0.5); 
+        }
+        
+        body {
+            font-family: "Playfair Display", serif;
+            background-color: var(--bg-primary);
+            color: var(--text-color);
+        }
+        
+        h1, h2, h3, h4, .font-serif {
+            font-family: "Cormorant Garamond", serif;
+        }
+        
+        .gallery-item {
+            transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.4s ease;
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.03);
+            z-index: 10;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.75);
+        }
+
+        .escort-selector {
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .escort-selector:hover, .escort-selector.active {
+            border-color: var(--accent-color);
+            background-color: rgba(155, 89, 182, 0.1);
+        }
+
+        .escort-selector.active {
+            background-color: rgba(155, 89, 182, 0.2);
+        }
+
+        #galleryGrid {
+            transition: opacity 0.3s ease;
+        }
+
+        .escort-selector img {
+            transition: transform 0.5s ease;
+        }
+
+        .escort-selector:hover img {
+            transform: scale(1.1);
+        }
+
+        .live-indicator {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+    </style>
+</head>
+<body class="bg-[var(--bg-primary)] text-[#e0e0e0] font-['Playfair_Display'] antialiased">
+
+<header id="header" class="fixed top-0 left-0 w-full z-50 bg-transparent transition-all duration-500">
+  <div class="container mx-auto px-6 flex justify-between items-center py-3">
+    
+    <!-- Logo -->
+    <a href="inicio.html" class="group flex items-center gap-2">
+      <div class="w-10 h-10 rounded-full bg-gradient-to-br from-[#9b59b6] to-[#e74c3c] flex items-center justify-center shadow-lg shadow-purple-500/30 group-hover:shadow-purple-500/50 transition-all duration-300 group-hover:scale-110">
+        <span class="text-white font-bold text-lg">TL</span>
+      </div>
+      <span class="text-xl font-['Cormorant_Garamond'] font-bold bg-gradient-to-r from-white via-purple-200 to-white bg-clip-text text-transparent tracking-wider">ThreeLove</span>
+    </a>
+
+    <!-- Navegación Escritorio -->
+    <nav class="hidden md:flex items-center gap-4">
+      <a href="inicio.html" class="text-white/80 hover:text-purple-300 transition-colors duration-200 font-medium">Home</a>
+      <a href="gallery.html" class="text-white/80 hover:text-purple-300 transition-colors duration-200 font-medium">Galería</a>
+      <a href="about.html" class="text-white/80 hover:text-purple-300 transition-colors duration-200 font-medium">Sobre nosotros</a>
+      <a href="gallery.html#live-section-id" class="text-white/80 hover:text-purple-300 transition-colors duration-200 font-medium">Live</a>
+    </nav>
+
+    <!-- Botón WhatsApp destacado -->
+    <a href="https://wa.me/1809786115" target="_blank"
+       class="hidden md:flex items-center gap-2 bg-gradient-to-r from-[#9b59b6] to-[#8a4bac] hover:from-[#8a4bac] hover:to-[#7a3b9c] text-white font-semibold px-4 py-2 rounded-full transition-all duration-300 shadow-lg shadow-purple-500/30 hover:shadow-purple-500/50 hover:scale-105 overflow-hidden relative">
+      <i class="fa-brands fa-whatsapp fa-lg relative z-10"></i>
+      <span class="relative z-10">Contactar</span>
+    </a>
+
+    <!-- Botón hamburguesa móvil -->
+    <button id="menu-toggle" class="md:hidden w-10 h-10 rounded-lg bg-white/5 hover:bg-white/10 text-white flex items-center justify-center transition-all duration-300 border border-white/10 z-[100]">
+      <i class="fa-solid fa-bars"></i>
+    </button>
+  </div>
+
+  <!-- Menú móvil -->
+  <nav id="nav-mobile" class="fixed top-0 right-0 h-screen w-3/4 max-w-sm md:hidden z-50 shadow-2xl overflow-y-auto transform translate-x-full transition-transform duration-500 ease-out">
+    <div class="absolute inset-0 bg-cover bg-center" id="mobileMenuBg">
+      <div class="absolute inset-0 bg-gradient-to-br from-[#1a1a2e] via-[#16213e]/95 to-black/90"></div>
+    </div>
+
+    <div class="relative flex flex-col h-full">
+      <!-- Header del menú móvil con X -->
+      <div class="flex items-center justify-between p-4 border-b border-white/10">
+        <div class="flex items-center gap-2">
+          <div class="w-12 h-12 rounded-full bg-gradient-to-br from-[#9b59b6] to-[#e74c3c] flex items-center justify-center shadow-lg">
+            <span class="text-white font-bold text-xl">TL</span>
+          </div>
+          <h3 class="text-2xl font-bold text-white font-['Cormorant_Garamond']">ThreeLove</h3>
+        </div>
+        <!-- X única visible -->
+        <button id="menu-close" class="text-white text-2xl"></button>
+        <!-- Segundo X invisible (para no romper JS) -->
+        <button class="invisible text-white text-2xl"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+
+      <!-- Links del menú móvil -->
+      <div class="flex-1 p-4 space-y-2 overflow-y-auto">
+        <a href="inicio.html" class="group flex items-center justify-between text-white text-lg hover:text-purple-300 transition-all duration-300 py-3 px-3 rounded-xl hover:bg-white/5 border border-transparent hover:border-purple-500/30">
+          <span class="flex items-center gap-2"><i class="fa-solid fa-home text-purple-400"></i>Home</span>
+          <i class="fa-solid fa-chevron-right text-purple-400/50"></i>
+        </a>
+        <a href="gallery.html" class="group flex items-center justify-between text-white text-lg hover:text-purple-300 transition-all duration-300 py-3 px-3 rounded-xl hover:bg-white/5 border border-transparent hover:border-purple-500/30">
+          <span class="flex items-center gap-2"><i class="fa-solid fa-images text-purple-400"></i>Galería</span>
+          <i class="fa-solid fa-chevron-right text-purple-400/50"></i>
+        </a>
+        <a href="about.html" class="group flex items-center justify-between text-white text-lg hover:text-purple-300 transition-all duration-300 py-3 px-3 rounded-xl hover:bg-white/5 border border-transparent hover:border-purple-500/30">
+          <span class="flex items-center gap-2"><i class="fa-solid fa-info-circle text-purple-400"></i>Sobre nosotros</span>
+          <i class="fa-solid fa-chevron-right text-purple-400/50"></i>
+        </a>
+        <a href="gallery.html#live-section-id" class="group flex items-center justify-between text-white text-lg hover:text-purple-300 transition-all duration-300 py-3 px-3 rounded-xl hover:bg-white/5 border border-transparent hover:border-purple-500/30">
+          <span class="flex items-center gap-2"><i class="fa-solid fa-broadcast-tower text-purple-400"></i>Live</span>
+          <i class="fa-solid fa-chevron-right text-purple-400/50"></i>
+        </a>
+      </div>
+    </div>
+  </nav>
+</header>
+
+<div id="menu-backdrop" class="fixed inset-0 bg-black/70 backdrop-blur-sm z-40 hidden transition-opacity duration-500 opacity-0 md:hidden"></div>
+
+<div id="menu-backdrop" class="fixed inset-0 bg-black/50 z-40 hidden transition-opacity duration-400 opacity-0 md:hidden"></div>
+
+<main>
+    <!-- Hero Section Mejorado -->
+    <section class="relative h-screen w-full overflow-hidden">
+        <div class="absolute inset-0">
+            <img src="img/amelia-1.webp" 
+                 alt="Amelia" 
+                 class="w-full h-full object-cover object-center scale-105"
+                 loading="eager"
+                 id="heroImage">
+        </div>
+        <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent"></div>
+        <div class="absolute inset-0 bg-[var(--overlay-color)]"></div>
+        
+        <div class="absolute inset-0 flex items-center justify-center">
+            <div class="text-center text-white px-6">
+                <div class="relative container mx-auto px-6 text-center">
+                    <h1 class="text-6xl md:text-8xl font-serif text-white mb-4">
+                        <span class="text-white" id="heroName">Amelia</span>
+                        <span class="text-[#9b59b6]">Love</span>
+                    </h1>
+                    <p class="text-xl md:text-2xl italic text-gray-300 max-w-3xl mx-auto">
+                        Galería Compartida Exclusiva
+                    </p>
+                    <div class="w-20 h-0.5 bg-[#9b59b6] mx-auto mt-6"></div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce">
+            <a href="#escortSelector" class="text-white/60 hover:text-[#9b59b6] transition-colors">
+                <i class="fas fa-chevron-down text-2xl"></i>
+            </a>
+        </div>
+    </section>
+
+    <!-- Selector de Escorts Compacto -->
+    <section id="escortSelector" class="py-8 md:py-12 bg-black/40">
+        <div class="container mx-auto px-6">
+            <h2 class="text-2xl md:text-3xl font-['Cormorant_Garamond'] font-semibold text-white text-center mb-8">
+                Selecciona Galeria
+            </h2>
+            
+            <div class="flex flex-wrap justify-center gap-4 md:gap-6 max-w-4xl mx-auto" id="escortSelectorGrid">
+                <!-- Las tarjetas se generarán dinámicamente con JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Galería de Fotos -->
+    <section id="photo-gallery" class="py-12 md:py-20">
+        <div class="container mx-auto px-4 md:px-6">
+            <div class="grid grid-cols-2 md:grid-cols-4 auto-rows-[250px] gap-4" id="galleryGrid">
+                <!-- Las imágenes se generarán dinámicamente con JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <div class="w-full h-px bg-gradient-to-r from-transparent via-[#9b59b6] to-transparent my-10"></div>
+
+    <!-- Live Section -->
+    <section id="live-section-id" class="py-12 md:py-20 bg-black/30">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-12">
+                <span class="text-[#9b59b6] uppercase tracking-[0.3em] text-sm font-semibold">Live Stream</span>
+                <h2 class="text-3xl md:text-4xl font-['Cormorant_Garamond'] font-semibold text-white mt-2">Shows Privados y Contenido VOD</h2>
+            </div>
+
+            <div class="max-w-4xl mx-auto">
+                <div class="bg-black border border-zinc-800 overflow-hidden rounded-lg shadow-2xl">
+                    <div class="relative aspect-video">
+                        <div class="absolute inset-0 bg-cover bg-center" id="liveBackground">
+                            <div class="absolute inset-0 bg-black/70 backdrop-blur-sm"></div>
+                        </div>
+                        <div class="absolute inset-0 flex items-center justify-center p-4 z-10">
+                            <div class="absolute top-4 left-4 bg-black/60 backdrop-blur-sm px-3 py-1 rounded text-sm font-semibold border border-[#9b59b6]">
+                                <i class="fas fa-circle text-[#9b59b6] text-xs mr-2 animate-pulse"></i>
+                                <span class="text-white" id="liveStatus">Live OFFLINE</span>
+                            </div>
+                            
+                            <button id="livePlayer" class="text-white/70 hover:text-white hover:scale-110 transition-all duration-300">
+                                <i class="fas fa-play text-7xl"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="alarmMessage" class="mt-4 p-4 rounded-lg bg-[#9b59b6]/20 border border-[#9b59b6] text-white text-center font-semibold hidden transition-opacity duration-500 opacity-0">
+                    ¡Alarma activada! El **Live Stream comenzará a las 5:00 PM** (Hora local).
+                </div>
+                
+                <div class="text-center mt-8">
+                    <h3 class="text-2xl font-semibold text-white mb-4" id="liveTitle">El show privado comenzará pronto</h3>
+                    <p class="text-zinc-300 max-w-md mx-auto mb-6">Únete a una experiencia exclusiva y personal. Activa las notificaciones para ser el primero en saber cuándo estoy en vivo.</p>
+                    <button class="bg-[#9b59b6]/20 border border-[#9b59b6] text-white font-semibold px-6 py-3 transition-colors hover:bg-[#9b59b6] rounded-lg flex items-center gap-2 mx-auto">
+                        <i class="fas fa-bell"></i>
+                        <span>Notificarme</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+<footer class="bg-black py-12">
+    <div class="container mx-auto px-6 text-center text-gray-500">
+        <div class="mb-8">
+            <h3 class="text-white text-xl font-serif mb-4">Contáctanos</h3>
+            <p class="text-gray-400 mb-2">
+                <i class="fa-solid fa-phone text-[#9b59b6] mr-2"></i>
+                +1 (809) 786-115
+            </p>
+            <p class="text-gray-400">
+                <i class="fa-brands fa-whatsapp text-[#9b59b6] mr-2"></i>
+                +1 (809) 786-115
+            </p>
+        </div>
+        
+        <div class="flex justify-center space-x-6 mb-8">
+            <a href="inicio.html" class="hover:text-[#9b59b6] transition-colors">Hogar</a>
+            <a href="gallery.html" class="hover:text-[#9b59b6] transition-colors">Galería</a>
+            <a href="about.html" class="hover:text-[#9b59b6] transition-colors">Acerca de Mí</a>
+        </div>
+        
+        <div class="flex justify-center space-x-6 mb-8">
+            <a href="#" class="text-gray-400 hover:text-[#9b59b6] transition-colors">
+                <i class="fa-brands fa-instagram fa-lg"></i>
+            </a>
+            <a href="#" class="text-gray-400 hover:text-[#9b59b6] transition-colors">
+                <i class="fa-brands fa-whatsapp fa-lg"></i>
+            </a>
+            <a href="#" class="text-gray-400 hover:text-[#9b59b6] transition-colors">
+                <i class="fa-regular fa-envelope fa-lg"></i>
+            </a>
+        </div>
+        
+        <p>&copy; 2025 THREE LOVE. Todos los derechos reservados.</p>
+        <p class="text-sm mt-2">Diseño y desarrollo por Adult Creative</p>
+    </div>
+</footer>
+
+<!-- GLightbox JS -->
+<script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
+
+<script>
+    // Datos de las escorts - ACTUALIZADO A WEBP
+    const escortsData = {
+        'amelia': {
+            name: 'Amelia',
+            images: 36,
+            compatibility: '95%',
+            price: '£ 250/hora',
+            stars: 5,
+            mainImage: 'img/amelia-1.webp',
+            isLive: true,
+            liveTitle: 'Amelia - Show Exclusivo en Vivo'
+        },
+        'carla': {
+            name: 'Carla',
+            images: 36,
+            compatibility: '92%',
+            price: '£ 220/hora',
+            stars: 5,
+            mainImage: 'img/carla-1.webp',
+            isLive: false,
+            liveTitle: 'Carla - Experiencia Premium'
+        },
+        'diana': {
+            name: 'Diana',
+            images: 11,
+            compatibility: '85%',
+            price: '£ 220/hora',
+            stars: 4,
+            mainImage: 'img/diana-1.webp',
+            isLive: true,
+            liveTitle: 'Diana - Intimidad Elegante'
+        },
+        'elena': {
+            name: 'Elena',
+            images: 9,
+            compatibility: '90%',
+            price: '£ 260/hora',
+            stars: 17,
+            mainImage: 'img/elena-1.webp',
+            isLive: false,
+            liveTitle: 'Elena - Sensualidad Europea'
+        },
+        'natalia': {
+            name: 'Natalia',
+            images: 16,
+            compatibility: '88%',
+            price: '£ 280/hora',
+            stars: 4,
+            mainImage: 'img/natalia-1.webp',
+            isLive: true,
+            liveTitle: 'Natalia - Pasión Latina'
+        }
+    };
+
+    let currentEscort = 'amelia';
+    let lightbox;
+
+    // Inicializar la galería
+    function initGallery() {
+        generateEscortCards();
+        updateGallery();
+        initLightbox();
+        
+        // Establecer Amelia como activa por defecto
+        setActiveEscort('amelia');
+    }
+
+    // Generar las tarjetas de selección de escorts
+    function generateEscortCards() {
+        const selectorContainer = document.getElementById('escortSelectorGrid');
+        selectorContainer.innerHTML = '';
+
+        Object.keys(escortsData).forEach(escortId => {
+            const escort = escortsData[escortId];
+            const card = document.createElement('div');
+            card.className = 'text-center group escort-selector bg-black/30 rounded-xl p-4 border border-white/10 hover:border-[#9b59b6] transition-all duration-300 min-w-[140px]';
+            card.setAttribute('data-escort', escortId);
+            
+            card.innerHTML = `
+                <div class="relative mb-3">
+                    <img src="${escort.mainImage}" alt="${escort.name}" 
+                         class="w-16 h-16 rounded-full object-cover mx-auto group-hover:scale-110 transition-transform border-2 border-white/20">
+                    ${escort.isLive ? 
+                        '<div class="absolute -top-1 -right-1 w-4 h-4 bg-red-500 rounded-full live-indicator border-2 border-white"></div>' : 
+                        ''
+                    }
+                </div>
+                <h3 class="font-[\'Cormorant_Garamond\'] font-semibold text-white text-sm mb-1">${escort.name}</h3>
+                <div class="flex justify-center gap-0.5 mb-1">
+                    ${generateStars(5)} <!-- Siempre 5 estrellas -->
+                </div>
+                <div class="flex items-center justify-center gap-1 mb-2">
+                    ${escort.isLive ? 
+                        '<span class="text-xs bg-red-500/20 text-red-300 px-2 py-0.5 rounded-full border border-red-500/30">LIVE</span>' : 
+                        '<span class="text-xs bg-gray-500/20 text-gray-300 px-2 py-0.5 rounded-full border border-gray-500/30">OFF</span>'
+                    }
+                </div>
+                <p class="text-xs text-[#e0e0e0]">${escort.price}</p>
+            `;
+            
+            card.addEventListener('click', () => selectEscort(escortId));
+            selectorContainer.appendChild(card);
+        });
+    }
+
+    // Generar estrellas (siempre 5)
+    function generateStars() {
+        let stars = '';
+        for (let i = 0; i < 5; i++) {
+            stars += '<i class="fas fa-star text-[#9b59b6] text-xs"></i>';
+        }
+        return stars;
+    }
+
+    // Seleccionar una escort
+    function selectEscort(escortId) {
+        currentEscort = escortId;
+        setActiveEscort(escortId);
+        updateGallery();
+        updateHero();
+        updateLiveBackground();
+        updateMobileMenuBackground();
+        updateLiveStatus();
+    }
+
+    // Establecer escort activa
+    function setActiveEscort(escortId) {
+        document.querySelectorAll('.escort-selector').forEach(card => {
+            card.classList.remove('active');
+            if (card.getAttribute('data-escort') === escortId) {
+                card.classList.add('active');
+                card.style.borderColor = '#9b59b6';
+                card.style.backgroundColor = 'rgba(155, 89, 182, 0.15)';
+            } else {
+                card.style.borderColor = '';
+                card.style.backgroundColor = '';
+            }
+        });
+    }
+
+    // Actualizar la galería de imágenes - ACTUALIZADO A WEBP
+    function updateGallery() {
+        const galleryGrid = document.getElementById('galleryGrid');
+        const escort = escortsData[currentEscort];
+        
+        // Efecto de transición
+        galleryGrid.style.opacity = '0';
+        
+        setTimeout(() => {
+            galleryGrid.innerHTML = '';
+            
+            // Generar grid de imágenes
+            const totalImages = Math.min(escort.images, 25); // Máximo 25 imágenes
+            let imageCount = 0;
+            
+            for (let i = 1; i <= totalImages; i++) {
+                // CAMBIO IMPORTANTE: Ahora usa img/nombre.webp en lugar de media/carpeta/nombre.jpg
+                const imageUrl = `img/${currentEscort}-${i}.webp`;
+                
+                const galleryItem = document.createElement('a');
+                galleryItem.href = imageUrl;
+                galleryItem.className = 'glightbox gallery-item';
+                galleryItem.setAttribute('data-gallery', `${currentEscort}-gallery`);
+                
+                const img = document.createElement('img');
+                img.src = imageUrl;
+                img.alt = `${escort.name} ${i}`;
+                img.className = 'w-full h-full object-cover';
+                
+                // Aplicar clases especiales para algunas imágenes
+                if (imageCount === 0) {
+                    img.classList.add('col-span-2', 'row-span-2');
+                } else if (imageCount === 6 || imageCount === 14 || imageCount === 20) {
+                    img.classList.add('col-span-2');
+                } else if (imageCount === 9) {
+                    img.classList.add('col-span-2', 'row-span-2');
+                }
+                
+                galleryItem.appendChild(img);
+                galleryGrid.appendChild(galleryItem);
+                imageCount++;
+            }
+            
+            galleryGrid.style.opacity = '1';
+            
+            // Reinicializar lightbox
+            if (lightbox) {
+                lightbox.destroy();
+            }
+            initLightbox();
+        }, 300);
+    }
+
+    // Obtener extensión de imagen - ACTUALIZADO: siempre webp
+    function getImageExtension(escortId) {
+        return 'webp'; // Siempre webp ahora
+    }
+
+    // Actualizar el hero section
+    function updateHero() {
+        const escort = escortsData[currentEscort];
+        document.getElementById('heroImage').src = escort.mainImage;
+        document.getElementById('heroName').textContent = escort.name;
+    }
+
+    // Actualizar fondo del live section - ACTUALIZADO A WEBP
+    function updateLiveBackground() {
+        const escort = escortsData[currentEscort];
+        const liveBg = document.getElementById('liveBackground');
+        const randomImage = Math.floor(Math.random() * Math.min(escort.images, 10)) + 1;
+        // CAMBIO: Ahora usa img/nombre.webp
+        const imageUrl = `img/${currentEscort}-${randomImage}.webp`;
+        
+        liveBg.style.backgroundImage = `url('${imageUrl}')`;
+    }
+
+    // Actualizar estado del live
+    function updateLiveStatus() {
+        const escort = escortsData[currentEscort];
+        const liveStatus = document.getElementById('liveStatus');
+        const liveTitle = document.getElementById('liveTitle');
+        
+        if (escort.isLive) {
+            liveStatus.textContent = 'LIVE NOW';
+            liveStatus.parentElement.querySelector('i').classList.add('text-red-500', 'animate-pulse');
+            liveStatus.parentElement.querySelector('i').classList.remove('text-[#9b59b6]');
+        } else {
+            liveStatus.textContent = 'Live OFFLINE';
+            liveStatus.parentElement.querySelector('i').classList.remove('text-red-500', 'animate-pulse');
+            liveStatus.parentElement.querySelector('i').classList.add('text-[#9b59b6]');
+        }
+        
+        liveTitle.textContent = escort.liveTitle;
+    }
+
+    // Actualizar fondo del menú móvil
+    function updateMobileMenuBackground() {
+        const escort = escortsData[currentEscort];
+        const menuBg = document.getElementById('mobileMenuBg');
+        menuBg.style.backgroundImage = `url('${escort.mainImage}')`;
+    }
+
+    // Inicializar lightbox
+    function initLightbox() {
+        lightbox = GLightbox({
+            selector: '.glightbox',
+            loop: true,
+            zoomable: true,
+            closeButton: true,
+            touchNavigation: true,
+            keyboardNavigation: true,
+        });
+    }
+
+    // Funcionalidad del live player
+    document.addEventListener('DOMContentLoaded', function() {
+        initGallery();
+        
+        const playerButton = document.getElementById('livePlayer');
+        const alarmMessage = document.getElementById('alarmMessage');
+
+        playerButton.addEventListener('click', function() {
+            const escort = escortsData[currentEscort];
+            
+            if (escort.isLive) {
+                // Si está en vivo, simular reproducción
+                playerButton.innerHTML = '<i class="fas fa-pause text-7xl text-[#9b59b6]"></i>';
+                // Aquí iría la lógica real del reproductor de video
+            } else {
+                // Si no está en vivo, mostrar alarma
+                alarmMessage.classList.remove('hidden');
+                
+                setTimeout(() => {
+                    alarmMessage.classList.remove('opacity-0');
+                }, 10);
+                
+                setTimeout(() => {
+                    alarmMessage.classList.add('opacity-0');
+                    setTimeout(() => {
+                        alarmMessage.classList.add('hidden');
+                    }, 500);
+                }, 5000);
+
+                playerButton.innerHTML = '<i class="fas fa-check text-7xl text-[#9b59b6]"></i>';
+            }
+        });
+    });
+</script>
+<script src="script.js"></script>
+
+</body>
+</html>

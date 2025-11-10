@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Candace | Escort Premium</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --bg-primary: #031521;
+            --accent-color: #9b59b6;
+            --text-color: #e0e0e0;
+            --star-color: #9b59b6;
+            --border-color: #555;
+            --overlay-color: rgba(3, 21, 33, 0.5);
+        }
+        
+        body {
+            font-family: "Playfair Display", serif;
+            background-color: var(--bg-primary);
+            color: var(--text-color);
+        }
+        
+        h1, h2, h3, h4, .font-serif {
+            font-family: "Cormorant Garamond", serif;
+        }
+        
+        .text-accent {
+            color: var(--accent-color);
+        }
+        
+        .border-accent {
+            border-color: var(--accent-color);
+        }
+        
+        .star-rating i {
+            color: var(--star-color);
+        }
+    </style>
+</head>
+<body class="bg-[var(--bg-primary)] text-[#e0e0e0] font-['Playfair_Display'] antialiased overflow-x-hidden">
+
+    <!-- HEADER (igual que en inicio.html) -->
+    <header id="header" class="fixed top-0 left-0 w-full z-50 bg-transparent transition-all duration-500">
+        <div class="container mx-auto px-6 flex justify-between items-center py-3">
+            <!-- Logo -->
+            <a href="inicio.html" class="group flex items-center gap-2">
+                <div class="w-10 h-10 rounded-full bg-gradient-to-br from-[#9b59b6] to-[#e74c3c] flex items-center justify-center shadow-lg shadow-purple-500/30 group-hover:shadow-purple-500/50 transition-all duration-300 group-hover:scale-110">
+                    <span class="text-white font-bold text-lg">TL</span>
+                </div>
+                <span class="text-xl font-['Cormorant_Garamond'] font-bold bg-gradient-to-r from-white via-purple-200 to-white bg-clip-text text-transparent tracking-wider">ThreeLove</span>
+            </a>
+
+            <!-- Navegación Escritorio -->
+            <nav class="hidden md:flex items-center gap-4">
+                <a href="inicio.html" class="text-white/80 hover:text-purple-300 transition-colors duration-200 font-medium">Home</a>
+                <a href="gallery.html" class="text-white/80 hover:text-purple-300 transition-colors duration-200 font-medium">Galería</a>
+                <a href="about.html" class="text-white/80 hover:text-purple-300 transition-colors duration-200 font-medium">Sobre nosotros</a>
+                <a href="gallery.html#live-section-id" class="text-white/80 hover:text-purple-300 transition-colors duration-200 font-medium">Live</a>
+            </nav>
+
+            <!-- Botón WhatsApp destacado -->
+            <a href="https://wa.me/1809786115" target="_blank"
+               class="hidden md:flex items-center gap-2 bg-gradient-to-r from-[#9b59b6] to-[#8a4bac] hover:from-[#8a4bac] hover:to-[#7a3b9c] text-white font-semibold px-4 py-2 rounded-full transition-all duration-300 shadow-lg shadow-purple-500/30 hover:shadow-purple-500/50 hover:scale-105 overflow-hidden relative">
+                <i class="fa-brands fa-whatsapp fa-lg relative z-10"></i>
+                <span class="relative z-10">Contactar</span>
+            </a>
+
+            <!-- Botón hamburguesa móvil -->
+            <button id="menu-toggle" class="md:hidden w-10 h-10 rounded-lg bg-white/5 hover:bg-white/10 text-white flex items-center justify-center transition-all duration-300 border border-white/10 z-[100]">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+        </div>
+
+        <!-- Menú móvil -->
+        <nav id="nav-mobile" class="fixed top-0 right-0 h-screen w-3/4 max-w-sm md:hidden z-50 shadow-2xl overflow-y-auto transform translate-x-full transition-transform duration-500 ease-out">
+            <div class="absolute inset-0 bg-cover bg-center" style="background-image:url('img/amelia-1.webp');">
+                <div class="absolute inset-0 bg-gradient-to-br from-[#1a1a2e] via-[#16213e]/95 to-black/90"></div>
+            </div>
+
+            <div class="relative flex flex-col h-full">
+                <!-- Header del menú móvil con X -->
+                <div class="flex items-center justify-between p-4 border-b border-white/10">
+                    <div class="flex items-center gap-2">
+                        <div class="w-12 h-12 rounded-full bg-gradient-to-br from-[#9b59b6] to-[#e74c3c] flex items-center justify-center shadow-lg">
+                            <span class="text-white font-bold text-xl">TL</span>
+                        </div>
+                        <h3 class="text-2xl font-bold text-white font-['Cormorant_Garamond']">ThreeLove</h3>
+                    </div>
+                    <!-- X única visible -->
+                    <button id="menu-close" class="text-white text-2xl"></button>
+                    <!-- Segundo X invisible (para no romper JS) -->
+                    <button class="invisible text-white text-2xl"><i class="fa-solid fa-xmark"></i></button>
+                </div>
+
+                <!-- Links del menú móvil -->
+                <div class="flex-1 p-4 space-y-2 overflow-y-auto">
+                    <a href="inicio.html" class="group flex items-center justify-between text-white text-lg hover:text-purple-300 transition-all duration-300 py-3 px-3 rounded-xl hover:bg-white/5 border border-transparent hover:border-purple-500/30">
+                        <span class="flex items-center gap-2"><i class="fa-solid fa-home text-purple-400"></i>Home</span>
+                        <i class="fa-solid fa-chevron-right text-purple-400/50"></i>
+                    </a>
+                    <a href="gallery.html" class="group flex items-center justify-between text-white text-lg hover:text-purple-300 transition-all duration-300 py-3 px-3 rounded-xl hover:bg-white/5 border border-transparent hover:border-purple-500/30">
+                        <span class="flex items-center gap-2"><i class="fa-solid fa-images text-purple-400"></i>Galería</span>
+                        <i class="fa-solid fa-chevron-right text-purple-400/50"></i>
+                    </a>
+                    <a href="about.html" class="group flex items-center justify-between text-white text-lg hover:text-purple-300 transition-all duration-300 py-3 px-3 rounded-xl hover:bg-white/5 border border-transparent hover:border-purple-500/30">
+                        <span class="flex items-center gap-2"><i class="fa-solid fa-info-circle text-purple-400"></i>Sobre nosotros</span>
+                        <i class="fa-solid fa-chevron-right text-purple-400/50"></i>
+                    </a>
+                    <a href="gallery.html#live-section-id" class="group flex items-center justify-between text-white text-lg hover:text-purple-300 transition-all duration-300 py-3 px-3 rounded-xl hover:bg-white/5 border border-transparent hover:border-purple-500/30">
+                        <span class="flex items-center gap-2"><i class="fa-solid fa-broadcast-tower text-purple-400"></i>Live</span>
+                        <i class="fa-solid fa-chevron-right text-purple-400/50"></i>
+                    </a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <section id="home" class="relative h-screen w-full overflow-hidden">
+        <div class="absolute inset-0 parallax-bg">
+            <img id="mainImage" src="" alt="Escort" class="hidden sm:block w-full h-full object-cover object-center scale-105">
+            <img id="mobileImage" src="" alt="Escort" class="block sm:hidden w-full h-full object-cover object-center scale-105">
+        </div>
+        <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent"></div>
+        <div class="absolute inset-0 bg-[var(--overlay-color)]"></div>
+        
+        <div class="absolute inset-0 flex items-center justify-center">
+            <div class="text-center text-white px-6 fade-in-up">
+                <div class="relative container mx-auto px-6 text-center">
+                    <h1 class="text-6xl md:text-8xl font-serif text-white mb-4">
+                        <span id="escortName" class="text-accent">Cargando...</span>
+                    </h1>
+                    <p id="escortDescription" class="text-xl md:text-2xl italic text-gray-300 max-w-3xl mx-auto">
+                        Cargando descripción...
+                    </p>
+                    <div class="w-20 h-0.5 bg-accent mx-auto mt-6"></div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce">
+            <a href="#profile-content" class="text-white/60 hover:text-[#9b59b6] transition-colors">
+                <i class="fas fa-chevron-down text-2xl"></i>
+            </a>
+        </div>
+    </section>
+
+    <main class="pt-0">
+        <section class="py-2 md:py-4 bg-[var(--bg-primary)]">
+            <div class="container mx-auto px-6 grid grid-cols-2 items-start"> 
+                <div class="flex flex-col gap-1 items-start">
+                    <a href="inicio.html" class="text-[#9b59b6] hover:text-white transition-colors flex items-center gap-2 text-sm md:text-base py-2">
+                        <i class="fas fa-arrow-left"></i>
+                        <span>Volver al inicio</span>
+                    </a>
+                    <button class="flex items-center gap-2 bg-black/50 border border-[#9b59b6] hover:bg-[#9b59b6] text-white hover:text-white px-4 py-2 transition-colors justify-center">
+                        <i class="fas fa-video"></i>
+                        <span>Live</span>
+                    </button>
+                </div>
+                
+                <div class="flex justify-end items-end h-full">
+                    <a href="booking.html" class="bg-transparent border border-[#9b59b6] hover:bg-[#9b59b6] text-[#9b59b6] hover:text-white px-6 py-2 transition-colors font-semibold flex items-center gap-2">
+                        <i class="fas fa-calendar-check"></i>
+                        <span>Reservame</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section id="profile-content" class="pt-4 md:pt-6 pb-12 md:pb-20">
+            <div class="container mx-auto px-6">
+                <div class="flex flex-col lg:flex-row gap-8 lg:gap-12">
+                    
+                    <!-- Galería dinámica -->
+                    <div class="lg:w-1/2">
+                        <div class="mb-4">
+                            <img id="galleryMain" src="" alt="Escort" class="w-full h-[500px] md:h-[600px] object-cover">
+                        </div>
+
+                        <div class="grid grid-cols-4 gap-2" id="thumbnailContainer">
+                            <!-- Las miniaturas se generarán dinámicamente aquí -->
+                        </div>
+                    </div>
+
+                    <!-- Texto / Información -->
+                    <div class="lg:w-1/2 flex flex-col gap-6">
+                        <!-- Acerca de mí -->
+                        <div>
+                            <h2 class="text-3xl font-bold text-white mb-4">Acerca de mí</h2>
+                            <p id="aboutText" class="text-base text-[#e0e0e0]">
+                                Cargando información...
+                            </p>
+                        </div>
+                        
+                        <div class="bg-black/60 p-6 border border-[#9b59b6] rounded-xl shadow-2xl mr-auto w-full md:max-w-[85%] lg:max-w-[90%]">
+                            <div>
+                                <p class="text-sm tracking-wide uppercase text-white font-bold mb-1">UBICACIÓN</p>
+                                <p id="locationText" class="text-xl font-light text-[#9b59b6] mb-4">Cargando ubicación...</p>
+                                <p class="text-lg font-semibold text-white mb-6">Si quieres ven a verme a esa ubicación o envíame un mensaje por WhatsApp.</p>
+                                
+                                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-t border-[#9b59b6] pt-4 pb-4 sm:pb-0">
+                                    <div class="flex flex-col">
+                                        <span class="text-sm uppercase text-[#e0e0e0]">Horario Disponible</span>
+                                        <span id="scheduleText" class="text-xl font-bold text-[#9b59b6]">Cargando horario...</span>
+                                    </div>
+                                    
+                                    <a id="whatsappLink" href="#" class="w-full sm:w-auto bg-black/50 border border-[#9b59b6] hover:bg-[#9b59b6] text-white px-6 py-3 transition-colors font-semibold flex items-center justify-center sm:justify-start gap-2 rounded-lg text-lg shadow-md">
+                                        <i class="fab fa-whatsapp"></i>
+                                        <span>WhatsApp</span>
+                                    </a>
+                                </div>
+                            </div>
+
+                            <button onclick="toggleTarifas()" class="w-full flex items-center justify-between cursor-pointer select-none mt-6 border-t border-[#9b59b6]/50 pt-4">
+                                <div class="flex items-center gap-3">
+                                    <i class="fas fa-sack-dollar text-[#9b59b6] text-2xl"></i>
+                                    <p class="text-lg tracking-wide uppercase text-white font-bold">Ver Tarifas y Promociones</p>
+                                </div>
+                                <i id="arrow-icon" class="fas fa-chevron-down text-[#9b59b6] text-xl transition-transform duration-300"></i>
+                            </button>
+                            
+                            <div id="tarifas-content" class="max-h-0 overflow-hidden transition-all duration-700 ease-in-out">
+                                <div class="pt-4 pb-4 border-b border-[#9b59b6]/50 mb-4">
+                                    <div class="bg-[#9b59b6]/10 p-4 rounded-lg mb-6 shadow-inner">
+                                        <p class="text-base text-gray-200 leading-relaxed">
+                                            Reserva tu cita y paga un <strong class="text-white"><span class="text-[#9b59b6] font-semibold">30%</span> por adelantado</strong> para asegurar tu lugar y obtener descuentos.
+                                        </p>
+                                    </div>
+                                    
+                                    <div class="space-y-4 bg-white/5 p-4 rounded-lg" id="pricesContainer">
+                                        <!-- Los precios se cargarán dinámicamente aquí -->
+                                    </div>
+                                
+                                    <div class="mt-6 bg-black/40 border border-[#9b59b6] p-4 text-sm text-gray-300 leading-relaxed rounded-lg">
+                                        <i class="fas fa-info-circle text-[#9b59b6] mr-2"></i>
+                                        <span class="block sm:inline">
+                                            Las estafas <strong class="text-[#9b59b6]">no son una opción</strong>. Nuestras chicas siempre pueden ser localizadas ya que revelan su ubicación diaria de trabajo durante sus <strong class="text-[#9b59b6]">lives</strong>. Reserva con confianza y sé <span class="text-white font-semibold">el primero de la noche</span> 💫.
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Resto de tu código para la sección de dúos... -->
+        <section class="py-12 md:py-20 bg-black/30">
+            <div class="container mx-auto px-6">
+                <h2 class="text-3xl md:text-4xl font-['Cormorant_Garamond'] font-semibold text-white text-center mb-12">Afinidad en Dúo</h2>
+                
+                <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 max-w-6xl mx-auto" id="duoContainer">
+                    <!-- Los dúos se cargarán dinámicamente aquí -->
+                </div>
+
+                <div class="text-center mt-12">
+                    <button id="duoBtn" class="bg-[#9b59b6] hover:bg-[#8a4bac] text-white font-semibold px-8 py-4 transition-colors flex items-center gap-3 mx-auto">
+                        <i class="fas fa-heart"></i>
+                        <span>Seleccionar Dúo</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </button>
+                    
+                    <div id="mensajeDuo" class="fixed bottom-10 left-1/2 -translate-x-1/2 opacity-0 pointer-events-none border border-[#9b59b6] text-[#e0e0e0] bg-black px-6 py-3 text-center text-sm transition-opacity duration-500">
+                        Funcionalidad no implementada.
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- FOOTER (igual que en inicio.html) -->
+    <footer class="bg-black py-12 border-t border-[#555]">
+        <div class="container mx-auto px-6 text-center text-[#e0e0e0]">
+            <div class="mb-8">
+                <h3 class="text-white text-xl font-['Cormorant_Garamond'] mb-4">Contáctanos</h3>
+                <p class="text-[#e0e0e0] mb-2">
+                    <i class="fa-solid fa-phone text-[#9b59b6] mr-2"></i>
+                    +1 (809) 786-115
+                </p>
+                <p class="text-[#e0e0e0]">
+                    <i class="fa-brands fa-whatsapp text-[#9b59b6] mr-2"></i>
+                    +1 (809) 786-115
+                </p>
+            </div>
+            
+            <div class="flex justify-center space-x-6 mb-8 flex-wrap">
+                <a href="inicio.html" class="hover:text-[#9b59b6] transition-colors">Hogar</a>
+                <a href="gallery.html" class="hover:text-[#9b59b6] transition-colors">Galería</a>
+                <a href="about.html" class="hover:text-[#9b59b6] transition-colors">Acerca de Mí</a>
+                <a href="booking.html" class="hover:text-[#9b59b6] transition-colors">Reservar</a>
+            </div>
+            
+            <div class="flex justify-center space-x-6 mb-8">
+                <a href="#" class="text-[#e0e0e0] hover:text-[#9b59b6] transition-colors">
+                    <i class="fa-brands fa-instagram fa-lg"></i>
+                </a>
+                <a href="#" class="text-[#e0e0e0] hover:text-[#9b59b6] transition-colors">
+                    <i class="fa-brands fa-whatsapp fa-lg"></i>
+                </a>
+                <a href="#" class="text-[#e0e0e0] hover:text-[#9b59b6] transition-colors">
+                    <i class="fa-regular fa-envelope fa-lg"></i>
+                </a>
+            </div>
+            
+            <p>&copy; 2025 THREE LOVE. Todos los derechos reservados.</p>
+            <p class="text-sm mt-2">Diseño y desarrollo por Adult Creative</p>
+        </div>
+    </footer>
+
+    <a href="https://wa.me/1809786115" target="_blank" class="fixed bottom-6 right-6 bg-[#9b59b6] text-white w-14 h-14 rounded-full flex items-center justify-center text-2xl shadow-lg hover:scale-110 transition-transform z-50">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <!-- SOLO ESTOS SCRIPTS -->
+    <script src="script.js"></script>
+    <!-- Incluir datos compartidos -->
+<script src="data.js"></script>
+
+<!-- Script específico de p-individual.html -->
+<script>
+    // --- FUNCIONES PARA CARGAR DATOS DINÁMICOS ---
+    function getEscortFromURL() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const escortName = urlParams.get('escort')?.toLowerCase();
+        const escortId = parseInt(urlParams.get('id'));
+        
+        console.log('🔍 Buscando escort:', {escortName, escortId});
+        
+        // Buscar por ID primero (más preciso)
+        let escort = escortsData.find(e => e.id === escortId);
+        
+        // Si no se encuentra por ID, buscar por nombre
+        if (!escort && escortName) {
+            escort = escortsData.find(e => e.name.toLowerCase() === escortName);
+        }
+        
+        // Si aún no se encuentra, usar la primera
+        if (!escort) {
+            console.warn('⚠️ No se encontró la escort, usando la primera');
+            escort = escortsData[0];
+        }
+        
+        console.log('✅ Escort encontrada:', escort.name);
+        return escort;
+    }
+
+    function loadEscortData() {
+        const escort = getEscortFromURL();
+        
+        if (!escort) {
+            console.error('❌ No se pudo cargar datos de la escort');
+            showErrorState();
+            return;
+        }
+
+        // 1. Actualizar metadata de la página
+        document.title = `${escort.name} | ${escort.nickname} - ThreeLove`;
+
+        // 2. Actualizar hero section
+        document.getElementById('escortName').textContent = escort.name;
+        document.getElementById('escortDescription').textContent = escort.about.substring(0, 100) + '...';
+
+        // 3. Actualizar imágenes
+        document.getElementById('mainImage').src = escort.images[0];
+        document.getElementById('mobileImage').src = escort.images[0];
+        document.getElementById('galleryMain').src = escort.images[0];
+
+        // 4. Actualizar miniaturas
+        const thumbnailContainer = document.getElementById('thumbnailContainer');
+        thumbnailContainer.innerHTML = '';
+        escort.images.slice(0, 4).forEach((img, index) => {
+            const thumb = document.createElement('div');
+            thumb.className = 'aspect-square';
+            thumb.innerHTML = `<img src="${img}" alt="${escort.name} ${index + 1}" class="w-full h-full object-cover cursor-pointer" onclick="changeMainImage('${img}')">`;
+            thumbnailContainer.appendChild(thumb);
+        });
+
+        // 5. Actualizar información de texto
+        document.getElementById('aboutText').textContent = escort.about;
+        document.getElementById('locationText').textContent = escort.location;
+        document.getElementById('scheduleText').textContent = escort.schedule;
+        document.getElementById('whatsappLink').href = `https://wa.me/${escort.phone}`;
+
+        // 6. Actualizar precios
+        const pricesContainer = document.getElementById('pricesContainer');
+        pricesContainer.innerHTML = '';
+        for (const [service, price] of Object.entries(escort.prices)) {
+            const priceElement = document.createElement('div');
+            priceElement.className = 'flex justify-between items-center border-b border-[#9b59b6]/30 pb-3';
+            priceElement.innerHTML = `
+                <span class="text-gray-100 font-medium text-lg">${service}</span>
+                <span class="text-gray-200 font-bold text-lg">${price}</span>
+            `;
+            pricesContainer.appendChild(priceElement);
+        }
+
+        // 7. Cargar dúos
+        loadDuoSection(escort);
+        
+        console.log('✅ Todos los datos cargados para:', escort.name);
+    }
+
+    function loadDuoSection(currentEscort) {
+        const otherEscorts = escortsData.filter(e => e.id !== currentEscort.id);
+        const duoContainer = document.getElementById('duoContainer');
+        
+        duoContainer.innerHTML = '';
+        otherEscorts.slice(0, 5).forEach(escort => {
+            const duoElement = document.createElement('div');
+            duoElement.className = 'text-center group';
+            duoElement.innerHTML = `
+                <div class="relative mb-4">
+                    <img src="${escort.image}" alt="${escort.name}" class="w-32 h-32 rounded-full object-cover mx-auto group-hover:scale-105 transition-transform">
+                    <div class="absolute -bottom-2 left-1/2 transform -translate-x-1/2">
+                        <div class="star-rating flex gap-0.5">
+                            ${generateStars(escort.rating)}
+                        </div>
+                    </div>
+                </div>
+                <h3 class="font-['Cormorant_Garamond'] font-semibold text-white">${escort.name}</h3>
+                <p class="text-sm text-[#9b59b6]">Compatibilidad: ${Math.floor(Math.random() * 10) + 85}%</p>
+                <p class="text-sm text-[#e0e0e0] mt-2">${escort.price}</p>
+            `;
+            duoContainer.appendChild(duoElement);
+        });
+    }
+
+    function generateStars(rating) {
+        let starsHTML = '';
+        const fullStars = Math.floor(rating);
+        const hasHalfStar = rating % 1 !== 0;
+        
+        for (let i = 0; i < fullStars; i++) {
+            starsHTML += '<i class="fas fa-star text-sm"></i>';
+        }
+        
+        if (hasHalfStar) {
+            starsHTML += '<i class="fas fa-star-half-alt text-xs"></i>';
+        }
+        
+        const emptyStars = 5 - Math.ceil(rating);
+        for (let i = 0; i < emptyStars; i++) {
+            starsHTML += '<i class="far fa-star text-xs"></i>';
+        }
+        
+        return starsHTML;
+    }
+
+    function changeMainImage(src) {
+        document.getElementById('galleryMain').src = src;
+    }
+
+    function toggleTarifas() {
+        const content = document.getElementById("tarifas-content");
+        const icon = document.getElementById("arrow-icon");
+
+        if (content.classList.contains("max-h-0")) {
+            content.classList.remove("max-h-0");
+            content.classList.add("max-h-[1000px]");
+            icon.classList.add("rotate-180");
+        } else {
+            content.classList.add("max-h-0");
+            content.classList.remove("max-h-[1000px]");
+            icon.classList.remove("rotate-180");
+        }
+    }
+
+    function showErrorState() {
+        document.getElementById('escortName').textContent = 'Error';
+        document.getElementById('escortDescription').textContent = 'No se pudo cargar la información.';
+    }
+
+    // --- INICIALIZACIÓN ---
+    document.addEventListener('DOMContentLoaded', function() {
+        console.log('🚀 Inicializando página individual...');
+        loadEscortData();
+        
+        // Configurar el botón de dúo
+        const duoBtn = document.getElementById('duoBtn');
+        const mensajeDuo = document.getElementById('mensajeDuo');
+        
+        if (duoBtn && mensajeDuo) {
+            duoBtn.addEventListener('click', () => {
+                mensajeDuo.classList.remove('opacity-0', 'pointer-events-none');
+                mensajeDuo.classList.add('opacity-100');
+                
+                setTimeout(() => {
+                    mensajeDuo.classList.remove('opacity-100');
+                    mensajeDuo.classList.add('opacity-0', 'pointer-events-none');
+                }, 2500);
+            });
+        }
+    });
+</script>
+</body>
+</html>
